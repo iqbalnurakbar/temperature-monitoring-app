@@ -1,9 +1,13 @@
-import React from 'react'
-import CalendarItem from './CalendarItem'
+import React from 'react';
+import CalendarItem from './CalendarItem';
 export default function CalendarCard() {
   return (
-    <div className="flex justify-center h-[288px] bg-white border shadow-md rounded-lg">
-    <CalendarItem />
-  </div>
-  )
+    <div class="flex">
+      <div class="w-full px-4">
+        <div class="mb-10 rounded-xl bg-white shadow-lg">
+          <CalendarItem />
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -36,23 +36,22 @@ export default function Sidebar() {
   //   { name: 'Sensor 14', icon: <BsDot /> },
   // ];
 
-  const logOut = [{ name: 'Log Out', icon: <BiLogOut /> }];
 
   return (
-    <div className="h-screen border-r border-gray-200 w-64 px-9">
+    <div className="h-screen border-r border-gray-200 px-9">
       <div className="flex flex-row items-center mb-8 pt-4">
-        <img src={Logo} alt="logo" className="w-9 h-9 mr-2" />
-        <div>Monitoring Suhu</div>
+        <img src={Logo} alt="logo" className="w-7 h-7 mr-2" />
+        <div className='text-3xl font-bold'>Monitoring Suhu</div>
       </div>
       <div className="space-y-24">
         <div className="pt-4">
           <ul className="space-y-7">
             {menu.map((val, index) => {
               return (
-                <li key={index} className="mb-7 flex flex-row items-center">
+                <li key={index} className="mb-7 flex flex-row items-center cursor-pointer">
                   <div className="mr-6">{val.icon}</div>
-                  <div>{val.name}</div>
-                  <div className="mt-1 ml-20">{val.icon1}</div>
+                  <div className='font-semibold text-xl'>{val.name}</div>
+                  <div className="ml-20">{val.icon1}</div>
                 </li>
               );
             })}
