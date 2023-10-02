@@ -10,7 +10,7 @@ export default function CalendarItem () {
   const [today, setToday] = useState(currentDate);
 
   return (
-    <div className="w-72 h-72 border mx-auto p-4 rounded-lg shadow-md">
+    <div className="w-72 border mx-auto p-4 rounded-lg shadow-md mb-10">
       <div className="flex items-center justify-between px-2">
         <GrFormPrevious
           className="cursor-pointer"
@@ -18,7 +18,7 @@ export default function CalendarItem () {
             setToday(today.month(today.month() - 1));
           }}
         />
-        <h1 className="font-bold text-teal-700">
+        <h1 className="font-bold text-teal-600">
           {months[today.month()]}, {today.year()}
         </h1>
         <GrFormNext
