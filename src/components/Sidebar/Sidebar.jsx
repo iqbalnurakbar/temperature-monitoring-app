@@ -38,10 +38,10 @@ export default function Sidebar() {
 
 
   return (
-    <div className="h-screen border-r border-gray-200 px-9">
+    <div className="h-screen border-r border-gray-200 pl-6 w-80">
       <div className="flex flex-row items-center mb-8 pt-4">
         <img src={Logo} alt="logo" className="w-7 h-7 mr-2" />
-        <div className='text-3xl font-bold'>Monitoring Suhu</div>
+        <div className='text-xl font-bold'>MonSu</div>
       </div>
       <div className="space-y-24">
         <div className="pt-4">
@@ -50,8 +50,7 @@ export default function Sidebar() {
               return (
                 <li key={index} className="mb-7 flex flex-row items-center cursor-pointer">
                   <div className="mr-6">{val.icon}</div>
-                  <div className='font-semibold text-xl'>{val.name}</div>
-                  <div className="ml-20">{val.icon1}</div>
+                  <div className='font-semibold'>{val.name}</div>
                 </li>
               );
             })}
