@@ -1,41 +1,9 @@
 import React, { useState } from 'react';
 import Logo from '../../assets/logo.png';
-import {
-  BiHomeAlt,
-  BiUser,
-  BiChevronRight,
-  BiChevronLeft,
-  BiChevronDown,
-  BiLogOut,
-} from 'react-icons/bi';
-import { RiTempColdLine } from 'react-icons/ri';
+import { menusBarData } from './menusBarData';
+import { BiChevronLeft, BiChevronDown } from 'react-icons/bi';
 
 export default function Sidebar() {
-  const menusBar = [
-    { name: 'Home', icon: <BiHomeAlt color="white" /> },
-    {
-      name: 'Sensor',
-      icon: <RiTempColdLine color="white" />,
-      icon1: <BiChevronRight color="white" size={12} />,
-      subNav: [
-        {
-          sensorname: 'Sensor 1',
-        },
-        {
-          sensorname: 'Sensor 2',
-        },
-        {
-          sensorname: 'Sensor 3',
-        },
-        {
-          sensorname: 'Sensor 4',
-        },
-      ],
-    },
-    { name: 'Account', icon: <BiUser color="white" /> },
-    { name: 'Log Out', icon: <BiLogOut color="white" />, gap: true },
-  ];
-
   const [open, setOpen] = useState(true);
   const [subNavOpen, setSubNavOpen] = useState(false);
 
@@ -47,12 +15,12 @@ export default function Sidebar() {
     >
       <div>
         <div
-          className={`rounded-full object-cover border border-slate-300 absolute bg-white -right-2 top-9 cursor-pointer ${
+          className={`rounded-full object-cover border absolute bg-cyan-400 -right-2 top-9 cursor-pointer ${
             !open && 'rotate-180'
           }`}
           onClick={() => setOpen(!open)}
         >
-          <BiChevronLeft />
+          <BiChevronLeft color="white" size={20} />
         </div>
         <div className="flex items-center gap-x-2 cursor-pointer mb-5 origin-left px-1">
           <img src={Logo} alt="logo" className="w-6 h-6" />
@@ -65,7 +33,7 @@ export default function Sidebar() {
           </h1>
         </div>
         <ul className="">
-          {menusBar.map((val, index) => {
+          {menusBarData.map((val, index) => {
             return (
               <>
                 <li
@@ -95,7 +63,7 @@ export default function Sidebar() {
                     {val.subNav.map((subNavItem, idx) => (
                       <li
                         key={idx}
-                        className="flex items-center gap-x-3 rounded-md hover:bg-teal-700 cursor-pointer p-2 text-white text-xs"
+                        className="flex items-center gap-x-3 rounded-md hover:bg-teal-700 cursor-pointer p-2 text-white text-xs pl-10"
                       >
                         {subNavItem.sensorname}
                       </li>
