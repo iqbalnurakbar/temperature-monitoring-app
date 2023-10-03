@@ -1,61 +1,81 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from '../../assets/logo.png';
 import {
   BiHomeAlt,
   BiUser,
   BiChevronRight,
-  BiChevronDown,
+  BiChevronLeft,
   BiLogOut,
 } from 'react-icons/bi';
 import { RiTempColdLine } from 'react-icons/ri';
-import { BsDot } from 'react-icons/bs';
-import DateCalendarViews from '../Calendar/CalendarItem';
 
 export default function Sidebar() {
-  const menu = [
-    { name: 'Home', icon: <BiHomeAlt /> },
-    { name: 'Sensor', icon: <RiTempColdLine />, icon1: <BiChevronRight /> },
-    { name: 'Account', icon: <BiUser /> },
-    { name: 'Log Out', icon: <BiLogOut /> },
+  const Menus = [
+    { name: 'Home', icon: <BiHomeAlt color="white" /> },
+    {
+      name: 'Sensor',
+      icon: <RiTempColdLine color="white" />,
+      icon1: <BiChevronRight color="white" size={12} />,
+    },
+    { name: 'Account', icon: <BiUser color="white" /> },
+    { name: 'Log Out', icon: <BiLogOut color="white" />, gap: true },
   ];
-
-  // const menuSensor = [
-  //   { name: 'Sensor 1', icon: <BsDot /> },
-  //   { name: 'Sensor 2', icon: <BsDot /> },
-  //   { name: 'Sensor 3', icon: <BsDot /> },
-  //   { name: 'Sensor 4', icon: <BsDot /> },
-  //   { name: 'Sensor 5', icon: <BsDot /> },
-  //   { name: 'Sensor 6', icon: <BsDot /> },
-  //   { name: 'Sensor 7', icon: <BsDot /> },
-  //   { name: 'Sensor 8', icon: <BsDot /> },
-  //   { name: 'Sensor 9', icon: <BsDot /> },
-  //   { name: 'Sensor 10', icon: <BsDot /> },
-  //   { name: 'Sensor 11', icon: <BsDot /> },
-  //   { name: 'Sensor 12', icon: <BsDot /> },
-  //   { name: 'Sensor 13', icon: <BsDot /> },
-  //   { name: 'Sensor 14', icon: <BsDot /> },
-  // ];
-
+  const MenuSensor = [
+    { sensorname: 'Sensor 1' },
+    { sensorname: 'Sensor 2' },
+    { sensorname: 'Sensor 3' },
+    { sensorname: 'Sensor 4' },
+  ];
+  const [open, setOpen] = useState(true);
 
   return (
-    <div className="h-screen border-r border-gray-200 pl-6 w-80">
-      <div className="flex flex-row items-center mb-8 pt-4">
-        <img src={Logo} alt="logo" className="w-7 h-7 mr-2" />
-        <div className='text-xl font-bold'>MonSu</div>
-      </div>
-      <div className="space-y-24">
-        <div className="pt-4">
-          <ul className="space-y-7">
-            {menu.map((val, index) => {
-              return (
-                <li key={index} className="mb-7 flex flex-row items-center cursor-pointer">
-                  <div className="mr-6">{val.icon}</div>
-                  <div className='font-semibold'>{val.name}</div>
-                </li>
-              );
-            })}
-          </ul>
+    <div
+      className={`${
+        open ? 'w-40' : 'w-12'
+      } duration-300 h-screen bg-teal-600 relative p-2`}
+    >
+      <div>
+        <div
+          className={`rounded-full object-cover border border-slate-300 absolute bg-white -right-2 top-9 cursor-pointer ${
+            !open && 'rotate-180'
+          }`}
+          onClick={() => setOpen(!open)}
+        >
+          <BiChevronLeft />
         </div>
+        <div className="flex items-center gap-x-2 cursor-pointer mb-5 origin-left px-1">
+          <img src={Logo} alt="logo" className="w-6 h-6" />
+          <h1
+            className={`font-bold origin-left text-white text-xl ${
+              !open && 'scale-0'
+            }`}
+          >
+            MonSu
+          </h1>
+        </div>
+        <ul className="">
+          {' '}
+          {Menus.map((val, index) => {
+            return (
+              <li
+                key={index}
+                className={`flex items-center gap-x-3 rounded-md hover:bg-teal-700 cursor-pointer p-2 ${
+                  val.gap ? 'mt-9' : 'mt-2'
+                } `}
+              >
+                <div>{val.icon}</div>
+                <span
+                  className={`text-xs text-white mr-4 ${
+                    !open && 'hidden'
+                  } origin-left duration-200`}
+                >
+                  {val.name}
+                </span>
+                <div>{val.icon1}</div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );

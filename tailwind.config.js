@@ -8,7 +8,7 @@ export default {
     extend: {
       gridTemplateColumns:{
         'dashboardpc': '10rem auto 15rem',
-        'dashboardtablet': '10% 50% auto',
+        'dashboardtablet': '5rem 50% auto',
         'dashboardmobile': '1fr'
 
       }

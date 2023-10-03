@@ -2,24 +2,24 @@ import React from 'react';
 import CalendarItem from './components/Calendar/CalendarItem';
 import Notification from './components/Notification/Notification';
 import HeaderIcon from './components/HeaderIcon/HeaderIcon';
-
+import Sensor from './components/SensorDashboard/Sensor';
+import Sidebar from './components/Sidebar/Sidebar';
 function App() {
   return (
-    <div className='container mx-auto bg-blue-500'>
+    <div className='container'>
 
-    <div className="grid grid-cols-dashboardmobile justify-around md:grid-cols-dashboardtablet lg:grid-cols-dashboardpc">
-      <div className="flex flex-col bg-orange-500">
-      <HeaderIcon />
-        <CalendarItem />
-        <Notification />
+    <div className="grid grid-cols-dashboardpc">
+      
+      <div className="flex flex-col">
+      <Sidebar/>
       </div>
-      <div className="flex flex-col bg-green-500">
+      <div className="flex flex-col ">
       <HeaderIcon />
         <CalendarItem />
         <Notification />
       </div>
       <div className='container'>
-      <div className="flex flex-col bg-yellow-500">
+      <div className="flex flex-col ">
         <HeaderIcon />
         <CalendarItem />
         <Notification />
