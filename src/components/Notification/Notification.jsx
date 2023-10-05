@@ -22,7 +22,7 @@ export default function Notification() {
     },
   ];
   return (
-    <div className='w-72 mb-10 mx-auto'>
+    <div className='w-[85%] mb-10 mx-auto'>
 
     <div className="border p-4 rounded-lg shadow-md ">
       <div className="flex items-center mb-4 gap-2">

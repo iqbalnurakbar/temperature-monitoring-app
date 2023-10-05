@@ -7,10 +7,12 @@ export default {
   theme: {
     extend: {
       gridTemplateColumns:{
-        'dashboardpc': '10rem auto 15rem',
+        'dashboardpc': '10rem auto 20rem',
         'dashboardtablet': '5rem 50% auto',
         'dashboardmobile': '1fr'
-
+      },
+      colors:{
+        'glass' : 'rgba(255, 255, 255, 0.54)',
       }
     },
   },

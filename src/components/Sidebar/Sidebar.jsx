@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Logo from '../../assets/logo.png';
-import { menusBarData } from './menusBarData';
+import { menusData } from './menusData';
 import { BiChevronLeft, BiChevronDown } from 'react-icons/bi';
 
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
   const [subNavOpen, setSubNavOpen] = useState(false);
+  const [selected, setSelected] = useState(false);
 
   return (
     <nav
       className={`${
         open ? 'w-40' : 'w-12'
-      } duration-300 h-screen bg-teal-600 relative p-2`}
+      } duration-300 h-screen bg-teal-600 relative p-2 rounded-xl`}
     >
       <div>
         <div
@@ -33,18 +34,21 @@ export default function Sidebar() {
           </h1>
         </div>
         <ul className="">
-          {menusBarData.map((val, index) => {
+          {menusData.map((val, index) => {
             return (
-              <>
+              <React.Fragment key={index}>
                 <li
-                  key={index}
-                  className={`flex items-center gap-x-3 rounded-md hover:bg-teal-700 cursor-pointer p-2 ${
+                  key={val.id}
+                  className={`flex items-center gap-x-3 text-white rounded-md cursor-pointer p-2 ${
                     val.gap ? 'mt-9' : 'mt-2'
-                  }`}
+                  } ${
+                    selected === val.id ? 'bg-orange-500' : 'hover:bg-teal-700'
+                  } transition-all duration-300`}
+                  onClick={() => setSelected(val.id)}
                 >
                   <div>{val.icon}</div>
                   <span
-                    className={`text-xs text-white mr-4 ${
+                    className={`text-xs mr-4 ${
                       !open && 'hidden'
                     } origin-left duration-200`}
                   >
@@ -54,23 +58,23 @@ export default function Sidebar() {
                     <BiChevronDown
                       color="white"
                       onClick={() => setSubNavOpen(!subNavOpen)}
-                      className={`${subNavOpen && 'rotate-180'} duration-300`}
+                      className={`${subNavOpen && 'rotate-180'} duration-150`}
                     />
                   )}
                 </li>
                 {val.subNav && subNavOpen && open && (
-                  <ul>
-                    {val.subNav.map((subNavItem, idx) => (
+                  <ul className="">
+                    {val.subNav.map(subNavItem => (
                       <li
-                        key={idx}
-                        className="flex items-center gap-x-3 rounded-md hover:bg-teal-700 cursor-pointer p-2 text-white text-xs pl-10"
+                        key={subNavItem.idsubsensor}
+                        className={`flex items-center gap-x-3 rounded-md hover:bg-teal-700 cursor-pointer p-2 text-white text-xs pl-10 `}
                       >
                         {subNavItem.sensorname}
                       </li>
                     ))}
                   </ul>
                 )}
-              </>
+              </React.Fragment>
             );
           })}
         </ul>

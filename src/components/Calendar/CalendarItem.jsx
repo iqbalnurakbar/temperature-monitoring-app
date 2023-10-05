@@ -10,7 +10,7 @@ export default function CalendarItem () {
   const [today, setToday] = useState(currentDate);
 
   return (
-    <div className="w-72 border mx-auto p-4 rounded-lg shadow-md mb-10">
+    <div className="w-[85%] border p-4 rounded-lg shadow-md mb-10">
       <div className="flex items-center justify-between px-2">
         <GrFormPrevious
           className="cursor-pointer"
