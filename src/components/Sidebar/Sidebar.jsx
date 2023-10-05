@@ -9,21 +9,25 @@ export default function Sidebar() {
   const [selected, setSelected] = useState(false);
 
   return (
+    <div className='relative'>
+
+      <div className='absolute'>
+
     <nav
       className={`${
         open ? 'w-40' : 'w-12'
-      } duration-300 h-screen bg-teal-600 relative p-2 rounded-xl`}
+      } duration-300 h-[97%] bg-[#3ebd93] fixed p-2 z-10 rounded-l-xl`}
     >
       <div>
         <div
-          className={`rounded-full object-cover border absolute bg-cyan-400 -right-2 top-9 cursor-pointer ${
+          className={`rounded-full object-cover border absolute bg-cyan-400 -right-2 top-14 cursor-pointer ${
             !open && 'rotate-180'
           }`}
           onClick={() => setOpen(!open)}
         >
           <BiChevronLeft color="white" size={20} />
         </div>
-        <div className="flex items-center gap-x-2 cursor-pointer mb-5 origin-left px-1">
+        <div className="flex items-center gap-x-2 cursor-pointer mb-5 origin-left px-1 mt-4">
           <img src={Logo} alt="logo" className="w-6 h-6" />
           <h1
             className={`font-bold origin-left text-white text-xl ${
@@ -40,9 +44,9 @@ export default function Sidebar() {
                 <li
                   key={val.id}
                   className={`flex items-center gap-x-3 text-white rounded-md cursor-pointer p-2 ${
-                    val.gap ? 'mt-9' : 'mt-2'
+                    val.gap ? 'mt-10' : 'mt-2'
                   } ${
-                    selected === val.id ? 'bg-orange-500' : 'hover:bg-teal-700'
+                    selected === val.id ? 'bg-[#f0b429]' : 'hover:bg-teal-700'
                   } transition-all duration-300`}
                   onClick={() => setSelected(val.id)}
                 >
@@ -80,5 +84,8 @@ export default function Sidebar() {
         </ul>
       </div>
     </nav>
+      </div>
+
+    </div>
   );
 }

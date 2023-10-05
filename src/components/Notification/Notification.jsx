@@ -24,7 +24,7 @@ export default function Notification() {
   return (
     <div className='w-[85%] mb-10 mx-auto'>
 
-    <div className="border p-4 rounded-lg shadow-md ">
+    <div className="border p-4 rounded-lg shadow-md bg-white">
       <div className="flex items-center mb-4 gap-2">
         <div className="">
           <IoMdNotifications color="#f0b429" size={25} />{' '}
