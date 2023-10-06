@@ -4,7 +4,13 @@ import { BiHomeAlt, BiUser, BiLogOut } from 'react-icons/bi';
 import { RiTempColdLine } from 'react-icons/ri';
 
 export const menusData = [
-  { id: 100, name: 'Beranda', icon: <BiHomeAlt color="white" /> },
+  {
+    id: 100,
+    name: 'Beranda',
+    icon: <BiHomeAlt color="white" />,
+    route: '/',
+    component:'',
+  },
   {
     id: 200,
     name: 'Sensor',
@@ -15,12 +21,22 @@ export const menusData = [
       { idsubsensor: 2, sensorname: 'Sensor 3' },
       { idsubsensor: 3, sensorname: 'Sensor 4' },
     ],
+    route: '/sensor',
+    component:'',
   },
-  { id: 300, name: 'Akun', icon: <BiUser color="white" /> },
+  {
+    id: 300,
+    name: 'Akun',
+    icon: <BiUser color="white" />,
+    route: '/akun',
+    component:'',
+  },
   {
     id: 400,
     name: 'Keluar',
     icon: <BiLogOut color="white" />,
     gap: true,
+    route: '/logout',
+    component: '',
   },
 ];

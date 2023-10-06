@@ -73,7 +73,11 @@ export default function Sidebar() {
                         {val.subNav.map(subNavItem => (
                           <li
                             key={subNavItem.idsubsensor}
-                            className={`flex items-center gap-x-3 rounded-md hover:bg-teal-700 cursor-pointer p-2 text-white text-xs pl-10 `}
+                            className={`flex items-center gap-x-3 rounded-md cursor-pointer p-2 text-white text-xs pl-10 ${
+                              selected === subNavItem.idsubsensor
+                                ? 'bg-[#f0b429]'
+                                : 'hover:bg-teal-700'
+                            } duration-300`} onClick={()=> setSelected(subNavItem.idsubsensor)}
                           >
                             {subNavItem.sensorname}
                           </li>
