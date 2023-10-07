@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import Logo from '../../assets/logo.png';
-import { menusData } from './menusData';
-import { BiChevronLeft, BiChevronDown } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import Logo from "../../assets/logo.png";
+import { menusData } from "../../data/menusData";
+import { BiChevronLeft, BiChevronDown } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -11,26 +11,26 @@ export default function Sidebar() {
 
   return (
     <div className="relative">
-      <div className={`absolute md:left-0 ${open?'left-0' : '-left-12'}`}>
+      <div className={`absolute md:left-0 ${open ? "left-0" : "-left-12"}`}>
         <nav
           className={`${
-            open ? 'w-40' : 'w-12'
-          } duration-300 h-[97%] bg-[#3ebd93] fixed p-2 z-10 rounded-l-xl`}
+            open ? "w-40" : "w-12"
+          } fixed z-10 h-[97%] rounded-l-xl bg-[#3ebd93] p-2 duration-300`}
         >
           <div>
             <div
-              className={`rounded-full object-cover border absolute bg-cyan-400 -right-3 top-14 cursor-pointer ${
-                !open && 'rotate-180'
+              className={`absolute -right-3 top-14 cursor-pointer rounded-full border bg-cyan-400 object-cover ${
+                !open && "rotate-180"
               }`}
               onClick={() => setOpen(!open)}
             >
               <BiChevronLeft color="white" size={22} />
             </div>
-            <div className="flex items-center gap-x-2 cursor-pointer mb-5 origin-left px-1 mt-4">
-              <img src={Logo} alt="logo" className="w-6 h-6" />
+            <div className="mb-5 mt-4 flex origin-left cursor-pointer items-center gap-x-2 px-1">
+              <img src={Logo} alt="logo" className="h-6 w-6" />
               <h1
-                className={`font-bold origin-left text-white text-xl ${
-                  !open && 'scale-0'
+                className={`origin-left text-xl font-bold text-white ${
+                  !open && "scale-0"
                 }`}
               >
                 MonSu
@@ -40,56 +40,56 @@ export default function Sidebar() {
               {menusData.map((val, index) => {
                 return (
                   <React.Fragment key={index}>
-                            <Link to={val.route} className=''>
-                    <li
-                      key={val.id}
-                      className={`flex items-center gap-x-3 text-white rounded-md cursor-pointer p-2 ${
-                        val.gap ? 'mt-10' : 'mt-2'
-                      } ${
-                        selected === val.id
-                          ? 'bg-[#f0b429]'
-                          : 'hover:bg-teal-700'
-                      } transition-all duration-300`}
-                      onClick={() => setSelected(val.id)}
-                    >
-              
-                        
-                      <div>{val.icon}</div>
-                      <span
-                        className={`text-xs mr-4 ${
-                          !open && 'hidden'
-                        } origin-left duration-200`}
+                    <Link to={val.route} className="">
+                      <li
+                        key={val.id}
+                        className={`flex cursor-pointer items-center gap-x-3 rounded-md p-2 text-white ${
+                          val.gap ? "mt-10" : "mt-2"
+                        } ${
+                          selected === val.id
+                            ? "bg-[#f0b429]"
+                            : "hover:bg-teal-700"
+                        } transition-all duration-300`}
+                        onClick={() => setSelected(val.id)}
+                      >
+                        <div>{val.icon}</div>
+                        <span
+                          className={`mr-4 text-xs ${
+                            !open && "hidden"
+                          } origin-left duration-200`}
                         >
-                        {val.name}
-                      </span>
+                          {val.name}
+                        </span>
 
-                      {val.subNav && (
-                        <BiChevronDown
-                          color="white"
-                          onClick={() => setSubNavOpen(!subNavOpen)}
-                          className={`${
-                            subNavOpen && 'rotate-180'
-                          } duration-150`}
-                        />
-                      )}
-                    </li>
+                        {val.subNav && (
+                          <BiChevronDown
+                            color="white"
+                            onClick={() => setSubNavOpen(!subNavOpen)}
+                            className={`${
+                              subNavOpen && "rotate-180"
+                            } duration-150`}
+                          />
+                        )}
+                      </li>
                     </Link>
                     {val.subNav && subNavOpen && open && (
                       <ul className="">
-                        {val.subNav.map(subNavItem => (
+                        {val.subNav.map((subNavItem) => (
                           <Link to={subNavItem.route}>
-                          
-                          <li
-                            key={subNavItem.idsubsensor}
-                            className={`flex items-center gap-x-3 rounded-md cursor-pointer p-2 text-white text-xs pl-10 ${
-                              selected === subNavItem.idsubsensor
-                              ? 'bg-[#f0b429]'
-                              : 'hover:bg-teal-700'
-                            } duration-300`} onClick={()=> setSelected(subNavItem.idsubsensor)}
+                            <li
+                              key={subNavItem.idsubsensor}
+                              className={`flex cursor-pointer items-center gap-x-3 rounded-md p-2 pl-10 text-xs text-white ${
+                                selected === subNavItem.idsubsensor
+                                  ? "bg-[#f0b429]"
+                                  : "hover:bg-teal-700"
+                              } duration-300`}
+                              onClick={() =>
+                                setSelected(subNavItem.idsubsensor)
+                              }
                             >
-                            {subNavItem.sensorname}
-                          </li>
-                            </Link>
+                              {subNavItem.sensorname}
+                            </li>
+                          </Link>
                         ))}
                       </ul>
                     )}

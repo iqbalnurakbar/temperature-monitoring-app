@@ -1,14 +1,18 @@
-import React from "react";
-import SensorItemBody from "./SensorItemBody";
-import SensorDuration from "./SensorDuration";
-import SensorName from "./SensorName";
+import React, { useEffect, useState } from "react";
+import sensorData from "../../data/dataDummy";
+import SensorCard from "./SensorCard";
 
-export const SensorItem = () => {
+const SensorItem = () => {
+  const [sensors, setSensors] = useState([]);
+
+  useEffect(() => {
+    setSensors(sensorData.sensortemp);
+  });
   return (
     <div className="mb-10 w-[95%]">
-      <SensorName />
-      <SensorItemBody />
-      <SensorDuration />
+      {sensors.map((sensor, index) => (
+        <SensorCard key={index} sensorData={sensor} />
+      ))}
     </div>
   );
 };

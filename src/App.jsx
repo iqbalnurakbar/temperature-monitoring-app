@@ -7,12 +7,14 @@ import Sensor4 from "./pages/Sensor/Sensor4";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
+  
   return (
+    <div>
     <Router>
       <Routes>
         <Route
           exact
-          path="/temperature-monitoring-app/home"
+          path="/temperature-monitoring-app/"
           element={<Dashboard />}
         />
         <Route
@@ -33,6 +35,8 @@ function App() {
         />
       </Routes>
     </Router>
+    </div>
+
   );
 }
 

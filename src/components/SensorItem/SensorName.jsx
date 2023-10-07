@@ -1,10 +1,10 @@
 import React from "react";
 
-const SensorName = () => {
+const SensorName = ({ sensorname }) => {
   return (
     <div className="w-1/4">
       <div className="rounded-t-xl bg-[#f0b429] py-1">
-        <p className="text-center font-bold text-white">Sensor 1</p>
+        <p className="text-center font-bold text-white">{sensorname}</p>
       </div>
     </div>
   );

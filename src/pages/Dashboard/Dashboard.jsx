@@ -1,8 +1,8 @@
 import React from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import SensorItem from "../../components/SensorItem/SensorItem";
 import RightSide from "../../components/RightSide/RightSide";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
+import SensorItem from "../../components/SensorItem/SensorItem";
 
 const Dashboard = () => {
   return (
@@ -19,9 +19,6 @@ const Dashboard = () => {
             </span>
           </div>
           <div className="flex w-[95%] flex-col items-end md:justify-start">
-            <SensorItem />
-            <SensorItem />
-            <SensorItem />
             <SensorItem />
           </div>
         </div>

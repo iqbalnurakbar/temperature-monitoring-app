@@ -8,7 +8,7 @@ export const menusData = [
     id: 100,
     name: 'Beranda',
     icon: <BiHomeAlt color="white" />,
-    route: '/temperature-monitoring-app/home',
+    route: '/temperature-monitoring-app',
   },
   {
     id: 200,
