@@ -1,10 +1,10 @@
 import React from 'react';
-import Sidebar from '../Sidebar/Sidebar';
-import Sensor from '../SensorDashboard/Sensor';
-import RightSide from '../RightSide/RightSide';
-import HeaderIcon from '../HeaderIcon/HeaderIcon';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import SensorItem from '../../components/SensorItem/SensorItem';
+import RightSide from '../../components/RightSide/RightSide';
+import HeaderIcon from '../../components/HeaderIcon/HeaderIcon';
 
-const Dashboard = () => {
+export default function Sensor4() {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="bg-[#f0f4f8] rounded-xl grid grid-cols-dashboardmobile h-[97%] w-[97%] gap-4 md:grid-cols-dashboardtablet xl:grid-cols-dashboardpc overflow-y-scroll scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full">
@@ -12,16 +12,17 @@ const Dashboard = () => {
           <Sidebar />
         </div>
         <div className="flex flex-col w-[95%]">
-            <div className='flex justify-between'>
-
-          <h1 className="px-4 text-3xl font-bold mb-10 mt-4">Dashboard</h1>
-          <span className='w-full md:hidden'><HeaderIcon/></span>
-            </div>
+          <div className="flex justify-between">
+            <h1 className="w-full px-4 text-3xl font-bold mb-10 mt-4">Sensor 4</h1>
+            <span className="w-full md:hidden">
+              <HeaderIcon />
+            </span>
+          </div>
           <div className="flex flex-col w-[95%] items-end md:justify-start">
-            <Sensor />
-            <Sensor />
-            <Sensor />
-            <Sensor />
+            <SensorItem />
+            <SensorItem />
+            <SensorItem />
+            <SensorItem />
           </div>
         </div>
         <div className="flex flex-col w-[95%] justify-evenly items-center md:justify-start">
@@ -30,6 +31,4 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}

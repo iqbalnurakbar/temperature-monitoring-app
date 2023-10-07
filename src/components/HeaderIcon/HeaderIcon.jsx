@@ -6,7 +6,7 @@ export default function HeaderIcon() {
     <div className='w-[85%] mx-auto mb-10 mt-4'>
 
     <div className="flex justify-end items-center gap-2">
-      <p className='text-sm font-bold text-teal-800'>Iqbal Nur Akbar</p>
+      <p className='text-sm font-bold text-teal-800 text-right' >Iqbal Nur Akbar</p>
       <img
         src={UserPict}
         alt="user"

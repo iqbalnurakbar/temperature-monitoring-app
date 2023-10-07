@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Logo from '../../assets/logo.png';
 import { menusData } from './menusData';
 import { BiChevronLeft, BiChevronDown } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -39,6 +40,7 @@ export default function Sidebar() {
               {menusData.map((val, index) => {
                 return (
                   <React.Fragment key={index}>
+                            <Link to={val.route} className=''>
                     <li
                       key={val.id}
                       className={`flex items-center gap-x-3 text-white rounded-md cursor-pointer p-2 ${
@@ -50,14 +52,17 @@ export default function Sidebar() {
                       } transition-all duration-300`}
                       onClick={() => setSelected(val.id)}
                     >
+              
+                        
                       <div>{val.icon}</div>
                       <span
                         className={`text-xs mr-4 ${
                           !open && 'hidden'
                         } origin-left duration-200`}
-                      >
+                        >
                         {val.name}
                       </span>
+
                       {val.subNav && (
                         <BiChevronDown
                           color="white"
@@ -68,19 +73,23 @@ export default function Sidebar() {
                         />
                       )}
                     </li>
+                    </Link>
                     {val.subNav && subNavOpen && open && (
                       <ul className="">
                         {val.subNav.map(subNavItem => (
+                          <Link to={subNavItem.route}>
+                          
                           <li
                             key={subNavItem.idsubsensor}
                             className={`flex items-center gap-x-3 rounded-md cursor-pointer p-2 text-white text-xs pl-10 ${
                               selected === subNavItem.idsubsensor
-                                ? 'bg-[#f0b429]'
-                                : 'hover:bg-teal-700'
+                              ? 'bg-[#f0b429]'
+                              : 'hover:bg-teal-700'
                             } duration-300`} onClick={()=> setSelected(subNavItem.idsubsensor)}
-                          >
+                            >
                             {subNavItem.sensorname}
                           </li>
+                            </Link>
                         ))}
                       </ul>
                     )}
