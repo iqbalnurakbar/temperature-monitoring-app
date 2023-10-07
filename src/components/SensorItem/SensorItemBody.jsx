@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 
 export default function SensorItemBody() {
   const dataTempRecap = [
-    { text: 'Rata - Rata', date: '02/10/2023 12:30', value: '100°C' },
-    { text: 'Minimum', date: '02/10/2023 12:30', value: '80°C' },
-    { text: 'Maksimum', date: '02/10/2023 12:30', value: '120°C' },
+    { text: "Rata - Rata", date: "02/10/2023 12:30", value: "100°C" },
+    { text: "Minimum", date: "02/10/2023 12:30", value: "80°C" },
+    { text: "Maksimum", date: "02/10/2023 12:30", value: "120°C" },
   ];
 
-  const dataTempNow = [{ text: '', date: '02/10/2023 12:30', value: '70°C' }];
+  const dataTempNow = [{ text: "", date: "02/10/2023 12:30", value: "70°C" }];
   return (
     <div className="relative overflow-hidden">
-      <div className="flex items-center rounded-tr-lg shadow-lg border bg-white">
-        <div className="w-full px-2 mr-8">
+      <div className="flex items-center rounded-tr-lg border bg-white shadow-lg">
+        <div className="mr-8 w-full px-2">
           <ul>
             {dataTempRecap.map((val, index) => {
               return (
@@ -30,7 +30,7 @@ export default function SensorItemBody() {
             })}
           </ul>
         </div>
-        <div className="w-40 text-center z-10 text-white">
+        <div className="z-10 w-40 text-center text-white">
           <div>
             <p className="text-lg font-bold">Saat ini</p>
           </div>
@@ -42,8 +42,7 @@ export default function SensorItemBody() {
             );
           })}
         </div>
-        <div className="absolute flex justify-end w-44 h-44 bg-[#17b897] rounded-full -right-14 lg:w-[180px] lg:h-[180px]">
-        </div>
+        <div className="absolute -right-14 flex h-44 w-44 justify-end rounded-full bg-[#17b897] lg:h-[180px] lg:w-[180px]"></div>
       </div>
     </div>
   );
