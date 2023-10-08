@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import sensorData from "../../data/dataDummy";
+import output from "../../data/sensorStats";
 import SensorCard from "./SensorCard";
 
 const SensorItem = () => {
-  const [sensors, setSensors] = useState([]);
+  console.log(output)
+  const [sensors, setSensors] = useState([])
+  useEffect(()=>{
+    setSensors(output.sensortemp);
+  })
 
-  useEffect(() => {
-    setSensors(sensorData.sensortemp);
-  });
   return (
     <div className="mb-10 w-[95%]">
-      {sensors.map((sensor, index) => (
-        <SensorCard key={index} sensorData={sensor} />
+      {sensors.map((sensor, index)=> (
+        <SensorCard key={index} sensorData={sensor}/>
       ))}
     </div>
   );

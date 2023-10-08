@@ -1,17 +1,15 @@
 import React from "react";
-import SensorNamexx from "./SensorName";
-import SensorDurationxx from "./SensorDuration";
-import SensorBodyxx from "./SensorBody";
+import SensorName from "./SensorName";
+import SensorDuration from "./SensorDuration";
+import SensorBody from "./SensorBody";
 
 const SensorCard = ({ sensorData }) => {
   return (
     <div className="mb-10 w-[95%]">
-      <SensorNamexx sensorname={sensorData.name} />
-      <SensorBodyxx
-        temperature={sensorData.temperature}
-        date={sensorData.currentdate}
+      <SensorName sensorname={sensorData.name}/>
+      <SensorBody temperature={sensorData.temperature} time={sensorData.timestamp}
       />
-      <SensorDurationxx duration={sensorData.duration} />
+      <SensorDuration duration={sensorData.duration}/>
     </div>
   );
 };
