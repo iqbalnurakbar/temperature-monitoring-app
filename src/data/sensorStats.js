@@ -1,4 +1,4 @@
-import { dummy } from "./dataDummy";
+import { dummy } from "./dataDummyAPI";
 
 // Fungsi untuk mengubah format tanggal dan waktu
 function formatDateTime(dateTimeStr) {
