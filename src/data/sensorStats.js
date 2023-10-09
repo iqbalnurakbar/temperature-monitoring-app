@@ -80,29 +80,26 @@ function generateOutput() {
   const sensorData = {
     sensortemp: Object.keys(statistics)
       .filter((fieldName) => fieldName !== "created_at")
-      .map((fieldName, index) => {
-        const fieldDuration = machineDuration[fieldName]; // Durasi mesin untuk field tertentu
-        return {
-          name: `Sensor ${index + 1}`,
-          temperature: {
-            maximum: statistics[fieldName].maximum.toFixed(1),
-            minimum: statistics[fieldName].minimum.toFixed(1),
-            average: statistics[fieldName].average.toFixed(1),
-            current:
-              parseFloat(
-                dummy.feeds
-                  .filter((feed) => typeof feed[fieldName] !== "undefined")
-                  .slice(-1)[0]?.[fieldName],
-              )?.toFixed(1) || "N/A",
-          },
-          timestamp: {
-            maximum: statistics[fieldName].maxTime,
-            minimum: statistics[fieldName].minTime,
-          },
-          currentdate: currentDate,
-          duration: fieldDuration || { hours: 0, minutes: 0, seconds: 0 }, // Menambahkan durasi mesin ke dalam field
-        };
-      }),
+      .map((fieldName, index) => ({
+        name: `Sensor ${index + 1}`,
+        temperature: {
+          maximum: statistics[fieldName].maximum.toFixed(1),
+          minimum: statistics[fieldName].minimum.toFixed(1),
+          average: statistics[fieldName].average.toFixed(1),
+          current:
+            parseFloat(
+              dummy.feeds
+                .filter((feed) => typeof feed[fieldName] !== "undefined")
+                .slice(-1)[0]?.[fieldName],
+            )?.toFixed(1) || "N/A",
+        },
+        timestamp: {
+          maximum: statistics[fieldName].maxTime,
+          minimum: statistics[fieldName].minTime,
+        },
+        currentdate: currentDate,
+        duration: machineDuration,
+      })),
   };
 
   return sensorData;
@@ -111,36 +108,18 @@ function generateOutput() {
 // Fungsi untuk menghitung durasi mesin
 function calculateMachineDuration() {
   if (!dummy.feeds || dummy.feeds.length === 0) {
-    return {};
+    return { hours: 0, minutes: 0, seconds: 0 };
   }
 
-  const fieldDurations = {};
-
-  // Mendapatkan daftar nama field sensor
-  const fieldNames = Object.keys(dummy.feeds[0]).filter((key) =>
-    key.startsWith("field"),
-  );
-
-  for (const fieldName of fieldNames) {
-    const lastEntry = dummy.feeds[dummy.feeds.length - 1];
-    const lastFieldTime = new Date(lastEntry.created_at);
-    const firstFieldTime = new Date(dummy.feeds[0].created_at);
-    const fieldTimeDifference = lastFieldTime - firstFieldTime;
-    const fieldHours = Math.floor(fieldTimeDifference / (1000 * 60 * 60));
-    const fieldMinutes = Math.floor(
-      (fieldTimeDifference % (1000 * 60 * 60)) / (1000 * 60),
-    );
-    const fieldSeconds = Math.floor((fieldTimeDifference % (1000 * 60)) / 1000);
-
-    fieldDurations[fieldName] = {
-      hours: fieldHours,
-      minutes: fieldMinutes,
-      seconds: fieldSeconds,
-    };
-  }
-
-  return fieldDurations;
+  const startTime = new Date(dummy.feeds[0].created_at);
+  const endTime = new Date(dummy.feeds[dummy.feeds.length - 1].created_at);
+  const timeDifference = endTime - startTime;
+  const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+  const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+  return { hours, minutes, seconds };
 }
+
 
 // Hasil output
 const output = generateOutput();

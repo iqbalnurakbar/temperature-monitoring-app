@@ -9,8 +9,7 @@ export const dummy = {
     field2: "Humidity 1",
     field3: "Temperature 2",
     field4: "Humidity 2",
-    field5: "Humidity 3",
-    field6: "Humidity 4",
+
     created_at: "2023-06-05T11:46:22Z",
     updated_at: "2023-06-07T23:20:20Z",
     last_entry_id: 878,
@@ -23,8 +22,6 @@ export const dummy = {
       field2: "70.00000",
       field3: "26.10000",
       field4: "87.20000",
-      field5: "87.20000",
-      field6: "87.20000",
     },
     {
       created_at: "2023-06-07T22:41:22Z",
@@ -33,8 +30,6 @@ export const dummy = {
       field2: "70.00000",
       field3: "26.10000",
       field4: "87.20000",
-      field5: "20.20000",
-      field6: "100.5000",
     },
     {
       created_at: "2023-06-07T22:41:38Z",
@@ -816,6 +811,14 @@ export const dummy = {
       created_at: "2023-06-07T23:21:22Z",
       entry_id: 878,
       field1: "27.60000",
+      field2: "69.00000",
+      field3: "27.10000",
+      field4: "86.60000",
+    },
+    {
+      created_at: "2023-06-07T23:21:22Z",
+      entry_id: 879,
+      field1: "21.60000",
       field2: "69.00000",
       field3: "27.10000",
       field4: "86.60000",
