@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from "react";
-import output from "../../data/sensorStats";
+import { generateOutput, fetchData } from '../../data/sensorStats';
 import SensorCard from "./SensorCard";
 
 const SensorItem = () => {
-  const [sensors, setSensors] = useState([])
-  useEffect(()=>{
-    setSensors(output.sensortemp);
-  },[])
+   const [data, setData] = useState(null);
+
+  useEffect(() => {
+    // Ambil data dari API menggunakan fetchData
+    fetchData()
+      .then((apiData) => {
+        // Hasilkan output menggunakan generateOutput
+        const output = generateOutput(apiData);
+        setData(output);
+      })
+      .catch((error) => {
+        console.error('Terjadi kesalahan:', error.message);
+      });
+  }, []);
 
   return (
     <div className="mb-10 w-[95%]">
-      {sensors.map((sensor, index)=> (
-        <SensorCard key={index} sensorData={sensor}/>
-      ))}
+      {data ? (
+        <div>
+          {data.sensortemp.map((sensor, index) => (
+            <SensorCard key={index} sensorData={sensor}/>
+          ))}
+        </div>
+      ) : (''
+      )}
     </div>
   );
-};
+}
 
 export default SensorItem;

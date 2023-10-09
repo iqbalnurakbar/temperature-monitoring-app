@@ -1,13 +1,31 @@
-import { dummy } from "./dataDummyAPI";
+// URL API Thingspeak
+const apiUrl = 'https://api.thingspeak.com/channels/2176077/feeds.json?api_key=ISWEP57B6XJTXDAY';
+
+// Fungsi untuk mengambil data dari API dan parse JSON
+const fetchData = async () => {
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error('Gagal mengambil data dari API');
+    }
+
+    const data = await response.json();
+    return data.feeds;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
 // Fungsi untuk mengubah format tanggal dan waktu
 function formatDateTime(dateTimeStr) {
   const date = new Date(dateTimeStr);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const year = date.getFullYear();
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
 
   return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
@@ -21,42 +39,38 @@ function calculateStatistics(data) {
   }
 
   // Mengambil nama field dari data feeds
-  const fieldNames = Object.keys(data[0]).filter((key) =>
-    key.startsWith("field"),
+  const fieldNames = Object.keys(data[0]).filter(key =>
+    key.startsWith('field')
   );
 
-  fieldNames.forEach((fieldName) => {
+  fieldNames.forEach(fieldName => {
     const values = data
-      .map((feed) => parseFloat(feed[fieldName]))
-      .filter((value) => !isNaN(value));
+      .map(feed => parseFloat(feed[fieldName]))
+      .filter(value => !isNaN(value));
 
     if (values.length === 0) {
-      // set semua nilai statistik menjadi NaN
+      // Set semua nilai statistik menjadi NaN
       statistics[fieldName] = {
         minimum: NaN,
         maximum: NaN,
         average: NaN,
-        minTime: "",
-        maxTime: "",
+        minTime: '',
+        maxTime: '',
       };
     } else {
       const min = Math.min(...values);
       const max = Math.max(...values);
       const sum = values.reduce((acc, value) => acc + value, 0);
       const avg = sum / values.length;
-      const minTime = data.find(
-        (feed) => parseFloat(feed[fieldName]) === min,
-      )?.created_at;
-      const maxTime = data.find(
-        (feed) => parseFloat(feed[fieldName]) === max,
-      )?.created_at;
+      const minTime = data.find(feed => parseFloat(feed[fieldName]) === min)?.created_at;
+      const maxTime = data.find(feed => parseFloat(feed[fieldName]) === max)?.created_at;
 
       statistics[fieldName] = {
         minimum: min,
         maximum: max,
         average: avg,
-        minTime: formatDateTime(minTime || ""),
-        maxTime: formatDateTime(maxTime || ""),
+        minTime: formatDateTime(minTime || ''),
+        maxTime: formatDateTime(maxTime || ''),
       };
     }
   });
@@ -65,21 +79,19 @@ function calculateStatistics(data) {
 }
 
 // Fungsi untuk menghasilkan output sesuai format yang diinginkan
-function generateOutput() {
-  const statistics = calculateStatistics(dummy.feeds);
-  const machineDuration = calculateMachineDuration();
+function generateOutput(data) {
+  const statistics = calculateStatistics(data);
+  const machineDuration = calculateMachineDuration(data);
 
-  let currentDate = "";
+  let currentDate = '';
 
-  if (dummy.feeds && dummy.feeds.length > 0) {
-    currentDate = formatDateTime(
-      dummy.feeds[dummy.feeds.length - 1].created_at,
-    );
+  if (data && data.length > 0) {
+    currentDate = formatDateTime(data[data.length - 1].created_at);
   }
 
   const sensorData = {
     sensortemp: Object.keys(statistics)
-      .filter((fieldName) => fieldName !== "created_at")
+      .filter(fieldName => fieldName !== 'created_at')
       .map((fieldName, index) => ({
         name: `Sensor ${index + 1}`,
         temperature: {
@@ -88,10 +100,10 @@ function generateOutput() {
           average: statistics[fieldName].average.toFixed(1),
           current:
             parseFloat(
-              dummy.feeds
-                .filter((feed) => typeof feed[fieldName] !== "undefined")
-                .slice(-1)[0]?.[fieldName],
-            )?.toFixed(1) || "N/A",
+              data
+                .filter(feed => typeof feed[fieldName] !== 'undefined')
+                .slice(-1)[0]?.[fieldName]
+            )?.toFixed(1) || 'N/A',
         },
         timestamp: {
           maximum: statistics[fieldName].maxTime,
@@ -106,13 +118,13 @@ function generateOutput() {
 }
 
 // Fungsi untuk menghitung durasi mesin
-function calculateMachineDuration() {
-  if (!dummy.feeds || dummy.feeds.length === 0) {
+function calculateMachineDuration(data) {
+  if (!data || data.length === 0) {
     return { hours: 0, minutes: 0, seconds: 0 };
   }
 
-  const startTime = new Date(dummy.feeds[0].created_at);
-  const endTime = new Date(dummy.feeds[dummy.feeds.length - 1].created_at);
+  const startTime = new Date(data[0].created_at);
+  const endTime = new Date(data[data.length - 1].created_at);
   const timeDifference = endTime - startTime;
   const hours = Math.floor(timeDifference / (1000 * 60 * 60));
   const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
@@ -120,9 +132,5 @@ function calculateMachineDuration() {
   return { hours, minutes, seconds };
 }
 
-
-// Hasil output
-const output = generateOutput();
-
-// Ekspor output sebagai default
-export default output;
+// Export fungsi-fungsi yang mungkin dibutuhkan di komponen lain
+export { generateOutput, fetchData };
