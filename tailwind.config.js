@@ -7,6 +7,7 @@ export default {
         dashboardpc: '10rem auto 20rem',
         dashboardtablet: '5rem 50% auto',
         dashboardmobile: '1fr',
+        sensorpc:'10rem auto'
       },
       colors: {
         glass: 'rgba(255, 255, 255, 0.54)',

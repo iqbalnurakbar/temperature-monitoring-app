@@ -1,5 +1,5 @@
 // URL API Thingspeak
-const apiUrl = 'https://api.thingspeak.com/channels/2176077/feeds.json?api_key=ISWEP57B6XJTXDAY';
+const apiUrl = 'https://api.thingspeak.com/channels/2176107/feeds.json?api_key=ESPOY24P92FJIH2G&results=8000';
 
 // Fungsi untuk mengambil data dari API dan parse JSON
 const fetchData = async () => {
