@@ -49,6 +49,5 @@ export const menusData = [
     icon: <BiLogOut color="white" />,
     gap: true,
     route: '/temperature-monitoring-app/logout',
-    component: '',
   },
 ];

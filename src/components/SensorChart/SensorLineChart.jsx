@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 function formatDateToDDMMYYYYHHMM(dateTimeString) {
@@ -27,7 +28,7 @@ function formatDateToHHMM(dateTimeString) {
   return `${hours}:${minutes}`;
 }
 
-function SensorChart({ apiUrl, apiKey, field, results }) {
+function SensorLineChart({ apiUrl, apiKey, field, results }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -50,13 +51,13 @@ function SensorChart({ apiUrl, apiKey, field, results }) {
   }, [apiUrl, apiKey, field, results]);
 
   return (
-    <div className="chart-container">
-      <LineChart width={1000} height={400} data={data}>
+    <ResponsiveContainer width='95%' height={400}>
+      <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="time"
           tickCount={12}
-          interval={50}
+          interval={60}
           type="category"
           height={80}
           angle={-45}
@@ -72,8 +73,8 @@ function SensorChart({ apiUrl, apiKey, field, results }) {
           activeDot={{ r: 8 }}
         />
       </LineChart>
-    </div>
+    </ResponsiveContainer>
   );
 }
 
-export default SensorChart;
+export default SensorLineChart;
