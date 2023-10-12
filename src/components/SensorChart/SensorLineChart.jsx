@@ -71,6 +71,7 @@ function SensorLineChart({ apiUrl, apiKey, field, results }) {
           dataKey="suhu"
           stroke="#8884d8"
           activeDot={{ r: 8 }}
+          dot={false}
         />
       </LineChart>
     </ResponsiveContainer>
