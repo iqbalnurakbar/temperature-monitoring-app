@@ -1,10 +1,10 @@
 // URL API Thingspeak
-const apiUrl = 'https://api.thingspeak.com/channels/2176107/feeds.json?api_key=ESPOY24P92FJIH2G&results=8000';
 
 // Fungsi untuk mengambil data dari API dan parse JSON
-const fetchData = async () => {
+const fetchData = async (apiUrl, apiKey, today) => {
   try {
-    const response = await fetch(apiUrl);
+    const apiData = `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${today}%2000:00:00&end=${today}%2023:59:59`;
+    const response = await fetch(apiData);
 
     if (!response.ok) {
       throw new Error('Gagal mengambil data dari API');
@@ -30,7 +30,7 @@ function formatDateTime(dateTimeStr) {
   return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
 
-// Fungsi untuk menghitung statistik
+// Fungsi menghitung nilai statistik (max, min, avg)
 function calculateStatistics(data) {
   const statistics = {};
 

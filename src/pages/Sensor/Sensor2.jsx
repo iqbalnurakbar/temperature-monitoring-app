@@ -5,21 +5,26 @@ import SensorLineChart from "../../components/SensorChart/SensorLineChart";
 import SensorInfoItem from "../../components/SensorInfo/SensorInfoItem";
 import { generateOutput, fetchData } from "../../data/sensorStats";
 
-export default function Sensor1() {
+export default function Sensor2({apiUrl, apiKey, today}) {
   const [sensorData, setSensorData] = useState({});
 
   useEffect(() => {
     async function fetchDataFromAPI() {
       try {
-        const data = await fetchData();
+        const data = await fetchData(apiUrl, apiKey, today);
         const sensorOutput = generateOutput(data);
-        setSensorData(sensorOutput.sensortemp[1]); // Mengambil data untuk Sensor 1
+        setSensorData(sensorOutput.sensortemp[1]);
       } catch (error) {
         console.error(error);
       }
+      
     }
-
     fetchDataFromAPI();
+
+    const intervalId = setInterval(fetchDataFromAPI, 30000);
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   return (
@@ -30,12 +35,12 @@ export default function Sensor1() {
         </div>
         <div className="flex w-[95%] flex-col">
           <div className="flex justify-between">
-            <h1 className="mb-10 mt-4 px-4 text-3xl font-bold">Sensor 2</h1>
+            <h1 className="mb-10 mt-4 pl-4 text-3xl font-bold">Sensor 2</h1>
             <span className="w-1/2">
               <HeaderIcon />
             </span>
           </div>
-          <div className="mb-10 w-[95%]">
+          <div className="mx-auto mb-10 w-[95%]">
             {sensorData && Object.keys(sensorData).length > 0 ? (
               <SensorInfoItem
                 temperature={sensorData.temperature}
@@ -47,10 +52,16 @@ export default function Sensor1() {
           </div>
           <div className="flex w-[95%] flex-col items-center justify-evenly md:justify-start">
             <SensorLineChart
+              apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
+              apiKey="ESPOY24P92FJIH2G"
+              field="field2" // Ganti dengan field yang sesuai
+              today={today}
+            />
+            <SensorLineChart
               apiUrl="https://api.thingspeak.com/channels/2176107/feeds.json"
               apiKey="ESPOY24P92FJIH2G"
               field="field2" // Ganti dengan field yang sesuai
-              results={8000} // Tambahkan parameter results
+              today="2023-06-08"
             />
           </div>
         </div>

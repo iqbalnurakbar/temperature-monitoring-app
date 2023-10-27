@@ -7,11 +7,10 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
-function formatDateToDDMMYYYYHHMM(dateTimeString) {
+function formatDateToDDMMYYYYHHNN(dateTimeString) {
   const date = new Date(dateTimeString);
   const day = date.getDate().toString().padStart(2, "0");
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -21,24 +20,24 @@ function formatDateToDDMMYYYYHHMM(dateTimeString) {
   return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
 
-function formatDateToHHMM(dateTimeString) {
+function formatDateToHHNN(dateTimeString) {
   const date = new Date(dateTimeString);
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
   return `${hours}:${minutes}`;
 }
 
-function SensorLineChart({ apiUrl, apiKey, field, results }) {
+function SensorLineChart({ apiUrl, apiKey, field, today }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}?api_key=${apiKey}&results=${results}`,
+          `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${today}%2000:00:00&end=${today}%2023:59:59`,
         );
         const apiData = response.data.feeds.map((feed) => ({
-          time: formatDateToHHMM(feed.created_at),
+          time: formatDateToHHNN(feed.created_at),
           suhu: parseFloat(feed[field]),
         }));
         setData(apiData);
@@ -48,33 +47,39 @@ function SensorLineChart({ apiUrl, apiKey, field, results }) {
     };
 
     fetchDataFromAPI();
-  }, [apiUrl, apiKey, field, results]);
+    const intervalId = setInterval(fetchDataFromAPI, 30000)
+    return () =>{
+      clearInterval(intervalId);
+    }
+  }, [apiUrl, apiKey, field, today]);
 
   return (
-    <ResponsiveContainer width='95%' height={400}>
-      <LineChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="time"
-          tickCount={12}
-          interval={60}
-          type="category"
-          height={80}
-          angle={-45}
-          textAnchor="end"
-        ></XAxis>
-        <YAxis domain={[0, 200]} />
-        <Tooltip />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="suhu"
-          stroke="#8884d8"
-          activeDot={{ r: 8 }}
-          dot={false}
-        />
-      </LineChart>
-    </ResponsiveContainer>
+    <>
+      <div>Tanggal: {today}</div>
+      <ResponsiveContainer width="90%" height={400}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="time"
+            tickCount={12}
+            interval={65}
+            type="category"
+            height={80}
+            angle={-45}
+            textAnchor="end"
+          ></XAxis>
+          <YAxis domain={[]} />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="suhu"
+            stroke="#8884d8"
+            activeDot={{ r: 4 }}
+            dot={false}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </>
   );
 }
 
