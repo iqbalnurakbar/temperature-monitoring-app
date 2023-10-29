@@ -37,7 +37,7 @@ export default function Sensor1({ apiUrl, apiKey }) {
   const startTime = formattedDate(selectedStartDate);
   console.log(selectedStartDate);
   const endTime = formattedDate(selectedEndDate);
-  
+
   useEffect(() => {
     async function fetchDataFromAPI() {
       try {
@@ -63,8 +63,6 @@ export default function Sensor1({ apiUrl, apiKey }) {
     };
   }, [apiUrl, apiKey, selectedStartDate, selectedEndDate, startTime, endTime]);
 
-  
-
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="grid h-[97%] w-[97%] grid-cols-sensormobile gap-4 overflow-y-scroll rounded-xl bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:grid-cols-sensortablet xl:grid-cols-sensorpc">
@@ -86,7 +84,8 @@ export default function Sensor1({ apiUrl, apiKey }) {
               />
             ) : (
               <p className="text-center font-semibold text-red-500">
-                Terdapat masalah saat mengambil data dari cloud!
+                Terdapat masalah saat mengambil data sensor hari ini dari cloud!
+                Cek data di hari lain!
               </p>
             )}
           </div>

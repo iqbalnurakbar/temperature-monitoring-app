@@ -4,11 +4,14 @@ import { generateDate, months } from "../../data/CalendarData";
 import cn from "../../data/cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
-export default function CalendarItem() {
+export default function CalendarItem({ setSelectedDate }) {
   const days = ["MIN", "SEN", "SEL", "RAB", "KAM", "JUM", "SAB"];
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
 
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+  };
   return (
     <div className="mb-10 w-[85%] rounded-lg border bg-white p-4 shadow-md">
       <div className="flex items-center justify-between px-2">
@@ -49,6 +52,7 @@ export default function CalendarItem() {
               <div
                 key={index}
                 className="grid h-8 place-content-center border-t"
+                onClick={() => handleDateClick(date.toDate())}
               >
                 <h1
                   className={cn(

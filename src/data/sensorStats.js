@@ -1,28 +1,3 @@
-// URL API Thingspeak
-import axios from "axios";
-// Fungsi untuk mengambil data dari API dan parse JSON
-const fetchData = async (
-  apiUrl,
-  apiKey,
-  selectedStartDate,
-  selectedEndDate,
-  startTime,
-  endTime,
-) => {
-  try {
-    const apiData = `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${selectedStartDate}%20${startTime}:00&end=${selectedEndDate}%20${endTime}:59`;
-    const response = await axios.get(apiData);
-
-    if (response.status !== 200) {
-      throw new Error("Gagal mengambil data dari API");
-    }
-    return response.data.feeds;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
 // Fungsi untuk mengubah format tanggal dan waktu
 function formatDateTime(dateTimeStr) {
   const date = new Date(dateTimeStr);

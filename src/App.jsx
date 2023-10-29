@@ -5,11 +5,10 @@ import Sensor2 from "./pages/Sensor/Sensor2";
 import Sensor3 from "./pages/Sensor/Sensor3";
 import Sensor4 from "./pages/Sensor/Sensor4";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { registerLocale } from 'react-datepicker';
-import id from 'date-fns/locale/id';
+import { registerLocale } from "react-datepicker";
+import id from "date-fns/locale/id";
 
-
-registerLocale('id', id);
+registerLocale("id", id);
 
 function App() {
   return (
@@ -19,7 +18,12 @@ function App() {
           <Route
             exact
             path="/temperature-monitoring-app/"
-            element={<Dashboard />}
+            element={
+              <Dashboard
+                apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
+                apiKey="ESPOY24P92FJIH2G"
+              />
+            }
           />
           <Route
             path="/temperature-monitoring-app/sensor1"
