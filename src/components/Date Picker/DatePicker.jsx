@@ -14,7 +14,7 @@ const DatePickerSensor = ({ selectedDate, setSelectedDate, onDataChange }) => {
         selected={selectedDate}
         onChange={handleDataChange}
         showTimeSelect
-        dateFormat="yyyy-MM-dd HH:mm"
+        dateFormat="dd-MM-yyyy HH:mm"
         timeIntervals={15}
         timeCaption="Waktu"
         locale="id"
