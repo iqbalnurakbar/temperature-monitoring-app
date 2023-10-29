@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { generateOutput} from "../../data/sensorStats";
+import { generateOutput } from "../../data/sensorStats";
 import SensorCard from "./SensorCard";
 import axios from "axios";
 
@@ -37,9 +37,12 @@ function SensorItem({
     <div className="mb-10 w-[95%]">
       {data && data.sensortemp && data.sensortemp.length > 0 ? (
         <div>
-          {console.log(data)}
           {data.sensortemp.map((sensor, index) => (
-            <SensorCard key={index} sensorData={sensor} />
+            <SensorCard
+              key={index}
+              sensorData={sensor}
+              sensorRoute={sensor.route}
+            />
           ))}
         </div>
       ) : (

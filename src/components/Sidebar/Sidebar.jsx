@@ -40,7 +40,7 @@ export default function Sidebar() {
               {menusData.map((val, index) => {
                 return (
                   <React.Fragment key={index}>
-                    <Link to={val.route} className="">
+                    <Link to={val.route}>
                       <li
                         key={val.id}
                         className={`flex cursor-pointer items-center gap-x-3 rounded-md p-2 text-white ${

@@ -95,6 +95,7 @@ function generateOutput(data) {
         },
         currentdate: currentDate,
         duration: machineDuration,
+        route: `/temperature-monitoring-app/sensor${index + 1}`,
       })),
   };
 
@@ -117,4 +118,4 @@ function calculateMachineDuration(data) {
 }
 
 // Export fungsi-fungsi yang mungkin dibutuhkan di komponen lain
-export { generateOutput};
+export { generateOutput };

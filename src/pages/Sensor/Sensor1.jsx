@@ -19,11 +19,11 @@ export default function Sensor1({ apiUrl, apiKey }) {
     date.setHours(23, 59, 59, 999);
     return date;
   });
-  const handleDateChange = (date, isEndDate) => {
-    if (isEndDate) {
-      setSelectedEndDate(date);
+  const handleDateChange = (date) => {
+    if (date.isStart) {
+      setSelectedEndDate(date.date);
     } else {
-      setSelectedStartDate(date);
+      setSelectedStartDate(date.date);
     }
   };
 
@@ -51,7 +51,7 @@ export default function Sensor1({ apiUrl, apiKey }) {
         setSensorData(sensorOutput.sensortemp[0]);
         console.log(sensorData)
       } catch (error) {
-        console.error(error);
+        console.error("Gagal mengambil data dari API");
       }
     }
     fetchDataFromAPI();
@@ -88,19 +88,17 @@ export default function Sensor1({ apiUrl, apiKey }) {
               </p>
             )}
           </div>
-          <div className="flex justify-center gap-2">
+          <div className="flex flex-col justify-center gap-2 mx-auto md:flex-row">
             <DatePickerSensor
               selectedDate={selectedStartDate}
               setSelectedDate={setSelectedStartDate}
               onDateChange={handleDateChange}
-              isEndDate={false}
             />
-            <div>sampai</div>
+            <div className="text-center">sampai</div>
             <DatePickerSensor
               selectedDate={selectedEndDate}
               setSelectedDate={setSelectedEndDate}
               onDateChange={handleDateChange}
-              isEndDate={true}
             />
           </div>
           <div className="flex w-[95%] flex-col items-center justify-evenly md:justify-start">

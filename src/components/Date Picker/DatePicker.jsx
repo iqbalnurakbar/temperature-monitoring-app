@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const DatePickerSensor = ({ selectedDate, setSelectedDate, onDataChange }) => {
+const DatePickerSensor = ({ selectedDate, setSelectedDate, onDataChange, isStart }) => {
   const handleDataChange = (date) => {
-    setSelectedDate(date);
-    onDataChange(date);
+    setSelectedDate(date,isStart);
   }
 
   return (
