@@ -117,4 +117,4 @@ function calculateMachineDuration(data) {
 }
 
 // Export fungsi-fungsi yang mungkin dibutuhkan di komponen lain
-export { generateOutput, fetchData };
+export { generateOutput};

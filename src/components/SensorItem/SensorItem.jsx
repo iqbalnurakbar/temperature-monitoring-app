@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { generateOutput, fetchData } from "../../data/sensorStats";
+import { generateOutput} from "../../data/sensorStats";
 import SensorCard from "./SensorCard";
 import axios from "axios";
 

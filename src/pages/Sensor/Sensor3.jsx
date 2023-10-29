@@ -3,10 +3,10 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import SensorLineChart from "../../components/SensorChart/SensorLineChart";
 import SensorInfoItem from "../../components/SensorInfo/SensorInfoItem";
-import { fetchData, generateOutput } from "../../data/sensorStats";
+import {generateOutput } from "../../data/sensorStats";
 import DatePickerSensor from "../../components/Date Picker/DatePicker";
 
-export default function Sensor1({ apiUrl, apiKey }) {
+export default function Sensor3({ apiUrl, apiKey }) {
   const [sensorData, setSensorData] = useState({});
   const [selectedStartDate, setSelectedStartDate] = useState(() => {
     const date = new Date();
@@ -35,21 +35,15 @@ export default function Sensor1({ apiUrl, apiKey }) {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
   const startTime = formattedDate(selectedStartDate);
-  console.log(selectedStartDate);
   const endTime = formattedDate(selectedEndDate);
 
   useEffect(() => {
     async function fetchDataFromAPI() {
       try {
-        const data = await fetchData(
-          apiUrl,
-          apiKey,
-          selectedStartDate,
-          selectedEndDate,
-          startTime,
-          endTime,
+        const response = await await axios.get(
+          `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
         );
-        const sensorOutput = generateOutput(data);
+        const sensorOutput = generateOutput(response.data.feeds);
         setSensorData(sensorOutput.sensortemp[2]);
       } catch (error) {
         console.error(error);
@@ -106,8 +100,8 @@ export default function Sensor1({ apiUrl, apiKey }) {
           </div>
           <div className="flex w-[95%] flex-col items-center justify-evenly md:justify-start">
             <SensorLineChart
-              apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
-              apiKey="ESPOY24P92FJIH2G"
+              apiUrl={apiUrl}
+              apiKey={apiKey}
               field="field3"
               startDate={startTime.slice(0, 10)}
               endDate={endTime.slice(0, 10)}

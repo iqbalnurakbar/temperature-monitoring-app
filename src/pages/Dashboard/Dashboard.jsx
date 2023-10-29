@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   const formatDate = formattedDate(selectedDate);
   const formatDateString = formattedDateString(selectedDate)
-  console.log(formatDate)
+
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="grid h-[97%] w-[97%] grid-cols-dashboardmobile gap-4 overflow-y-scroll rounded-xl bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:grid-cols-dashboardtablet xl:grid-cols-dashboardpc">

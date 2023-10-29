@@ -3,8 +3,9 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import SensorLineChart from "../../components/SensorChart/SensorLineChart";
 import SensorInfoItem from "../../components/SensorInfo/SensorInfoItem";
-import { fetchData, generateOutput } from "../../data/sensorStats";
+import {generateOutput } from "../../data/sensorStats";
 import DatePickerSensor from "../../components/Date Picker/DatePicker";
+import axios from "axios";
 
 export default function Sensor1({ apiUrl, apiKey }) {
   const [sensorData, setSensorData] = useState({});
@@ -34,17 +35,21 @@ export default function Sensor1({ apiUrl, apiKey }) {
     const minutes = date.getMinutes().toString().padStart(2, "0");
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
-  const startTime = formattedDate(selectedStartDate);
-  const endTime = formattedDate(selectedEndDate);
+  const startTime = formattedDate(selectedStartDate).slice(11,16);
+  const endTime = formattedDate(selectedEndDate).slice(11,16);
+  const startDate=formattedDate(selectedStartDate).slice(0,10);
+  const endDate=formattedDate(selectedEndDate).slice(0,10);
+
 
   useEffect(() => {
     async function fetchDataFromAPI() {
       try {
-        const response = await await axios.get(
+        const response = await axios.get(
           `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
         );
         const sensorOutput = generateOutput(response.data.feeds);
         setSensorData(sensorOutput.sensortemp[0]);
+        console.log(sensorData)
       } catch (error) {
         console.error(error);
       }
@@ -103,10 +108,10 @@ export default function Sensor1({ apiUrl, apiKey }) {
               apiUrl={apiUrl}
               apiKey={apiKey}
               field="field1"
-              startDate={startTime.slice(0, 10)}
-              endDate={endTime.slice(0, 10)}
-              startTime={startTime.slice(11, 16)}
-              endTime={endTime.slice(11, 16)}
+              startDate={startDate}
+              endDate={endDate}
+              startTime={startTime}
+              endTime={endTime}
             />
           </div>
         </div>
