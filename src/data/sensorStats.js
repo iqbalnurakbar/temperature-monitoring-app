@@ -1,17 +1,22 @@
 // URL API Thingspeak
-
+import axios from "axios";
 // Fungsi untuk mengambil data dari API dan parse JSON
-const fetchData = async (apiUrl, apiKey, today) => {
+const fetchData = async (
+  apiUrl,
+  apiKey,
+  selectedStartDate,
+  selectedEndDate,
+  startTime,
+  endTime,
+) => {
   try {
-    const apiData = `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${today}%2000:00:00&end=${today}%2023:59:59`;
-    const response = await fetch(apiData);
+    const apiData = `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${selectedStartDate}%20${startTime}:00&end=${selectedEndDate}%20${endTime}:59`;
+    const response = await axios.get(apiData);
 
-    if (!response.ok) {
-      throw new Error('Gagal mengambil data dari API');
+    if (response.status !== 200) {
+      throw new Error("Gagal mengambil data dari API");
     }
-
-    const data = await response.json();
-    return data.feeds;
+    return response.data.feeds;
   } catch (error) {
     console.error(error);
     throw error;
@@ -21,11 +26,11 @@ const fetchData = async (apiUrl, apiKey, today) => {
 // Fungsi untuk mengubah format tanggal dan waktu
 function formatDateTime(dateTimeStr) {
   const date = new Date(dateTimeStr);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
 
   return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
@@ -39,14 +44,14 @@ function calculateStatistics(data) {
   }
 
   // Mengambil nama field dari data feeds
-  const fieldNames = Object.keys(data[0]).filter(key =>
-    key.startsWith('field')
+  const fieldNames = Object.keys(data[0]).filter((key) =>
+    key.startsWith("field"),
   );
 
-  fieldNames.forEach(fieldName => {
+  fieldNames.forEach((fieldName) => {
     const values = data
-      .map(feed => parseFloat(feed[fieldName]))
-      .filter(value => !isNaN(value));
+      .map((feed) => parseFloat(feed[fieldName]))
+      .filter((value) => !isNaN(value));
 
     if (values.length === 0) {
       // Set semua nilai statistik menjadi NaN
@@ -54,23 +59,27 @@ function calculateStatistics(data) {
         minimum: NaN,
         maximum: NaN,
         average: NaN,
-        minTime: '',
-        maxTime: '',
+        minTime: "",
+        maxTime: "",
       };
     } else {
       const min = Math.min(...values);
       const max = Math.max(...values);
       const sum = values.reduce((acc, value) => acc + value, 0);
       const avg = sum / values.length;
-      const minTime = data.find(feed => parseFloat(feed[fieldName]) === min)?.created_at;
-      const maxTime = data.find(feed => parseFloat(feed[fieldName]) === max)?.created_at;
+      const minTime = data.find(
+        (feed) => parseFloat(feed[fieldName]) === min,
+      )?.created_at;
+      const maxTime = data.find(
+        (feed) => parseFloat(feed[fieldName]) === max,
+      )?.created_at;
 
       statistics[fieldName] = {
         minimum: min,
         maximum: max,
         average: avg,
-        minTime: formatDateTime(minTime || ''),
-        maxTime: formatDateTime(maxTime || ''),
+        minTime: formatDateTime(minTime || ""),
+        maxTime: formatDateTime(maxTime || ""),
       };
     }
   });
@@ -83,7 +92,7 @@ function generateOutput(data) {
   const statistics = calculateStatistics(data);
   const machineDuration = calculateMachineDuration(data);
 
-  let currentDate = '';
+  let currentDate = "";
 
   if (data && data.length > 0) {
     currentDate = formatDateTime(data[data.length - 1].created_at);
@@ -91,7 +100,7 @@ function generateOutput(data) {
 
   const sensorData = {
     sensortemp: Object.keys(statistics)
-      .filter(fieldName => fieldName !== 'created_at')
+      .filter((fieldName) => fieldName !== "created_at")
       .map((fieldName, index) => ({
         name: `Sensor ${index + 1}`,
         temperature: {
@@ -101,9 +110,9 @@ function generateOutput(data) {
           current:
             parseFloat(
               data
-                .filter(feed => typeof feed[fieldName] !== 'undefined')
-                .slice(-1)[0]?.[fieldName]
-            )?.toFixed(1) || 'N/A',
+                .filter((feed) => typeof feed[fieldName] !== "undefined")
+                .slice(-1)[0]?.[fieldName],
+            )?.toFixed(1) || "N/A",
         },
         timestamp: {
           maximum: statistics[fieldName].maxTime,

@@ -11,13 +11,16 @@ import {
 } from "recharts";
 
 function formatDateToDDMMYYYYHHNN(dateTimeString) {
+  const monthAbbreviations = [
+    "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"
+  ];
   const date = new Date(dateTimeString);
   const day = date.getDate().toString().padStart(2, "0");
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const month = monthAbbreviations[date.getMonth()];
   const year = date.getFullYear();
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
-  return `${day}/${month}/${year} ${hours}:${minutes}`;
+  return `${day} ${month} ${hours}:${minutes}`;
 }
 
 function formatDateToHHNN(dateTimeString) {
@@ -27,17 +30,17 @@ function formatDateToHHNN(dateTimeString) {
   return `${hours}:${minutes}`;
 }
 
-function SensorLineChart({ apiUrl, apiKey, field, today }) {
+function SensorLineChart({ apiUrl, apiKey, field, startDate, endDate, startTime, endTime }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${today}%2000:00:00&end=${today}%2023:59:59`,
+          `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
         );
         const apiData = response.data.feeds.map((feed) => ({
-          time: formatDateToHHNN(feed.created_at),
+          time: formatDateToDDMMYYYYHHNN(feed.created_at),
           suhu: parseFloat(feed[field]),
         }));
         setData(apiData);
@@ -51,18 +54,16 @@ function SensorLineChart({ apiUrl, apiKey, field, today }) {
     return () =>{
       clearInterval(intervalId);
     }
-  }, [apiUrl, apiKey, field, today]);
+  }, [apiUrl, apiKey, field, startDate, endDate, startTime, endTime]);
 
   return (
     <>
-      <div>Tanggal: {today}</div>
       <ResponsiveContainer width="90%" height={400}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="time"
             tickCount={12}
-            interval={65}
             type="category"
             height={80}
             angle={-45}

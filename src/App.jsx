@@ -5,19 +5,13 @@ import Sensor2 from "./pages/Sensor/Sensor2";
 import Sensor3 from "./pages/Sensor/Sensor3";
 import Sensor4 from "./pages/Sensor/Sensor4";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { registerLocale } from 'react-datepicker';
+import id from 'date-fns/locale/id';
+
+
+registerLocale('id', id);
 
 function App() {
-  const [today, setToday] = useState("");
-
-  useEffect(() => {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = currentDate.getDate().toString().padStart(2, "0");
-
-    const formatted = `${year}-${month}-${day}`;
-    setToday(formatted);
-  }, []);
   return (
     <div>
       <Router>
@@ -33,7 +27,6 @@ function App() {
               <Sensor1
                 apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
                 apiKey="ESPOY24P92FJIH2G"
-                today={today}
               />
             }
           />
@@ -43,7 +36,6 @@ function App() {
               <Sensor2
                 apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
                 apiKey="ESPOY24P92FJIH2G"
-                today={today}
               />
             }
           />
@@ -53,7 +45,6 @@ function App() {
               <Sensor3
                 apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
                 apiKey="ESPOY24P92FJIH2G"
-                today={today}
               />
             }
           />
@@ -63,7 +54,6 @@ function App() {
               <Sensor4
                 apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
                 apiKey="ESPOY24P92FJIH2G"
-                today={today}
               />
             }
           />
