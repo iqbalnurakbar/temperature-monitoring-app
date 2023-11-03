@@ -74,7 +74,7 @@ function SensorLineChart({ apiUrl, apiKey, field, startDate, endDate, startTime,
           <Line
             type="monotone"
             dataKey="suhu"
-            stroke="#8884d8"
+            stroke="#fbbf24"
             activeDot={{ r: 4 }}
             dot={false}
           />

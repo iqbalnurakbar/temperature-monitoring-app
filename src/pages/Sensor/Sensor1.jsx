@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import SensorLineChart from "../../components/SensorChart/SensorLineChart";
 import SensorInfoItem from "../../components/SensorInfo/SensorInfoItem";
-import {generateOutput } from "../../data/sensorStats";
+import { generateOutput } from "../../data/sensorStats";
 import DatePickerSensor from "../../components/Date Picker/DatePicker";
+import SensorBarChartDaily from "../../components/SensorChart/SensorBarChartDaily";
 import axios from "axios";
 
 export default function Sensor1({ apiUrl, apiKey }) {
@@ -19,11 +20,32 @@ export default function Sensor1({ apiUrl, apiKey }) {
     date.setHours(23, 59, 59, 999);
     return date;
   });
+
+  // Tambahkan state untuk datepicker grafik batang
+  const [selectedStartDateBar, setSelectedStartDateBar] = useState(() => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    return date;
+  });
+  const [selectedEndDateBar, setSelectedEndDateBar] = useState(() => {
+    const date = new Date();
+    date.setHours(23, 59, 59, 999);
+    return date;
+  });
+
   const handleDateChange = (date) => {
     if (date.isStart) {
       setSelectedEndDate(date.date);
     } else {
       setSelectedStartDate(date.date);
+    }
+  };
+
+  const handleDateChangeBar = (date) => {
+    if (date.isStart) {
+      setSelectedEndDateBar(date.date);
+    } else {
+      setSelectedStartDateBar(date.date);
     }
   };
 
@@ -35,11 +57,11 @@ export default function Sensor1({ apiUrl, apiKey }) {
     const minutes = date.getMinutes().toString().padStart(2, "0");
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
-  const startTime = formattedDate(selectedStartDate).slice(11,16);
-  const endTime = formattedDate(selectedEndDate).slice(11,16);
-  const startDate=formattedDate(selectedStartDate).slice(0,10);
-  const endDate=formattedDate(selectedEndDate).slice(0,10);
 
+  const startTime = formattedDate(selectedStartDate).slice(11, 16);
+  const endTime = formattedDate(selectedEndDate).slice(11, 16);
+  const startDate = formattedDate(selectedStartDate).slice(0, 10);
+  const endDate = formattedDate(selectedEndDate).slice(0, 10);
 
   useEffect(() => {
     async function fetchDataFromAPI() {
@@ -49,7 +71,7 @@ export default function Sensor1({ apiUrl, apiKey }) {
         );
         const sensorOutput = generateOutput(response.data.feeds);
         setSensorData(sensorOutput.sensortemp[0]);
-        console.log(sensorData)
+        console.log(sensorData);
       } catch (error) {
         console.error("Gagal mengambil data dari API");
       }
@@ -88,7 +110,8 @@ export default function Sensor1({ apiUrl, apiKey }) {
               </p>
             )}
           </div>
-          <div className="flex flex-col justify-center gap-2 mx-auto md:flex-row">
+          <h2 className="text-2xl font-bold text-left">Hourly</h2>
+          <div className="mx-auto flex flex-col justify-center gap-2 md:flex-row">
             <DatePickerSensor
               selectedDate={selectedStartDate}
               setSelectedDate={setSelectedStartDate}
@@ -101,7 +124,7 @@ export default function Sensor1({ apiUrl, apiKey }) {
               onDateChange={handleDateChange}
             />
           </div>
-          <div className="flex w-[95%] flex-col items-center justify-evenly md:justify-start">
+          <div className="flex w-[95%] flex-col items-center md:justify-start">
             <SensorLineChart
               apiUrl={apiUrl}
               apiKey={apiKey}
@@ -110,6 +133,31 @@ export default function Sensor1({ apiUrl, apiKey }) {
               endDate={endDate}
               startTime={startTime}
               endTime={endTime}
+            />
+          </div>
+          <h2 className="text-2xl font-bold text-left">Daily</h2>
+          <div className="mx-auto flex flex-col justify-center gap-2 md:flex-row">
+            <DatePickerSensor
+              selectedDate={selectedStartDateBar}
+              setSelectedDate={setSelectedStartDateBar}
+              onDateChange={handleDateChangeBar}
+              showTime={false}
+            />
+            <div className="text-center">sampai</div>
+            <DatePickerSensor
+              selectedDate={selectedEndDateBar}
+              setSelectedDate={setSelectedEndDateBar}
+              onDateChange={handleDateChangeBar}
+              showTime={false}
+            />
+          </div>
+          <div className="flex w-[95%] flex-col items-center md:justify-start">
+            <SensorBarChartDaily
+              apiUrl={apiUrl}
+              apiKey={apiKey}
+              field="field1"
+              startDate={formattedDate(selectedStartDateBar).slice(0, 10)}
+              endDate={formattedDate(selectedEndDateBar).slice(0, 10)}
             />
           </div>
         </div>
