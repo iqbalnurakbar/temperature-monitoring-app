@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
 
 function SensorBarChartDaily({ apiUrl, apiKey, field, startDate, endDate }) {
@@ -65,15 +66,17 @@ function SensorBarChartDaily({ apiUrl, apiKey, field, startDate, endDate }) {
   }, [apiUrl, apiKey, field, startDate, endDate]);
 
   return (
-    <ResponsiveContainer width="90%" height={400}>
-      <BarChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
-        <YAxis domain={[0, "auto"]} /> {/* Mengatur domain untuk memulai dari 0 */}
-        <Tooltip />
-        <Bar dataKey="suhu" fill="#fbbf24" barSize={50} />
-      </BarChart>
-    </ResponsiveContainer>
+<ResponsiveContainer width="90%" height={400}>
+  <BarChart data={data}>
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="date" />
+    <YAxis domain={[0, "auto"]} />
+    <Tooltip />
+    <Bar dataKey="suhu" fill="#06b6d4" barSize={50}>
+      <LabelList dataKey="suhu" position="top" />
+    </Bar>
+  </BarChart>
+</ResponsiveContainer>
   );
 }
 

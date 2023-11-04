@@ -31,6 +31,9 @@ function App() {
               <Sensor1
                 apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
                 apiKey="ESPOY24P92FJIH2G"
+                field='field1'
+                title="Sensor 1"
+                arrayAPI ='0'
               />
             }
           />
@@ -40,6 +43,10 @@ function App() {
               <Sensor2
                 apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
                 apiKey="ESPOY24P92FJIH2G"
+                field='field2'
+                title="Sensor 2"
+                arrayAPI ="1"
+
               />
             }
           />
@@ -49,6 +56,9 @@ function App() {
               <Sensor3
                 apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
                 apiKey="ESPOY24P92FJIH2G"
+                field='field3'
+                title="Sensor 3"
+                arrayAPI ="2"
               />
             }
           />
@@ -58,6 +68,9 @@ function App() {
               <Sensor4
                 apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
                 apiKey="ESPOY24P92FJIH2G"
+                field='field4'
+                title="Sensor 4"
+                arrayAPI ="3"
               />
             }
           />

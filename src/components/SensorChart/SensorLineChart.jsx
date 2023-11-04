@@ -40,7 +40,7 @@ function SensorLineChart({ apiUrl, apiKey, field, startDate, endDate, startTime,
           `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
         );
         const apiData = response.data.feeds.map((feed) => ({
-          time: formatDateToDDMMYYYYHHNN(feed.created_at),
+          time: formatDateToHHNN(feed.created_at),
           suhu: parseFloat(feed[field]),
         }));
         setData(apiData);
@@ -74,7 +74,7 @@ function SensorLineChart({ apiUrl, apiKey, field, startDate, endDate, startTime,
           <Line
             type="monotone"
             dataKey="suhu"
-            stroke="#fbbf24"
+            stroke="#06b6d4"
             activeDot={{ r: 4 }}
             dot={false}
           />
