@@ -22,6 +22,7 @@ function SensorItem({
         );
         const output = generateOutput(response.data.feeds);
         setData(output);
+        console.log(output)
       } catch (error) {
         console.error("Terjadi kesalahan: ", error.message);
       }

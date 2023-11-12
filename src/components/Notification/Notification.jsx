@@ -1,26 +1,8 @@
 import React from "react";
 import { IoMdNotifications } from "react-icons/io";
-import { IoAlertOutline } from "react-icons/io5";
+import NotificationMessages from "./NotificationMessages";
 
-export default function Notification() {
-  const notif = [
-    {
-      body: "Mesin 1 diatas suhu normal",
-      icon: <IoAlertOutline color="red" />,
-    },
-    {
-      body: "Mesin 2 dibawah suhu normal",
-      icon: <IoAlertOutline color="red" />,
-    },
-    {
-      body: "Mesin 3 diatas suhu normal",
-      icon: <IoAlertOutline color="red" />,
-    },
-    {
-      body: "Mesin 4 dibawah suhu normal",
-      icon: <IoAlertOutline color="red" />,
-    },
-  ];
+export default function Notification({data }) {
   return (
     <div className="mx-auto mb-10 w-[85%]">
       <div className="rounded-lg border bg-white p-4 shadow-md">
@@ -31,19 +13,22 @@ export default function Notification() {
           <h3 className="text-lg font-bold text-teal-600">Notifikasi</h3>
         </div>
 
-        <ul className="">
-          {notif.map((val, index) => {
-            return (
-              <li
-                key={index}
-                className="border-slate-20 mb-5 flex items-center gap-4 rounded-md border"
-              >
-                <div className="pl-1">{val.icon}</div>
-                <p className="text-xs font-medium">{val.body}</p>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="">
+          {data && data.sensortemp && data.sensortemp.length > 0 ? (
+            <>
+              {data.sensortemp.map((sensor, index) => (
+                <NotificationMessages
+                  key={index}
+                  name={sensor.name}
+                  currentTemp={sensor.temperature.current}
+                  dateNotif={sensor.currentdate}
+                />
+              ))}
+            </>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
     </div>
   );

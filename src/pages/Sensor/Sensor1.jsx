@@ -16,6 +16,7 @@ export default function Sensor1({ apiUrl, apiKey, title, field, arrayAPI }) {
     date.setHours(0, 0, 0, 0);
     return date;
   });
+
   const [selectedEndDate, setSelectedEndDate] = useState(() => {
     const date = new Date();
     date.setHours(23, 59, 59, 999);
@@ -31,8 +32,10 @@ export default function Sensor1({ apiUrl, apiKey, title, field, arrayAPI }) {
   const [selectedStartDateBar, setSelectedStartDateBar] = useState(() => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate()-7)
     return date;
   });
+  
   const [selectedEndDateBar, setSelectedEndDateBar] = useState(() => {
     const date = new Date();
     date.setHours(23, 59, 59, 999);
@@ -83,7 +86,6 @@ export default function Sensor1({ apiUrl, apiKey, title, field, arrayAPI }) {
         );
         const sensorOutput = generateOutput(response.data.feeds);
         setSensorData(sensorOutput.sensortemp[arrayAPI]);
-        console.log(sensorData);
       } catch (error) {
         console.error("Gagal mengambil data dari API");
       }
@@ -122,7 +124,7 @@ export default function Sensor1({ apiUrl, apiKey, title, field, arrayAPI }) {
               </p>
             )}
           </div>
-          <h2 className="mb-2 mt-4 pl-4 text-xl font-bold">Hourly</h2>
+          <h2 className="mb-2 mt-4 pl-4 text-xl font-bold">Harian</h2>
           <div className="flex mx-auto mb-4">
 
             <DatePickerSensor
@@ -158,7 +160,7 @@ export default function Sensor1({ apiUrl, apiKey, title, field, arrayAPI }) {
               endTime={endTime}
             />
           </div>
-          <h2 className="mb-2 mt-4 pl-4 text-xl font-bold">Daily</h2>
+          <h2 className="mb-2 mt-4 pl-4 text-xl font-bold">Mingguan</h2>
           <div className="mx-auto flex flex-col justify-center gap-2 md:flex-row">
             <DatePickerSensor
               selectedDate={selectedStartDateBar}
