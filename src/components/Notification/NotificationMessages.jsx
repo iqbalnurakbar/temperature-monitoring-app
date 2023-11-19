@@ -27,10 +27,8 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
   const [day, month, year] = datePart.split("/");
   const [hour, minute] = timePart.split(":");
 
-  // Membuat objek Date menggunakan bagian-bagian yang dipisahkan
   const formattedDate = new Date(year, month - 1, day, hour, minute);
 
-  // Menggunakan date-fns untuk memformat tanggal
   const formatDateNotif =  format(formattedDate, "dd MMMM yyyy HH:mm", {
     locale: id,
   });
@@ -61,7 +59,6 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
       toast.error(`Suhu pada ${name} tidak terbaca!`);
     }
   
-    // Urutkan notifikasi berdasarkan timestamp terbaru
     setNotifications(newNotifications);
   }, [formatDateNotif, currentTemp]);
 

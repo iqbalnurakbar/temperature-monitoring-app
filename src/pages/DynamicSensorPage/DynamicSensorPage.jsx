@@ -1,14 +1,12 @@
-// DynamicSensorPage.js
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import SensorInfoItem from "../../components/SensorInfo/SensorInfoItem";
 import DatePickerSensor from "../../components/Date Picker/DatePicker";
-import SensorLineChart from "../../components/SensorChart/SensorLineChart";
-import SensorBarChartDaily from "../../components/SensorChart/SensorBarChartDaily";
 import SensorLineChartDynamic from "../../components/SensorChart/SensorLineChartDynamic";
 import { sensorUtils } from "../../data/sensorUtils";
 import SensorBarChartDynamic from "../../components/SensorChart/SensorBarChartDynamic";
+import { apiConfigurations1 } from "../../data/apiConfigurations";
 
 const DynamicSensorPage = ({ data, name }) => {
   const [sensorData, setSensorData] = useState(null);
@@ -71,45 +69,23 @@ const DynamicSensorPage = ({ data, name }) => {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
 
-  const startDate = formattedDate(selectedStartDate).slice(0, 10);
-  const endDate = formattedDate(selectedEndDate).slice(0, 10);
   const startTime = formattedDate(selectedStartDate).slice(11, 16);
   const endTime = formattedDate(selectedEndDate).slice(11, 16);
 
   const dateLine = formattedDate(selectedDateLine).slice(0, 10);
   useEffect(() => {
     const fetchSensorData = () => {
-      const apiConfigurations = [
-        {
-          url: `https://api.thingspeak.com/channels/2342296/feeds.json?timezone=Asia%2FJakarta&start=${dateLine}%20${startTime}:00&end=${dateLine}%20${endTime}:59`,
-          fieldIndices: [1, 2, 4, 5],
-          timeIndices: [3, 3, 6, 6],
-        },
-        {
-          url: `https://api.thingspeak.com/channels/2344351/feeds.json?timezone=Asia%2FJakarta&start=${dateLine}%20${startTime}:00&end=${dateLine}%20${endTime}:59`,
-          fieldIndices: [1, 2, 4, 5],
-          timeIndices: [3, 3, 6, 6],
-        },
-        {
-          url: `https://api.thingspeak.com/channels/2347341/feeds.json?timezone=Asia%2FJakarta&start=${dateLine}%20${startTime}:00&end=${dateLine}%20${endTime}:59`,
-          fieldIndices: [1, 2, 4, 5],
-          timeIndices: [3, 3, 6, 6],
-        },
-        // Tambahkan konfigurasi API lainnya sesuai kebutuhan
-      ];
+      const getAPI = apiConfigurations1(dateLine, dateLine, startTime, endTime);
 
-      sensorUtils(apiConfigurations)
+      sensorUtils(getAPI)
         .then((result) => setSensorData(result))
         .catch((error) => console.error("Error fetching data:", error));
     };
 
-    // Fetch initially
     fetchSensorData();
 
-    // Set up interval to fetch every 2 minutes
-    const intervalId = setInterval(fetchSensorData, 2 * 60 * 1000); // 2 minutes in milliseconds
+    const intervalId = setInterval(fetchSensorData, 2 * 60 * 1000); // 2 menit dalam milisekon
 
-    // Clean up interval on component unmount or when dependencies change
     return () => clearInterval(intervalId);
   }, [startTime, endTime, dateLine]);
   return (
@@ -203,6 +179,8 @@ const DynamicSensorPage = ({ data, name }) => {
               name={name}
               startDate={formattedDate(selectedStartDateBar).slice(0, 10)}
               endDate={formattedDate(selectedEndDateBar).slice(0, 10)}
+              startTime="00:00"
+              endTime="23:59"
             />
           </div>
         </div>

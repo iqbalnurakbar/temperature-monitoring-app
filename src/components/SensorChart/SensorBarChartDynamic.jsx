@@ -10,8 +10,16 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
+import { apiConfigurations1 } from "../../data/apiConfigurations";
+import { calculateStatsWeekly } from "../../data/sensorUtils";
 
-function SensorBarChartDynamic({ name, startDate, endDate }) {
+function SensorBarChartDynamic({
+  name,
+  startDate,
+  endDate,
+  startTime,
+  endTime,
+}) {
   const [data, setData] = useState([]);
 
   function formatDateToDDMMYYYY(dateTimeString) {
@@ -38,70 +46,30 @@ function SensorBarChartDynamic({ name, startDate, endDate }) {
 
   useEffect(() => {
     const fetchSensorData = async () => {
-      const apiConfigurations = [
-        {
-          url: `https://api.thingspeak.com/channels/2342296/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%2000:00:00&end=${endDate}%2023:59:59`,
-          fieldIndices: [1, 2, 4, 5],
-          timeIndices: [3, 3, 6, 6],
-        },
-        {
-          url: `https://api.thingspeak.com/channels/2344351/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%2000:00:00&end=${endDate}%2023:59:59`,
-          fieldIndices: [1, 2, 4, 5],
-          timeIndices: [3, 3, 6, 6],
-        },
-        {
-          url: `https://api.thingspeak.com/channels/2347341/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%2000:00:00&end=${endDate}%2023:59:59`,
-          fieldIndices: [1, 2, 4, 5],
-          timeIndices: [3, 3, 6, 6],
-        },
-        // Tambahkan konfigurasi API lainnya sesuai kebutuhan
-      ];
+      const getAPI = apiConfigurations1(startDate, endDate, startTime, endTime);
 
       try {
-        const response = await fetchData(apiConfigurations, name);
+        const response = await fetchData(getAPI, name);
         const dataGraph = response[0].map((feed) => ({
           time: formatDateToDDMMYYYY(feed.waktu),
           temp: feed.suhu,
         }));
-        const dailyAverages = {};
-
-        dataGraph.forEach((entry) => {
-          const { time, temp } = entry;
-          dailyAverages[time] = dailyAverages[time] || {
-            totalTemperature: 0,
-            count: 0,
-          };
-          if (!isNaN(temp)) {
-            dailyAverages[time].totalTemperature += parseFloat(temp);
-            dailyAverages[time].count++;
-          }
-        });
-
-        const barChartData = Object.entries(dailyAverages).map(
-          ([time, { totalTemperature, count }]) => ({
-            time,
-            temp: count > 0 ? (totalTemperature / count).toFixed(1) : "NaN",
-          }),
-        );
-    
+        const barChartData = calculateStatsWeekly(dataGraph);
         setData(barChartData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    // Fetch initially
     fetchSensorData();
 
-    // Set up interval to fetch every 2 minutes
-    const intervalId = setInterval(fetchSensorData, 2 * 60 * 1000); // 2 minutes in milliseconds
+    const intervalId = setInterval(fetchSensorData, 2 * 60 * 1000); // 2 menit dalam milisekon
 
-    // Clean up interval on component unmount or when dependencies change
     return () => clearInterval(intervalId);
   }, [name, startDate, endDate]);
 
-  const maxValue = Math.max(...data.map(entry => parseFloat(entry.temp)));
-  const upperBound = maxValue + 5; // Sesuaikan sesuai kebutuhan
+  const maxValue = Math.max(...data.map((entry) => parseFloat(entry.temp)));
+  const upperBound = maxValue + 5; // Sesuaikan kebutuhan
 
   return (
     <ResponsiveContainer width="100%" height={400}>

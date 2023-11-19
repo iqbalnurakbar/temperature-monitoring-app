@@ -75,7 +75,7 @@ export default function Sidebar({ data }) {
                         onClick={() => handleMenuClick(menuItem)}
                       >
                         <div>{menuItem.icon}</div>
-                        {open && ( // Hanya menampilkan jika open bernilai true
+                        {open && (
                           <>
                             <span
                               className={`mr-4 origin-left text-xs duration-200`}
@@ -103,7 +103,7 @@ export default function Sidebar({ data }) {
                             to={subMenuItem.route}
                             key={subMenuItem.idsubsensor}
                           >
-                            {open && ( // Hanya menampilkan jika open bernilai true
+                            {open && (
                               <li
                                 className={`flex cursor-pointer items-center gap-x-3 rounded-md p-2 pl-10 text-xs text-white ${
                                   selected === subMenuItem.idsubsensor

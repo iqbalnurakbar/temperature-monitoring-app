@@ -7,7 +7,6 @@ const DatePickerSensor = ({
   setSelectedDate,
   showTime = true,
   isStart,
-  showDate = true,
 }) => {
   const handleDataChange = (date) => {
     setSelectedDate(date, isStart);
@@ -25,6 +24,7 @@ const DatePickerSensor = ({
         showTimeInput={showTime}
         showTimeSelect={showTime}
         className="rounded-md bg-[#3ebd93] text-center text-white shadow-sm hover:bg-teal-600 focus:bg-teal-600"
+        
       />
     </div>
   );

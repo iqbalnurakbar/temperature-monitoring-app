@@ -40,11 +40,9 @@ const fetchData = async (apiConfigurations, targetName) => {
       }
     }
 
-    // Mengembalikan hasil untuk digunakan di tempat lain jika diperlukan
     return foundData;
   } catch (error) {
     console.error("Error fetching data: ", error);
-    // Mengembalikan null atau nilai lainnya sesuai kebutuhan jika terjadi error
     return null;
   }
 };
