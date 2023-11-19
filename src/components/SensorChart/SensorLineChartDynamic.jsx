@@ -33,12 +33,14 @@ const SensorLineChartDynamic = ({
 
       try {
         const response = await fetchData(getAPI, name);
-        const dataGraph = response[0].map((feed) => ({
-          time: formatDateToHHNN(feed.waktu),
-          temp: feed.suhu,
-        }));
+        if (response && response.length > 0) {
+          const dataGraph = response[0].map((feed) => ({
+            time: formatDateToHHNN(feed.waktu),
+            temp: feed.suhu,
+          }));
+          setData(dataGraph);
+        } else setData(null)
 
-        setData(dataGraph);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

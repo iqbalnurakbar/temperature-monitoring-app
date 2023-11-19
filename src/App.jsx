@@ -17,7 +17,7 @@ function App() {
     sensorUtils(getAPI)
       .then((result) => setData(result))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [data]); // Empty dependency array to run the effect only once
+  }, []); // Empty dependency array to run the effect only once
   return (
     <div>
       <Router>
