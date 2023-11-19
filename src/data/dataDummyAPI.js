@@ -19,4 +19,3 @@ const fetchData = async () => {
 
 // Mengambil data dari API dan mengekspor variabel
 const dummy = await fetchData();
-export { dummy };

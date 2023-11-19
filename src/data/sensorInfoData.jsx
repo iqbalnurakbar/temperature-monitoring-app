@@ -16,7 +16,7 @@ export const sensorInfoData = [
   },
   {
     id: 2000,
-    name: "Suhu Saat Ini",
+    name: "Suhu Terakhir",
     icon: <FaTemperatureLow color="#065f46" size={25}/>,
   },
   {

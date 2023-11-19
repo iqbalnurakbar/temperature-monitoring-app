@@ -12,7 +12,18 @@ import {
 
 function formatDateToDDMMYYYYHHNN(dateTimeString) {
   const monthAbbreviations = [
-    "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Mei",
+    "Jun",
+    "Jul",
+    "Agu",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Des",
   ];
   const date = new Date(dateTimeString);
   const day = date.getDate().toString().padStart(2, "0");
@@ -30,7 +41,15 @@ function formatDateToHHNN(dateTimeString) {
   return `${hours}:${minutes}`;
 }
 
-function SensorLineChart({ apiUrl, apiKey, field, startDate, endDate, startTime, endTime }) {
+function SensorLineChart({
+  apiUrl,
+  apiKey,
+  field,
+  startDate,
+  endDate,
+  startTime,
+  endTime,
+}) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -50,37 +69,38 @@ function SensorLineChart({ apiUrl, apiKey, field, startDate, endDate, startTime,
     };
 
     fetchDataFromAPI();
-    const intervalId = setInterval(fetchDataFromAPI, 30000)
-    return () =>{
+    const intervalId = setInterval(fetchDataFromAPI, 30000);
+    return () => {
       clearInterval(intervalId);
-    }
+    };
   }, [apiUrl, apiKey, field, startDate, endDate, startTime, endTime]);
 
   return (
-    <>
-      <ResponsiveContainer width="90%" height={400}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="time"
-            tickCount={12}
-            type="category"
-            height={80}
-            angle={-45}
-            textAnchor="end"
-          ></XAxis>
-          <YAxis domain={[]} />
-          <Tooltip />
-          <Line
-            type="monotone"
-            dataKey="suhu"
-            stroke="#06b6d4"
-            activeDot={{ r: 4 }}
-            dot={false}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </>
+    <ResponsiveContainer width="100%" height={400}>
+      <LineChart
+        data={data}
+        margin={{ top: 10, right: 0, left: -15, bottom: 0 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          dataKey="time"
+          tickCount={12}
+          type="category"
+          height={80}
+          angle={-45}
+          textAnchor="end"
+        />
+        <YAxis domain={[]} />
+        <Tooltip />
+        <Line
+          type="monotone"
+          dataKey="suhu"
+          stroke="#06b6d4"
+          activeDot={{ r: 4 }}
+          dot={false}
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 }
 

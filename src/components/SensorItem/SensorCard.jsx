@@ -3,13 +3,13 @@ import SensorName from "./SensorName";
 import SensorDuration from "./SensorDuration";
 import SensorBody from "./SensorBody";
 
-const SensorCard = ({ sensorData, sensorRoute }) => {
+const SensorCard = ({ sensorName, temperature, timestamp, duration}) => {
   return (
     <div className="mb-10 w-[95%]">
-      <SensorName sensorname={sensorData.name} sensorRoute={sensorRoute}/>
-      <SensorBody temperature={sensorData.temperature} time={sensorData.timestamp}
+      <SensorName sensorName={sensorName}/>
+      <SensorBody temperature = {temperature} timestamp = {timestamp}
       />
-      <SensorDuration duration={sensorData.duration}/>
+      <SensorDuration duration={duration}/>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { utcToZonedTime } from "date-fns-tz";
 
-const Dashboard = () => {
+const Dashboard = ({ data }) => {
   // State untuk tanggal yang dipilih di kalender
   const [selectedDate, setSelectedDate] = useState(new Date());
   const formattedDate = (date) => {
@@ -22,19 +22,13 @@ const Dashboard = () => {
     return format(zonedDate, "dd MMMM yyyy", { locale: id });
   };
 
-  const formattedDateNotif = (date) => {
-    const timeZone = "Asia/Jakarta";
-    const zonedDate = utcToZonedTime(date, timeZone);
-    return format(zonedDate, "dd MMMM yyyy HH:mm", { locale: id });
-  };
-
   const formatDate = formattedDate(selectedDate);
   const formatDateString = formattedDateString(selectedDate);
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="grid h-[97%] w-[97%] grid-cols-dashboardmobile gap-4 overflow-y-scroll rounded-xl bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:grid-cols-dashboardtablet xl:grid-cols-dashboardpc">
         <div className="flex flex-col">
-          <Sidebar />
+          <Sidebar data={data} />
         </div>
         <div className="flex w-[95%] flex-col">
           <div className="flex justify-between">
@@ -48,8 +42,6 @@ const Dashboard = () => {
           </div>
           <div className="flex w-[95%] flex-col items-end md:justify-start">
             <SensorItem
-              apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
-              apiKey="ESPOY24P92FJIH2G"
               startDate={formatDate.slice(0, 10)}
               endDate={formatDate.slice(0, 10)}
               startTime="00:00"
@@ -59,8 +51,6 @@ const Dashboard = () => {
         </div>
         <div className="flex w-[95%] flex-col items-center justify-evenly md:justify-start">
           <RightSide
-            apiUrl="https://api.thingspeak.com/channels/2314365/feeds.json"
-            apiKey="ESPOY24P92FJIH2G"
             startDate={formatDate.slice(0, 10)}
             endDate={formatDate.slice(0, 10)}
             startTime="00:00"

@@ -2,7 +2,7 @@ import React from "react";
 import { sensorInfoData } from "../../data/sensorInfoData";
 import SensorInfoCard from "./SensorInfoCard";
 
-function SensorInfoItem({ temperature, duration }) {
+function SensorInfoItem({ temperature, duration, timestamp, sensorName }) {
   return (
     <>
       <div className="flex justify-evenly flex-col md:flex-row gap-4 mx-4">

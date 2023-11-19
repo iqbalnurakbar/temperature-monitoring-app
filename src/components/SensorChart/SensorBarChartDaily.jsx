@@ -37,7 +37,6 @@ function SensorBarChartDaily({ apiUrl, apiKey, field, startDate, endDate }) {
         }));
         const dailyAverages = {};
 
-        // Menghitung rata-rata harian
         apiData.forEach((entry) => {
           const { date, suhu } = entry;
           dailyAverages[date] = dailyAverages[date] || { totalTemperature: 0, count: 0 };
@@ -66,18 +65,19 @@ function SensorBarChartDaily({ apiUrl, apiKey, field, startDate, endDate }) {
   }, [apiUrl, apiKey, field, startDate, endDate]);
 
   return (
-<ResponsiveContainer width="90%" height={400}>
-  <BarChart data={data}>
-    <CartesianGrid strokeDasharray="3 3" />
-    <XAxis dataKey="date" />
-    <YAxis domain={[0, "auto"]} />
-    <Tooltip />
-    <Bar dataKey="suhu" fill="#06b6d4" barSize={50}>
-      <LabelList dataKey="suhu" position="top" />
-    </Bar>
-  </BarChart>
-</ResponsiveContainer>
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart data={data} margin={{ top: 10, right: 0, left: -15, bottom: 0 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" interval={0} angle={-45} textAnchor="end" height={100} />
+        <YAxis domain={[0, "auto"]} />
+        <Tooltip />
+        <Bar dataKey="suhu" fill="#06b6d4" barSize={30}>
+          <LabelList dataKey="suhu" position="top" />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
   );
 }
 
 export default SensorBarChartDaily;
+ 

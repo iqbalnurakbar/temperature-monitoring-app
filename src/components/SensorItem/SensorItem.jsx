@@ -1,49 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { generateOutput } from "../../data/sensorStats";
 import SensorCard from "./SensorCard";
-import axios from "axios";
+import { sensorUtils } from "../../data/sensorUtils";
 
-function SensorItem({
-  apiUrl,
-  apiKey,
-  startDate,
-  endDate,
-  startTime,
-  endTime,
-}) {
+function SensorItem({ startDate, endDate, startTime, endTime }) {
   const [data, setData] = useState(null);
-
   useEffect(() => {
-    // Ambil data dari API menggunakan fetchData dengan argumen apiUrl, apiKey, dan today
-    const fetchDataFromAPI = async () => {
-      try {
-        const response = await axios.get(
-          `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
-        );
-        const output = generateOutput(response.data.feeds);
-        setData(output);
-        console.log(output)
-      } catch (error) {
-        console.error("Terjadi kesalahan: ", error.message);
-      }
-    };
-    fetchDataFromAPI();
+    const fetchSensorData = () => {
+      const apiConfigurations = [
+        {
+          url: `https://api.thingspeak.com/channels/2342296/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
+          fieldIndices: [1, 2, 4, 5],
+          timeIndices: [3, 3, 6, 6],
+        },
+        {
+          url: `https://api.thingspeak.com/channels/2344351/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
+          fieldIndices: [1, 2, 4, 5],
+          timeIndices: [3, 3, 6, 6],
+        },
+        {
+          url: `https://api.thingspeak.com/channels/2347341/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
+          fieldIndices: [1, 2, 4, 5],
+          timeIndices: [3, 3, 6, 6],
+        },
+        // Tambahkan konfigurasi API lainnya sesuai kebutuhan
+      ];
 
-    const intervalId = setInterval(fetchDataFromAPI, 30000);
-    return () => {
-      clearInterval(intervalId);
+      sensorUtils(apiConfigurations)
+        .then((result) => setData(result))
+        .catch((error) => console.error("Error fetching data:", error));
     };
-  }, [apiUrl, apiKey, startDate, endDate, startTime, endTime]);
+
+    // Fetch initially
+    fetchSensorData();
+
+    // Set up interval to fetch every 2 minutes
+    const intervalId = setInterval(fetchSensorData, 2 * 60 * 1000); // 2 minutes in milliseconds
+
+    // Clean up interval on component unmount or when dependencies change
+    return () => clearInterval(intervalId);
+  }, [startDate, endDate]);
   return (
-    <div className="mb-10 w-[95%]">
-      {data && data.sensortemp && data.sensortemp.length > 0 ? (
+    <div className="mb-10 w-[95%] flex-col">
+      
+      {data ? (
         <div>
-          {data.sensortemp.map((sensor, index) => (
+          {Object.keys(data).map((sensor) => (
+            <>
             <SensorCard
-              key={index}
-              sensorData={sensor}
-              sensorRoute={sensor.route}
+              key={sensor}
+              sensorName={data[sensor].name}
+              temperature={data[sensor].temperature}
+              timestamp={data[sensor].timestamp}
+              duration={data[sensor].duration}
             />
+            </>
           ))}
         </div>
       ) : (

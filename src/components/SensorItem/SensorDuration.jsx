@@ -1,6 +1,6 @@
 import React from "react";
 
-const SensorDuration = ({ duration }) => {
+const SensorDuration = ({ duration}) => {
   return (
     <div>
       <div className="z-20 rounded-b-lg bg-[#27ab83] py-1 shadow-lg">

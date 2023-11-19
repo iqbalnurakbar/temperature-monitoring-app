@@ -1,13 +1,35 @@
 import React, { useState } from "react";
 import Logo from "../../assets/logo.png";
-import { menusData } from "../../data/menusData";
+import { dynamicMenusData } from "../../data/dynamicMenusData";
 import { BiChevronLeft, BiChevronDown } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
-export default function Sidebar() {
+export default function Sidebar({ data }) {
   const [open, setOpen] = useState(true);
-  const [subNavOpen, setSubNavOpen] = useState(false);
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(null);
+
+  const [menuStates, setMenuStates] = useState(
+    dynamicMenusData(data).reduce((acc, menuItem) => {
+      acc[menuItem.id] = { subNavOpen: false };
+      return acc;
+    }, {}),
+  );
+
+  const dynamicData = dynamicMenusData(data);
+
+  const handleMenuClick = (menuItem) => {
+    setSelected(menuItem.id);
+
+    if (menuItem.subNav) {
+      setMenuStates((prev) => ({
+        ...prev,
+        [menuItem.id]: {
+          ...prev[menuItem.id],
+          subNavOpen: !prev[menuItem.id].subNavOpen,
+        },
+      }));
+    }
+  };
 
   return (
     <div className="relative">
@@ -37,58 +59,64 @@ export default function Sidebar() {
               </h1>
             </div>
             <ul className="">
-              {menusData.map((val, index) => {
+              {dynamicData.map((menuItem) => {
                 return (
-                  <React.Fragment key={index}>
-                    <Link to={val.route}>
+                  <React.Fragment key={menuItem.id}>
+                    <Link to={menuItem.route}>
                       <li
-                        key={val.id}
+                        key={menuItem.id}
                         className={`flex cursor-pointer items-center gap-x-3 rounded-md p-2 text-white ${
-                          val.gap ? "mt-10" : "mt-2"
+                          menuItem.gap ? "mt-10" : "mt-2"
                         } ${
-                          selected === val.id
+                          selected === menuItem.id
                             ? "bg-[#f0b429]"
                             : "hover:bg-teal-700"
                         } transition-all duration-300`}
-                        onClick={() => setSelected(val.id)}
+                        onClick={() => handleMenuClick(menuItem)}
                       >
-                        <div>{val.icon}</div>
-                        <span
-                          className={`mr-4 text-xs ${
-                            !open && "hidden"
-                          } origin-left duration-200`}
-                        >
-                          {val.name}
-                        </span>
+                        <div>{menuItem.icon}</div>
+                        {open && ( // Hanya menampilkan jika open bernilai true
+                          <>
+                            <span
+                              className={`mr-4 origin-left text-xs duration-200`}
+                            >
+                              {menuItem.name}
+                            </span>
+                          </>
+                        )}
 
-                        {val.subNav && (
+                        {menuItem.subNav && (
                           <BiChevronDown
                             color="white"
-                            onClick={() => setSubNavOpen(!subNavOpen)}
+                            onClick={() => handleMenuClick(menuItem)}
                             className={`${
-                              subNavOpen && "rotate-180"
+                              menuStates[menuItem.id].subNavOpen && "rotate-180"
                             } duration-150`}
                           />
                         )}
                       </li>
                     </Link>
-                    {val.subNav && subNavOpen && open && (
+                    {menuItem.subNav && menuStates[menuItem.id].subNavOpen && (
                       <ul className="">
-                        {val.subNav.map((subNavItem) => (
-                          <Link to={subNavItem.route}>
-                            <li
-                              key={subNavItem.idsubsensor}
-                              className={`flex cursor-pointer items-center gap-x-3 rounded-md p-2 pl-10 text-xs text-white ${
-                                selected === subNavItem.idsubsensor
-                                  ? "bg-[#f0b429]"
-                                  : "hover:bg-teal-700"
-                              } duration-300`}
-                              onClick={() =>
-                                setSelected(subNavItem.idsubsensor)
-                              }
-                            >
-                              {subNavItem.sensorname}
-                            </li>
+                        {menuItem.subNav.map((subMenuItem) => (
+                          <Link
+                            to={subMenuItem.route}
+                            key={subMenuItem.idsubsensor}
+                          >
+                            {open && ( // Hanya menampilkan jika open bernilai true
+                              <li
+                                className={`flex cursor-pointer items-center gap-x-3 rounded-md p-2 pl-10 text-xs text-white ${
+                                  selected === subMenuItem.idsubsensor
+                                    ? "bg-[#f0b429]"
+                                    : "hover:bg-teal-700"
+                                } duration-300`}
+                                onClick={() =>
+                                  setSelected(subMenuItem.idsubsensor)
+                                }
+                              >
+                                {subMenuItem.sensorname}
+                              </li>
+                            )}
                           </Link>
                         ))}
                       </ul>

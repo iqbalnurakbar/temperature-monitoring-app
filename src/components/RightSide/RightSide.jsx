@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import HeaderIcon from "../HeaderIcon/HeaderIcon";
 import CalendarItem from "../Calendar/CalendarItem";
 import Notification from "../Notification/Notification";
-import { generateOutput } from "../../data/sensorStats";
-import axios from "axios";
+import { sensorUtils } from "../../data/sensorUtils";
 
 const RightSide = ({
-  apiUrl,
-  apiKey,
   startDate,
   endDate,
   startTime,
@@ -17,35 +14,47 @@ const RightSide = ({
   const [data, setData] = useState();
 
   useEffect(() => {
-    // Ambil data dari API menggunakan fetchData dengan argumen apiUrl, apiKey, dan today
-    const fetchDataFromAPI = async () => {
-      try {
-        const response = await axios.get(
-          `${apiUrl}?timezone=Asia%2FJakarta&api_key=${apiKey}&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
-        );
-        const output = generateOutput(response.data.feeds);
-        setData(output);
-      } catch (error) {
-        console.error("Terjadi kesalahan: ", error.message);
-      }
-    };
-    fetchDataFromAPI();
+    const fetchSensorData = () => {
+      const apiConfigurations = [
+        {
+          url: `https://api.thingspeak.com/channels/2342296/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
+          fieldIndices: [1, 2, 4, 5],
+          timeIndices: [3, 3, 6, 6],
+        },
+        {
+          url: `https://api.thingspeak.com/channels/2344351/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
+          fieldIndices: [1, 2, 4, 5],
+          timeIndices: [3, 3, 6, 6],
+        },
+        {
+          url: `https://api.thingspeak.com/channels/2347341/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
+          fieldIndices: [1, 2, 4, 5],
+          timeIndices: [3, 3, 6, 6],
+        },
+        // ... (other configurations)
+      ];
 
-    const intervalId = setInterval(fetchDataFromAPI, 30000);
-    return () => {
-      clearInterval(intervalId);
+      sensorUtils(apiConfigurations)
+        .then((result) => setData(result))
+        .catch((error) => console.error("Error fetching data:", error));
     };
-  }, [apiUrl, apiKey, startDate, endDate, startTime, endTime]);
 
+    // Fetch initially
+    fetchSensorData();
+
+    // Set up interval to fetch every 2 minutes
+    const intervalId = setInterval(fetchSensorData, 2 * 60 * 1000);
+
+    // Clean up interval on component unmount or when dependencies change
+    return () => clearInterval(intervalId);
+  }, [startDate, endDate, setSelectedDate]);
   return (
     <>
       <span className="hidden w-full md:block">
         <HeaderIcon />
       </span>
       <CalendarItem setSelectedDate={setSelectedDate} />
-      <Notification
-        data = {data}
-      />
+      <Notification data={data} />
     </>
   );
 };

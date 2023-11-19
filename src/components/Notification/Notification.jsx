@@ -14,14 +14,14 @@ export default function Notification({data }) {
         </div>
 
         <div className="">
-          {data && data.sensortemp && data.sensortemp.length > 0 ? (
+          {data? (
             <>
-              {data.sensortemp.map((sensor, index) => (
+              {Object.keys(data).map((sensor) => (
                 <NotificationMessages
-                  key={index}
-                  name={sensor.name}
-                  currentTemp={sensor.temperature.current}
-                  dateNotif={sensor.currentdate}
+                  key={sensor}
+                  name={data[sensor].name}
+                  currentTemp={data[sensor].temperature.current}
+                  dateNotif={data[sensor].timestamp.current}
                 />
               ))}
             </>
