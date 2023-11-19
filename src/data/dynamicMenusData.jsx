@@ -9,7 +9,7 @@ const generateSensorSubNav = (data)=>{
     return Object.keys(data).map((sensor, index)=>({
         idsubsensor: index,
         sensorname: data[sensor].name,
-        route: `/temperature-monitoring-app/${data[sensor].name}`
+        route: `/temperature-monitoring-app/${data[sensor].name.replace(/\s+/g, '-')}`
     }))
 }
 export const dynamicMenusData = (data) => [

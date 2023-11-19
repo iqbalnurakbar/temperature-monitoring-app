@@ -30,7 +30,7 @@ function App() {
           {data
             ? Object.keys(data).map((sensor) => (
                 <Route
-                  path={`/temperature-monitoring-app/${data[sensor].name}`}
+                  path={`/temperature-monitoring-app/${data[sensor].name.replace(/\s+/g, '-')}`}
                   key={sensor}
                   element={
                     <DynamicSensorPage data={data} name={data[sensor].name} />

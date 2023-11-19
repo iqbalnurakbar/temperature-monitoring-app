@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import SensorInfoItem from "../../components/SensorInfo/SensorInfoItem";
@@ -10,7 +10,6 @@ import { apiConfigurations1 } from "../../data/apiConfigurations";
 
 const DynamicSensorPage = ({ data, name }) => {
   const [sensorData, setSensorData] = useState(null);
-
   const [selectedStartDate, setSelectedStartDate] = useState(() => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
@@ -59,6 +58,7 @@ const DynamicSensorPage = ({ data, name }) => {
   const handleDateChangeLine = (date) => {
     if (date.isStart) setSelectedDateLine(date.date);
   };
+
 
   const formattedDate = (date) => {
     const year = date.getFullYear();
