@@ -13,14 +13,7 @@ import {
 } from "recharts";
 import { apiConfigurations1 } from "../../data/apiConfigurations";
 
-function formatDateToYYYY(dateTimeString) {
-  const date = new Date(dateTimeString);
-  const year = date.getFullYear();
-
-  return `${year}`;
-}
-
-function formatDateToDDMMYYYYHHNN(dateTimeString) {
+function formatDateToDDMMYYYY(dateTimeString) {
   const monthAbbreviations = [
     "Jan",
     "Feb",
@@ -38,9 +31,17 @@ function formatDateToDDMMYYYYHHNN(dateTimeString) {
   const date = new Date(dateTimeString);
   const day = date.getDate().toString().padStart(2, "0");
   const month = monthAbbreviations[date.getMonth()];
+  const year = date.getFullYear();
+
+  return `${day} ${month} ${year}`;
+}
+
+function formatDateToHHNN(dateTimeString) {
+
+  const date = new Date(dateTimeString);
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
-  return `${day} ${month} ${hours}:${minutes}`;
+  return `${hours}:${minutes}`;
 }
 
 const SensorLineChartDynamic = ({
@@ -60,8 +61,8 @@ const SensorLineChartDynamic = ({
         const response = await fetchData(getAPI, name);
         if (response && response.length > 0) {
           const dataGraph = response[0].map((feed) => ({
-            year: formatDateToYYYY(feed.waktu),
-            time: formatDateToDDMMYYYYHHNN(feed.waktu),
+            date: formatDateToDDMMYYYY(feed.waktu),
+            time: formatDateToHHNN(feed.waktu),
             temp: feed.suhu,
           }));
           setData(dataGraph);
@@ -76,7 +77,7 @@ const SensorLineChartDynamic = ({
     const intervalId = setInterval(fetchSensorData, 2 * 60 * 1000);
 
     return () => clearInterval(intervalId);
-  }, [startDate, endDate, startTime, endTime]);
+  }, [startDate, endDate, startTime, endTime, name]);
 
   const handleDownload = () => {
     const worksheet = XLSX.utils.json_to_sheet(data);
