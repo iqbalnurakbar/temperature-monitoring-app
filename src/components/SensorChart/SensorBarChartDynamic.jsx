@@ -30,12 +30,14 @@ function SensorBarChartDynamic({
 
       try {
         const response = await fetchData(getAPI, name);
-        const dataGraph = response[0].map((feed) => ({
-          time: formatDateToDDMMYYYY(feed.waktu),
-          temp: feed.suhu,
-        }));
-        const barChartData = calculateStatsWeekly(dataGraph);
-        setData(barChartData);
+        if (response && response.length > 0) {
+          const dataGraph = response[0].map((feed) => ({
+            time: formatDateToDDMMYYYY(feed.waktu),
+            temp: feed.suhu,
+          }));
+          const barChartData = calculateStatsWeekly(dataGraph);
+          setData(barChartData);
+        } else setData(null);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -71,6 +73,8 @@ function SensorBarChartDynamic({
   }
 
   const handleDownload = () => {
+    const excelDate1 = formatDateToDDMMYYYY(startDate)
+    const excelDate2 = formatDateToDDMMYYYY(endDate)
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "SensorData");
@@ -81,11 +85,16 @@ function SensorBarChartDynamic({
     const blob = new Blob([excelBuffer], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
-    saveAs(blob, "DataSensorMingguan.xlsx");
+    saveAs(blob, `Data ${name}_${excelDate1}-${excelDate2}.xlsx`);
   };
 
-  const maxValue = Math.max(...data.map((entry) => parseFloat(entry.temp)));
-  const upperBound = maxValue + 5; // Sesuaikan kebutuhan
+  let maxValue = null;
+  let upperBound = null;
+
+  if (data !== null) {
+    maxValue = Math.max(...data.map((entry) => parseFloat(entry.temp)));
+    upperBound = maxValue + 5; // Sesuaikan kebutuhan
+  }
 
   return (
     <>
@@ -113,7 +122,7 @@ function SensorBarChartDynamic({
         </BarChart>
       </ResponsiveContainer>
       <button
-        className="mb-24 rounded-md bg-yellow-500 px-4 py-2 text-center font-bold text-white shadow-sm hover:bg-yellow-600 focus:bg-yellow-700"
+        className="mb-5 mt-6 rounded-md bg-yellow-500 px-4 py-2 text-center font-bold text-white shadow-sm hover:bg-yellow-600 active:bg-yellow-700"
         onClick={handleDownload}
       >
         Download Data Mingguan

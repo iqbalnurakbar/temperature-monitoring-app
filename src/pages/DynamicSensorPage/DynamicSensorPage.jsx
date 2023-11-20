@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import SensorInfoItem from "../../components/SensorInfo/SensorInfoItem";
@@ -58,7 +58,6 @@ const DynamicSensorPage = ({ data, name }) => {
   const handleDateChangeLine = (date) => {
     if (date.isStart) setSelectedDateLine(date.date);
   };
-
 
   const formattedDate = (date) => {
     const year = date.getFullYear();

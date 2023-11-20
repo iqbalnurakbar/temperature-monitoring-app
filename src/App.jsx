@@ -6,6 +6,12 @@ import id from "date-fns/locale/id";
 import { sensorUtils } from "./data/sensorUtils";
 import DynamicSensorPage from "./pages/DynamicSensorPage/DynamicSensorPage";
 import { apiConfigurations2 } from "./data/apiConfigurations";
+import SignUp from "./components/Auth/SignUp.jsx";
+import Login from "./components/Auth/Login.jsx"
+import Protected from "./components/Auth/Protected.jsx"
+import Home from "./Pages/Home/Home.jsx";
+import About from "./Pages/About/About.jsx";
+import NewProfile from "./pages/Profile/NewProfile.jsx";
 registerLocale("id", id);
 
 function App() {
@@ -17,20 +23,17 @@ function App() {
     sensorUtils(getAPI)
       .then((result) => setData(result))
       .catch((error) => console.error("Error fetching data:", error));
-  }, []); // Empty dependency array to run the effect only once
+  }, []);
   return (
     <div>
       <Router>
         <Routes>
-          <Route
-            exact
-            path="/temperature-monitoring-app/"
-            element={<Dashboard data={data} />}
-          />
           {data
             ? Object.keys(data).map((sensor) => (
                 <Route
-                  path={`/temperature-monitoring-app/${data[sensor].name.replace(/\s+/g, '-')}`}
+                  path={`/temperature-monitoring-app/${data[
+                    sensor
+                  ].name.replace(/\s+/g, "-")}`}
                   key={sensor}
                   element={
                     <DynamicSensorPage data={data} name={data[sensor].name} />
@@ -38,6 +41,25 @@ function App() {
                 />
               ))
             : ""}
+          <Route exact path="/temperature-monitoring-app/" element={<Home />} />
+          <Route path="/temperature-monitoring-app/about" element={<About />} />
+          <Route
+            path="/temperature-monitoring-app/signup"
+            element={<SignUp />}
+          />
+          <Route path="/temperature-monitoring-app/login" element={<Login />} />
+          <Route
+            path="/temperature-monitoring-app/auth"
+            element={<Protected />}
+          />
+          <Route
+            path="/temperature-monitoring-app/dashboard"
+            element={<Dashboard data={data} />}
+          />
+          <Route
+            path="/temperature-monitoring-app/profile"
+            element={<NewProfile data={data}/>}
+          />
         </Routes>
       </Router>
     </div>

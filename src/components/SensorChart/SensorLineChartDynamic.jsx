@@ -36,12 +36,12 @@ function formatDateToDDMMYYYY(dateTimeString) {
   return `${day} ${month} ${year}`;
 }
 
-function formatDateToHHNN(dateTimeString) {
-
+function formatDateToHHNNSS(dateTimeString) {
   const date = new Date(dateTimeString);
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
-  return `${hours}:${minutes}`;
+  const seconds = date.getSeconds().toString().padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
 }
 
 const SensorLineChartDynamic = ({
@@ -62,7 +62,7 @@ const SensorLineChartDynamic = ({
         if (response && response.length > 0) {
           const dataGraph = response[0].map((feed) => ({
             date: formatDateToDDMMYYYY(feed.waktu),
-            time: formatDateToHHNN(feed.waktu),
+            time: formatDateToHHNNSS(feed.waktu),
             temp: feed.suhu,
           }));
           setData(dataGraph);
@@ -80,6 +80,7 @@ const SensorLineChartDynamic = ({
   }, [startDate, endDate, startTime, endTime, name]);
 
   const handleDownload = () => {
+    const excelDate = formatDateToDDMMYYYY(startDate);
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "SensorData");
@@ -90,7 +91,7 @@ const SensorLineChartDynamic = ({
     const blob = new Blob([excelBuffer], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
-    saveAs(blob, "DataSensorHarian.xlsx");
+    saveAs(blob, `Data ${name}_${excelDate}.xlsx`);
   };
 
   return (
@@ -124,8 +125,7 @@ const SensorLineChartDynamic = ({
         </LineChart>
       </ResponsiveContainer>
       <button
-        className="mt-6 rounded-md bg-yellow-500 px-4 py-2 text-center font-bold text-white shadow-sm hover:bg-yellow-600 focus:bg-yellow-700 mb-5"
-
+        className="mb-5 mt-6 rounded-md bg-yellow-500 px-4 py-2 text-center font-bold text-white shadow-sm hover:bg-yellow-600 active:bg-yellow-700"
         onClick={handleDownload}
       >
         Download Data Harian

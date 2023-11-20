@@ -17,7 +17,7 @@ export const dynamicMenusData = (data) => [
     id: 100,
     name: 'Beranda',
     icon: <BiHomeAlt color="white" />,
-    route: '/temperature-monitoring-app',
+    route: '/temperature-monitoring-app/dashboard',
   },
   {
     id: 200,
@@ -29,13 +29,13 @@ export const dynamicMenusData = (data) => [
     id: 300,
     name: 'Akun',
     icon: <BiUser color="white" />,
-    route: '/temperature-monitoring-app/akun',
+    route: '/temperature-monitoring-app/profile',
   },
   {
     id: 400,
     name: 'Keluar',
     icon: <BiLogOut color="white" />,
     gap: true,
-    route: '/temperature-monitoring-app/logout',
+    route: '/temperature-monitoring-app/',
   },
 ];

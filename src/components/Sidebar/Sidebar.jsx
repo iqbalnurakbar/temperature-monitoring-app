@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Logo from "../../assets/logo.png";
 import { dynamicMenusData } from "../../data/dynamicMenusData";
 import { BiChevronLeft, BiChevronDown } from "react-icons/bi";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 export default function Sidebar({ data }) {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState(null);
@@ -16,6 +16,7 @@ export default function Sidebar({ data }) {
   );
 
   const dynamicData = dynamicMenusData(data);
+const navigate = useNavigate()
 
   const handleMenuClick = (menuItem) => {
     setSelected(menuItem.id);
@@ -28,6 +29,20 @@ export default function Sidebar({ data }) {
           subNavOpen: !prev[menuItem.id].subNavOpen,
         },
       }));
+    }
+    if (menuItem.name === 'Keluar') {
+      handleLogout();
+    }
+    
+  };
+
+  const handleLogout = async () => {
+    const auth = getAuth();
+    try {
+      await signOut(auth);
+      navigate("/temperature-monitoring-app/");
+    } catch (error) {
+      console.error("Logout error", error);
     }
   };
 
