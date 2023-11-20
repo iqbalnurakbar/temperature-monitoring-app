@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import UserPict from "../../assets/Iqbal.png";
+// useAuthProfile.jsx
+
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
-import { db } from "../../components/Auth/FirebaseAuth";
+import { db } from "../components/Auth/FirebaseAuth";
 
-export default function HeaderIcon({ name }) {
+const useAuthProfile = () => {
   const [user, setUser] = useState(null);
   const [additionalInfo, setAdditionalInfo] = useState(null);
   const navigate = useNavigate();
@@ -32,27 +33,15 @@ export default function HeaderIcon({ name }) {
         }
       } else {
         // Pengguna tidak masuk, arahkan ke halaman login
-        navigate("temperature-monitoring-app/login");
+        navigate("/login");
       }
     });
 
     // Bersihkan langganan saat komponen dibongkar
     return () => unsubscribe();
   }, [navigate]);
-  return (
-    <div className="mx-auto mb-10 mt-4 w-[85%]">
-      <div className="flex items-center justify-end gap-2">
-        {user && additionalInfo && (
-          <p className="text-right text-sm font-bold text-teal-800">
-            {additionalInfo.NamaLengkap}
-          </p>
-        )}
-        <img
-          src={UserPict}
-          alt="user"
-          className="h-8 w-8 rounded-full object-cover"
-        />
-      </div>
-    </div>
-  );
-}
+
+  return { user, additionalInfo };
+};
+
+export default useAuthProfile;

@@ -87,6 +87,8 @@ const DynamicSensorPage = ({ data, name }) => {
 
     return () => clearInterval(intervalId);
   }, [startTime, endTime, dateLine]);
+
+
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="grid h-[97%] w-[97%] grid-cols-sensormobile gap-4 overflow-y-scroll rounded-xl bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:grid-cols-sensortablet xl:grid-cols-sensorpc">
@@ -97,7 +99,7 @@ const DynamicSensorPage = ({ data, name }) => {
           <div className="flex justify-between">
             <h1 className="mb-10 mt-4 pl-4 text-3xl font-bold">{name}</h1>
             <span className="w-1/2">
-              <HeaderIcon />
+            <HeaderIcon  />
             </span>
           </div>
           <div className="mx-auto mb-10 w-[95%]">

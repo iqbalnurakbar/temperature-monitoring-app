@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
+import UserPict from "../../assets/Iqbal.png";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../components/Auth/FirebaseAuth";
-import UserPict from "../../assets/Iqbal.png";
 
 const NewProfile = ({ data }) => {
   const [user, setUser] = useState(null);
@@ -34,7 +34,7 @@ const NewProfile = ({ data }) => {
         }
       } else {
         // Pengguna tidak masuk, arahkan ke halaman login
-        navigate("/temperature-monitoring-app/login");
+        navigate("temperature-monitoring-app/login");
       }
     });
 
@@ -50,13 +50,13 @@ const NewProfile = ({ data }) => {
         <div className="flex w-[95%] flex-col">
           <div className="flex justify-between">
             <h1 className="mb-10 mt-4 pl-4 text-3xl font-bold">Profil</h1>
-            <span className="w-1/2">
-              <HeaderIcon />
-            </span>
+              <span className="w-1/2">
+                <HeaderIcon/>
+              </span>
           </div>
           <div className="flex justify-center">
-            <div className="mx-auto w-full max-w-md rounded-xl bg-white border px-10 py-4 shadow-lg">
-              <h1 className="text-center text-xl font-bold mb-2">
+            <div className="mx-auto w-full max-w-md rounded-xl border bg-white px-10 py-4 shadow-lg">
+              <h1 className="mb-2 text-center text-xl font-bold">
                 Profil Pengguna
               </h1>
               <img
@@ -70,21 +70,21 @@ const NewProfile = ({ data }) => {
                     <span className="text-left text-sm font-bold ">
                       Nama Lengkap :
                     </span>
-                    <span className="text-m mt-2 flex justify-center rounded-xl bg-white border border-teal-600 p-1">
+                    <span className="text-m mt-2 flex justify-center rounded-xl border border-teal-600 bg-white p-1">
                       {" "}
                       {additionalInfo.NamaLengkap}
                     </span>
                   </p>
                   <p className="mb-3">
                     <span className="text-sm font-bold">No Hp :</span>
-                    <span className="text-m mt-2 flex justify-center rounded-xl bg-white border border-teal-600 p-1">
+                    <span className="text-m mt-2 flex justify-center rounded-xl border border-teal-600 bg-white p-1">
                       {" "}
                       {additionalInfo.NoHp}
                     </span>
                   </p>
                   <p className="mb-3">
                     <span className="text-sm font-bold">Email :</span>
-                    <span className="text-m mt-2 flex justify-center rounded-xl bg-white border border-teal-600 p-1">
+                    <span className="text-m mt-2 flex justify-center rounded-xl border border-teal-600 bg-white p-1">
                       {" "}
                       {user.email}
                     </span>

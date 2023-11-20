@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import RightSide from "../../components/RightSide/RightSide";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
@@ -7,14 +7,15 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { utcToZonedTime } from "date-fns-tz";
 
-const Dashboard = ({ data }) => {
-  // State untuk tanggal yang dipilih di kalender
+const Dashboard = ({ data}) => {
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const formattedDate = (date) => {
     const timeZone = "Asia/Jakarta";
     const zonedDate = utcToZonedTime(date, timeZone);
     return format(zonedDate, "yyyy-MM-dd HH:mm", { locale: id });
   };
+
 
   const formattedDateString = (date) => {
     const timeZone = "Asia/Jakarta";
@@ -24,6 +25,7 @@ const Dashboard = ({ data }) => {
 
   const formatDate = formattedDate(selectedDate);
   const formatDateString = formattedDateString(selectedDate);
+
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="grid h-[97%] w-[97%] grid-cols-dashboardmobile gap-4 overflow-y-scroll rounded-xl bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:grid-cols-dashboardtablet xl:grid-cols-dashboardpc">
@@ -37,7 +39,7 @@ const Dashboard = ({ data }) => {
               <span className="pl-1 text-xs">Data pada {formatDateString}</span>
             </div>
             <span className="w-full md:hidden">
-              <HeaderIcon />
+            <HeaderIcon/>
             </span>
           </div>
           <div className="flex w-[95%] flex-col items-end md:justify-start">
