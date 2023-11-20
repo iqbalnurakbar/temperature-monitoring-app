@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./FirebaseAuth";
 import Navbar from "../Navbar/Navbar";
+import img from "../../assets/Bg-lp-fix.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,12 +16,12 @@ const Login = () => {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       const user = userCredential.user;
       localStorage.setItem("token", user.accessToken);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/temperature-monitoring-app/dashboard");
+      navigate("/temperature-monitoring-app/dashboard/");
     } catch (error) {
       setError("Email atau password kamu salah");
     }
@@ -29,19 +30,24 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="w-full h-screen relative bg-[url('/src/assets/Bg-lp-fix.png')]">
-        <div className="flex justify-center items-center h-full text-white bg-black/30">
+      <div className="relative h-screen">
+        <img
+          className="h-full w-full object-cover"
+          src={img}
+          alt="Background"
+        />
+        <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white">
           <form
             onSubmit={handleSubmit}
-            className="max-w-[400px] w-full mx-auto bg-black/40 rounded-xl p-10"
+            className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 p-10"
           >
-            <h1 className="text-xl font-bold text-center mb-8">Login</h1>
+            <h1 className="mb-8 text-center text-xl font-bold">Login</h1>
 
-            <div className="flex flex-col mb-4">
+            <div className="mb-4 flex flex-col">
               <label>Email</label>
               <input
                 type="email"
-                className="text-center text-black rounded-xl bg-gray-100 p-1"
+                className="rounded-xl bg-gray-100 p-1 text-center text-black"
                 placeholder="Your Email"
                 required
                 value={email}
@@ -52,7 +58,7 @@ const Login = () => {
               <label>Password</label>
               <input
                 type="password"
-                className="text-center text-black rounded-xl bg-gray-100 p-1"
+                className="rounded-xl bg-gray-100 p-1 text-center text-black"
                 placeholder="Your Password"
                 required
                 value={password}
@@ -62,15 +68,17 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full py-3 mt-8 relative rounded-2xl bg-emerald-500"
+              className="relative mt-8 w-full rounded-2xl bg-emerald-500 py-3"
             >
               Login
             </button>
 
-            <p className="text-center mt-8">
+            <p className="mt-8 text-center">
               Need to Sign Up?
-              <button className="mx-2 text-emerald-400 font-bold hover:text-white transition cursor-pointer">
-                <Link to="/temperature-monitoring-app/signup">Create Account</Link>
+              <button className="mx-2 cursor-pointer font-bold text-emerald-400 transition hover:text-white">
+                <Link to="/temperature-monitoring-app/signup">
+                  Create Account
+                </Link>
               </button>
             </p>
           </form>
