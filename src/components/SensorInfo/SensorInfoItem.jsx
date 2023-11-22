@@ -5,7 +5,7 @@ import SensorInfoCard from "./SensorInfoCard";
 function SensorInfoItem({ temperature, duration, timestamp, sensorName }) {
   return (
     <>
-      <div className="flex justify-evenly flex-col md:flex-row gap-4 mx-4">
+      <div className="flex justify-evenly flex-col md:flex-row gap-4">
         <SensorInfoCard
           name={sensorInfoData[0].name}
           icon={sensorInfoData[0].icon}

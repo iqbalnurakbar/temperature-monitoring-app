@@ -7,6 +7,7 @@ import SensorLineChartDynamic from "../../components/SensorChart/SensorLineChart
 import { sensorUtils } from "../../data/sensorUtils";
 import SensorBarChartDynamic from "../../components/SensorChart/SensorBarChartDynamic";
 import { apiConfigurations1 } from "../../data/apiConfigurations";
+import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
 
 const DynamicSensorPage = ({ data, name }) => {
   const [sensorData, setSensorData] = useState(null);
@@ -88,18 +89,20 @@ const DynamicSensorPage = ({ data, name }) => {
     return () => clearInterval(intervalId);
   }, [startTime, endTime, dateLine]);
 
-
   return (
     <div className="flex h-screen items-center justify-center">
-      <div className="grid h-[97%] w-[97%] grid-cols-sensormobile gap-4 overflow-y-scroll rounded-xl bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:grid-cols-sensortablet xl:grid-cols-sensorpc">
-        <div className="flex flex-col">
+      <div className="grid w-full h-full md:h-[97%] md:w-[97%] md:rounded-xl grid-cols-sensormobile gap-4 overflow-y-scroll bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:grid-cols-sensortablet xl:grid-cols-sensorpc">
+        <div className="hidden md:flex">
           <Sidebar data={data} />
         </div>
-        <div className="flex w-[95%] flex-col">
+        <div className="flex md:hidden">
+          <BottomNavigationBar data={data} />
+        </div>
+        <div className="mx-auto flex w-[95%] flex-col md:mx-0">
           <div className="flex justify-between">
             <h1 className="mb-10 mt-4 pl-4 text-3xl font-bold">{name}</h1>
             <span className="w-1/2">
-            <HeaderIcon  />
+              <HeaderIcon />
             </span>
           </div>
           <div className="mx-auto mb-10 w-[95%]">
@@ -150,7 +153,7 @@ const DynamicSensorPage = ({ data, name }) => {
               showDate={false}
             />
           </div>
-          <div className="flex w-[95%] flex-col items-center md:justify-start">
+          <div className="mx-auto flex w-full flex-col items-center md:justify-start">
             <SensorLineChartDynamic
               name={name}
               startDate={dateLine}
@@ -175,7 +178,7 @@ const DynamicSensorPage = ({ data, name }) => {
               showTime={false}
             />
           </div>
-          <div className="flex w-[95%] flex-col items-center md:justify-start">
+          <div className="mx-auto flex w-full flex-col items-center md:justify-start">
             <SensorBarChartDynamic
               name={name}
               startDate={formattedDate(selectedStartDateBar).slice(0, 10)}

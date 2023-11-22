@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import { registerLocale } from "react-datepicker";
 import id from "date-fns/locale/id";
 import { sensorUtils } from "./data/sensorUtils";
@@ -15,6 +20,7 @@ import NewProfile from "./pages/Profile/NewProfile.jsx";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "./pages/Auth/FirebaseAuth.jsx";
+import { AppProvider } from "./data/AppProvider.jsx";
 
 registerLocale("id", id);
 
@@ -60,49 +66,42 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        {data
-          ? Object.keys(data).map((sensor) => (
-              <Route
-                path={`/temperature-monitoring-app/${data[sensor].name.replace(
-                  /\s+/g,
-                  "-",
-                )}`}
-                key={sensor}
-                element={
-                  <DynamicSensorPage
-                    data={data}
-                    name={data[sensor].name}
-                  />
-                }
-              />
-            ))
-          : ""}
-        <Route exact path="/temperature-monitoring-app/" element={<Home />} />
-        <Route path="/temperature-monitoring-app/about" element={<About />} />
-        <Route path="/temperature-monitoring-app/signup" element={<SignUp />} />
-        <Route path="/temperature-monitoring-app/login" element={<Login />} />
-        <Route
-          path="/temperature-monitoring-app/auth"
-          element={<Protected />}
-        />
-        <Route
-          path="/temperature-monitoring-app/dashboard"
-          element={
-            <Dashboard
-              data={data}
-            />
-          }
-        />
-        <Route
-          path="/temperature-monitoring-app/profile"
-          element={
-            <NewProfile
-              data={data}
-            />
-          }
-        />
-      </Routes>
+      <AppProvider>
+        <Routes>
+          {data
+            ? Object.keys(data).map((sensor) => (
+                <Route
+                  path={`/temperature-monitoring-app/${data[
+                    sensor
+                  ].name.replace(/\s+/g, "-")}`}
+                  key={sensor}
+                  element={
+                    <DynamicSensorPage data={data} name={data[sensor].name} />
+                  }
+                />
+              ))
+            : ""}
+          <Route exact path="/temperature-monitoring-app/" element={<Home />} />
+          <Route path="/temperature-monitoring-app/about" element={<About />} />
+          <Route
+            path="/temperature-monitoring-app/signup"
+            element={<SignUp />}
+          />
+          <Route path="/temperature-monitoring-app/login" element={<Login />} />
+          <Route
+            path="/temperature-monitoring-app/auth"
+            element={<Protected />}
+          />
+          <Route
+            path="/temperature-monitoring-app/dashboard"
+            element={<Dashboard data={data} />}
+          />
+          <Route
+            path="/temperature-monitoring-app/profile"
+            element={<NewProfile data={data} />}
+          />
+        </Routes>
+      </AppProvider>
     </Router>
   );
 }

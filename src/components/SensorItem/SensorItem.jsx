@@ -20,9 +20,9 @@ function SensorItem({ startDate, endDate, startTime, endTime }) {
     return () => clearInterval(intervalId);
   }, [startDate, endDate]);
   return (
-    <div className="mb-10 w-[95%] flex-col">
+    <div className="mb-10 w-full flex-col mx-auto flex items-center justify-center lg:block">
       {data ? (
-        <div>
+        <>
           {Object.keys(data).map((sensor) => (
             <SensorCard
               key={sensor}
@@ -32,7 +32,7 @@ function SensorItem({ startDate, endDate, startTime, endTime }) {
               duration={data[sensor].duration}
             />
           ))}
-        </div>
+        </>
       ) : (
         <p className="text-center font-semibold text-red-500">
           Terdapat masalah saat mengambil data sensor hari ini dari cloud!

@@ -4,6 +4,7 @@ import { dynamicMenusData } from "../../data/dynamicMenusData";
 import { BiChevronLeft, BiChevronDown } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+
 export default function Sidebar({ data }) {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState(null);
@@ -47,7 +48,7 @@ const navigate = useNavigate()
   };
 
   return (
-    <div className="relative">
+    <div className="relative md:flex">
       <div className={`absolute md:left-0 ${open ? "left-0" : "-left-12"}`}>
         <nav
           className={`${
