@@ -6,15 +6,15 @@ import id from "date-fns/locale/id";
 import { sensorUtils } from "./data/sensorUtils";
 import DynamicSensorPage from "./pages/DynamicSensorPage/DynamicSensorPage";
 import { apiConfigurations2 } from "./data/apiConfigurations";
-import SignUp from "./components/Auth/SignUp.jsx";
-import Login from "./components/Auth/Login.jsx";
-import Protected from "./components/Auth/Protected.jsx";
+import SignUp from "./pages/Auth/SignUp.jsx";
+import Login from "./pages/Auth/Login.jsx";
+import Protected from "./pages/Auth/Protected.jsx";
 import Home from "./Pages/Home/Home.jsx";
 import About from "./Pages/About/About.jsx";
 import NewProfile from "./pages/Profile/NewProfile.jsx";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
-import { db } from "./components/Auth/FirebaseAuth.jsx";
+import { db } from "./pages/Auth/FirebaseAuth.jsx";
 
 registerLocale("id", id);
 

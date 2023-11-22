@@ -5,7 +5,7 @@ import UserPict from "../../assets/Iqbal.png";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
-import { db } from "../../components/Auth/FirebaseAuth";
+import { db } from "../../pages/Auth/FirebaseAuth";
 
 const NewProfile = ({ data }) => {
   const [user, setUser] = useState(null);

@@ -16,7 +16,7 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
 
     const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
     return formattedDateTime;
-  }
+  };
 
   const invalidTime = getCurrentDateTime().split(" ");
   const topTemp = 40;
@@ -29,37 +29,45 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
 
   const formattedDate = new Date(year, month - 1, day, hour, minute);
 
-  const formatDateNotif =  format(formattedDate, "dd MMMM yyyy HH:mm", {
+  const formatDateNotif = format(formattedDate, "dd MMMM yyyy HH:mm", {
     locale: id,
   });
 
   useEffect(() => {
-    const newNotifications = [];
-  
-    if (currentTemp >= topTemp) {
-      newNotifications.push({
-        body: `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
-        icon: <IoAlertOutline color="red" />,
-        timestamp: formatDateNotif,
-      });
-      toast.error(`Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`);
-    } else if (currentTemp < lowTemp) {
-      newNotifications.push({
-        body: `Suhu pada ${name} berada di bawah ${lowTemp}. Segera cek!`,
-        icon: <IoAlertOutline color="red" />,
-        timestamp: formatDateNotif,
-      });
-      toast.error(`Suhu pada ${name} berada di bawah ${lowTemp}°C. Segera cek!`);
-    } else if (isNaN(parseFloat(currentTemp))) {
-      newNotifications.push({
-        body: `Suhu pada ${name} tidak terbaca!`,
-        icon: <IoAlertOutline color="red" />,
-        timestamp: formatDateNotif,
-      });
-      toast.error(`Suhu pada ${name} tidak terbaca!`);
-    }
-  
-    setNotifications(newNotifications);
+    const timeoutId = setTimeout(() => {
+      const newNotifications = [];
+
+      if (currentTemp >= topTemp) {
+        newNotifications.push({
+          body: `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
+          icon: <IoAlertOutline color="red" />,
+          timestamp: formatDateNotif,
+        });
+        toast.error(
+          `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
+        );
+      } else if (currentTemp < lowTemp) {
+        newNotifications.push({
+          body: `Suhu pada ${name} berada di bawah ${lowTemp}. Segera cek!`,
+          icon: <IoAlertOutline color="red" />,
+          timestamp: formatDateNotif,
+        });
+        toast.error(
+          `Suhu pada ${name} berada di bawah ${lowTemp}°C. Segera cek!`,
+        );
+      } else if (isNaN(parseFloat(currentTemp))) {
+        newNotifications.push({
+          body: `Suhu pada ${name} tidak terbaca!`,
+          icon: <IoAlertOutline color="red" />,
+          timestamp: formatDateNotif,
+        });
+        toast.error(`Suhu pada ${name} tidak terbaca!`);
+      }
+
+      setNotifications(newNotifications);
+    }, 10000); // 10 detik
+
+    return () => clearTimeout(timeoutId); // Membersihkan timeout jika komponen di-unmount atau di-render ulang
   }, [formatDateNotif, currentTemp]);
 
   return (
