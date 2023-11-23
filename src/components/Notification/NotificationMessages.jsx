@@ -43,40 +43,40 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
           icon: <IoAlertOutline color="red" />,
           timestamp: formatDateNotif,
         });
-        sendPushNotification(`Suhu pada ${name} berada diatas ${topTemp}°C. Segera cek`);
-        // toast.error(
-        //   `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
-        // );
+        toast.error(
+          `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
+        );
+        sendPushNotification(`Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`);
       } else if (currentTemp < lowTemp) {
         newNotifications.push({
           body: `Suhu pada ${name} berada di bawah ${lowTemp}. Segera cek!`,
           icon: <IoAlertOutline color="red" />,
           timestamp: formatDateNotif,
         });
-        sendPushNotification(`Suhu pada ${name} berada dibawah ${lowTemp}°C. Segera cek`);
-        // toast.error(
-        //   `Suhu pada ${name} berada di bawah ${lowTemp}°C. Segera cek!`,
-        // );
+        toast.error(
+          `Suhu pada ${name} berada di bawah ${lowTemp}°C. Segera cek!`,
+        );
+        sendPushNotification(`Suhu pada ${name} berada di bawah ${lowTemp}°C. Segera cek!`);
       } else if (isNaN(parseFloat(currentTemp))) {
         newNotifications.push({
           body: `Suhu pada ${name} tidak terbaca!`,
           icon: <IoAlertOutline color="red" />,
           timestamp: formatDateNotif,
         });
+        toast.error(`Suhu pada ${name} tidak terbaca!`);
         sendPushNotification(`Suhu pada ${name} tidak terbaca!`);
-        // toast.error(`Suhu pada ${name} tidak terbaca!`);
       }
 
       setNotifications(newNotifications);
-    }, 10000); // 10 detik
+    }, 1000); // 10 detik
 
     return () => clearTimeout(timeoutId); // Membersihkan timeout jika komponen di-unmount atau di-render ulang
   }, [formatDateNotif, currentTemp]);
 
   const sendPushNotification = (message) => {
-    window.ReactNative.postMessage(
-      JSON.stringify({ type: "pushNotification", message }),
-    );
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'pushNotification', message }));
+    }
   };
 
   return (
