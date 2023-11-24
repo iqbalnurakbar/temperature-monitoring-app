@@ -65,7 +65,7 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
       }
 
       setNotifications(newNotifications);
-    }, 5000); // 10 detik
+    }, 5000); // 5 detik
 
     return () => clearTimeout(timeoutId); // Membersihkan timeout jika komponen di-unmount atau di-render ulang
   }, [formatDateNotif, currentTemp]);
