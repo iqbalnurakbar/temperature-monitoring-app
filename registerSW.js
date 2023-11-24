@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/temperature-monitoring-app/sw.js', { scope: '/temperature-monitoring-app/' })})}
