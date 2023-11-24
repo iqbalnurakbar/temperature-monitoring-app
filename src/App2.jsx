@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { registerLocale } from "react-datepicker";
 import id from "date-fns/locale/id";
 import { sensorUtils } from "./data/sensorUtils";
-import DynamicSensorPage from "./pages/DynamicSensorPage/DynamicSensorPage";
 import { apiConfigurations2 } from "./data/apiConfigurations";
 import SignUp from "./pages/Auth/SignUp.jsx";
 import Login from "./pages/Auth/Login.jsx";
@@ -13,14 +12,15 @@ import Home from "./Pages/Home/Home.jsx";
 import About from "./Pages/About/About.jsx";
 import NewProfile from "./pages/Profile/NewProfile.jsx";
 import { AppProvider } from "./data/AppProvider.jsx";
+import Sensor from "./pages/Sensor/Sensor.jsx";
 
 registerLocale("id", id);
 
-function App() {
+function App2() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const getAPI = apiConfiguratsions2();
+    const getAPI = apiConfigurations2();
 
     sensorUtils(getAPI)
       .then((result) => setData(result))
@@ -31,19 +31,10 @@ function App() {
     <Router>
       <AppProvider>
         <Routes>
-          {data
-            ? Object.keys(data).map((sensor) => (
-                <Route
-                  path={`/temperature-monitoring-app/${data[
-                    sensor
-                  ].name.replace(/\s+/g, "-")}`}
-                  key={sensor}
-                  element={
-                    <DynamicSensorPage data={data} name={data[sensor].name} />
-                  }
-                />
-              ))
-            : ""}
+          <Route
+            path="/temperature-monitoring-app/sensor"
+            element={<Sensor data={data} />}
+          />
           <Route exact path="/temperature-monitoring-app/" element={<Home />} />
           <Route path="/temperature-monitoring-app/about" element={<About />} />
           <Route
@@ -60,7 +51,7 @@ function App() {
             element={<Dashboard data={data} />}
           />
           <Route
-            path="/temperature-monitoring-app/profile"
+            path="/temperature-monitoring-app/profil"
             element={<NewProfile data={data} />}
           />
         </Routes>
@@ -69,4 +60,4 @@ function App() {
   );
 }
 
-export default App;
+export default App2;

@@ -46,7 +46,6 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
         toast.error(
           `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
         );
-        sendPushNotification(`Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`);
       } else if (currentTemp < lowTemp) {
         newNotifications.push({
           body: `Suhu pada ${name} berada di bawah ${lowTemp}. Segera cek!`,
@@ -56,7 +55,6 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
         toast.error(
           `Suhu pada ${name} berada di bawah ${lowTemp}°C. Segera cek!`,
         );
-        sendPushNotification(`Suhu pada ${name} berada di bawah ${lowTemp}°C. Segera cek!`);
       } else if (isNaN(parseFloat(currentTemp))) {
         newNotifications.push({
           body: `Suhu pada ${name} tidak terbaca!`,
@@ -64,20 +62,13 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
           timestamp: formatDateNotif,
         });
         toast.error(`Suhu pada ${name} tidak terbaca!`);
-        sendPushNotification(`Suhu pada ${name} tidak terbaca!`);
       }
 
       setNotifications(newNotifications);
-    }, 1000); // 10 detik
+    }, 5000); // 10 detik
 
     return () => clearTimeout(timeoutId); // Membersihkan timeout jika komponen di-unmount atau di-render ulang
   }, [formatDateNotif, currentTemp]);
-
-  const sendPushNotification = (message) => {
-    if (window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'pushNotification', message }));
-    }
-  };
 
   return (
     <div>

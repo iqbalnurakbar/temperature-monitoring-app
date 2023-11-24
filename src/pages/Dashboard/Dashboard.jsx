@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Sidebar2 from "../../components/Sidebar/Sidebar2";
 import RightSide from "../../components/RightSide/RightSide";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import SensorItem from "../../components/SensorItem/SensorItem";
@@ -28,7 +28,7 @@ const Dashboard = ({ data }) => {
     <div className="mx-auto flex h-screen items-center justify-center">
       <div className="grid w-full h-full md:h-[97%] md:w-[97%] md:rounded-xl grid-cols-dashboardmobile gap-4 overflow-y-scroll bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:grid-cols-dashboardtablet xl:grid-cols-dashboardpc">
         <div className="hidden md:flex">
-          <Sidebar data={data} />
+          <Sidebar2 />
         </div>
         <div className="flex md:hidden">
           <BottomNavigationBar data={data} />
@@ -56,7 +56,7 @@ const Dashboard = ({ data }) => {
             />
           </div>
         </div>
-        <div className="flex w-[95%] flex-col items-center justify-evenly md:justify-start">
+        <div className="flex w-[95%] flex-col items-center justify-evenly md:justify-start mb-24 md:mb-0">
           {" "}
           {/* Updated style */}
           <RightSide

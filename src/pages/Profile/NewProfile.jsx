@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Sidebar2 from "../../components/Sidebar/Sidebar2";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import UserPict from "../../assets/Iqbal.png";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +46,7 @@ const NewProfile = ({ data }) => {
     <div className="flex h-screen items-center justify-center">
       <div className="grid h-full w-full grid-cols-sensormobile gap-4 overflow-y-scroll bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93]  scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-sensortablet md:rounded-xl xl:grid-cols-sensorpc ">
         <div className="hidden md:flex">
-          <Sidebar data={data} />
+          <Sidebar2 />
         </div>
         <div className="flex md:hidden">
           <BottomNavigationBar data={data} />
@@ -58,7 +58,7 @@ const NewProfile = ({ data }) => {
               <HeaderIcon />
             </span>
           </div>
-          <div className="flex h-1/2 justify-center">
+          <div className="flex h-[60%]  justify-center">
             <div className="w-[95%] max-w-md rounded-xl border bg-white px-10 py-4 shadow-lg ml-4 md:ml-0">
               <h1 className="mb-2 text-center text-xl font-bold">
                 Profil Pengguna
