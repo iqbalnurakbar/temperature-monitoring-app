@@ -7,15 +7,9 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      manifest: {
-        // Konfigurasi manifest.json
-        name: "Monitoring Suhu",
-        short_name: "MonSu",
-        description: "Monitoring Suhu pada Mesin Ball Tea",
-        start_url: "/temperature-monitoring-app",
-        display: "standalone",
-        background_color: "#ffffff",
-        theme_color: "#000000",
+      registerType: "autoUpdate",
+      devOptions: {
+        enabled: true,
       },
     }),
   ],
