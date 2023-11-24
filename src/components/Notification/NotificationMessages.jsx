@@ -43,8 +43,9 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
           icon: <IoAlertOutline color="red" />,
           timestamp: formatDateNotif,
         });
-        toast.error(
+        showNotification(
           `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
+          formatDateNotif,
         );
       } else if (currentTemp < lowTemp) {
         newNotifications.push({
@@ -52,8 +53,9 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
           icon: <IoAlertOutline color="red" />,
           timestamp: formatDateNotif,
         });
-        toast.error(
+        showNotification(
           `Suhu pada ${name} berada di bawah ${lowTemp}°C. Segera cek!`,
+          formatDateNotif,
         );
       } else if (isNaN(parseFloat(currentTemp))) {
         newNotifications.push({
@@ -61,7 +63,7 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
           icon: <IoAlertOutline color="red" />,
           timestamp: formatDateNotif,
         });
-        toast.error(`Suhu pada ${name} tidak terbaca!`);
+        showNotification(`Suhu pada ${name} tidak terbaca!`, formatDateNotif);
       }
 
       setNotifications(newNotifications);
@@ -69,6 +71,30 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
 
     return () => clearTimeout(timeoutId); // Membersihkan timeout jika komponen di-unmount atau di-render ulang
   }, [formatDateNotif, currentTemp]);
+
+  const showNotification = (body, timestamp) => {
+    // Periksa apakah notifikasi diizinkan
+    if (Notification.permission === "granted") {
+      // Konfigurasi pesan notifikasi
+      const options = {
+        body: body,
+        icon: "path/to/your/icon.png", // Ganti dengan path icon sesuai kebutuhan
+        timestamp: new Date(timestamp).getTime(),
+      };
+
+      // Tampilkan notifikasi push
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.showNotification("Judul Notifikasi", options);
+      });
+    } else if (Notification.permission !== "denied") {
+      // Jika belum mendapatkan izin, minta izin notifikasi
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          showNotification(body, timestamp);
+        }
+      });
+    }
+  };
 
   return (
     <div>

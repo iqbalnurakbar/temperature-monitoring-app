@@ -27,6 +27,9 @@ function App2() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+
+
+
   return (
     <Router>
       <AppProvider>
