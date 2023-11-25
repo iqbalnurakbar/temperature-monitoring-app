@@ -1,0 +1,24 @@
+{
+  "theme_color": "#3ebd93",
+  "background_color": "#3ebd93",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "any",
+  "display": "standalone",
+  "name": "CD Monitoring Suhu",
+  "short_name": "MonSu",
+  "start_url": ".",
+  "description": "Monitoring Suhu pada Mesin Ball Tea"
+}
