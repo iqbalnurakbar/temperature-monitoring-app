@@ -1,26 +1,27 @@
 {
-    "short_name": "MonSu",
-    "name": "CD Monitoring Suhu",
-    "icons": [
-      {
-        "src": "/src/favicon.ico",
-        "sizes": "64x64 32x32 24x24 16x16",
-        "type": "image/x-icon"
-      },
-      {
-        "src": "/src/assets/maskable_icon_x192.png",
-        "type": "image/png",
-        "sizes": "192x192",
-        "purpose":"any maskable"
-      },
-      {
-        "src": "/src/assets/maskable_icon_x192.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      }
-    ],
-    "start_url": ".",
-    "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
-  }
+  "theme_color": "#3ebd93",
+  "background_color": "#3ebd93",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "any",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "id-ID",
+  "name": "CD Monitoring Suhu",
+  "short_name": "MonSu",
+  "start_url": "htpps://iqbalnurakbar.github.io/temperature-monitoring-app/",
+  "scope": "htpps://iqbalnurakbar.github.io/temperature-monitoring-app/",
+  "description": "Monitoring Suhu pada Mesin Ball Tea"
+}
