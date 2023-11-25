@@ -4,7 +4,7 @@ const NotificationService = {
         const notificationBody = `${body}\n${timestamp}`
         const options = {
           body: notificationBody,
-          icon: "/src/assets/Newlogo.png",
+          icon: "../assets/Newlogo.png",
         };
   
         // Display push notification
