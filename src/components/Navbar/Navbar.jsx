@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import Logo from "../../assets/NewLogo.png";
+import Newlogo from "../../assets/Newlogo.png";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <div className="absolute z-10 flex h-24 w-full max-w-[1490px] items-center justify-between px-10 text-black">
-      <img src={Logo} alt="logo" className="w-14 md:ml-24" />
+      <img src={Newlogo} alt="logo" className="w-14 md:ml-24" />
       <h1 className="w-full px-4 text-2xl font-bold text-white">MONSU.</h1>
 
       <ul className="mr-24 hidden text-lg font-bold text-white md:flex">

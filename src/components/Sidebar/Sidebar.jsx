@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../../assets/logo.png";
+import Newlogo from "../../assets/Newlogo.png";
 import { dynamicMenusData } from "../../data/dynamicMenusData";
 import { BiChevronLeft, BiChevronDown } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
@@ -65,7 +65,7 @@ const navigate = useNavigate()
               <BiChevronLeft color="white" size={22} />
             </div>
             <div className="mb-5 mt-4 flex origin-left cursor-pointer items-center gap-x-2 px-1">
-              <img src={Logo} alt="logo" className="h-6 w-6" />
+              <img src={Newlogo} alt="logo" className="h-6 w-6" />
               <h1
                 className={`origin-left text-xl font-bold text-white ${
                   !open && "scale-0"

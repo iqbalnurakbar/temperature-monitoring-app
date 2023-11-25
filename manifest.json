@@ -3,23 +3,23 @@
     "name": "CD Monitoring Suhu",
     "icons": [
       {
-        "src": "favicon.ico",
+        "src": "./src/favicon.ico",
         "sizes": "64x64 32x32 24x24 16x16",
         "type": "image/x-icon"
       },
       {
-        "src": "/src/assets/maskable_icon_x192.png",
+        "src": "./src/assets/maskable_icon_x192.png",
         "type": "image/png",
         "sizes": "192x192",
         "purpose":"any maskable"
       },
       {
-        "src": "/src/assets/maskable_icon_x192.png",
+        "src": "./src/assets/maskable_icon_x192.png",
         "type": "image/png",
         "sizes": "512x512"
       }
     ],
-    "start_url": ".",
+    "start_url": "/temperature-monitoring-app",
     "display": "standalone",
     "theme_color": "#000000",
     "background_color": "#ffffff"
