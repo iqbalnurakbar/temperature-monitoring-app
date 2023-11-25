@@ -6,11 +6,5 @@ export default defineConfig({
   base: "/temperature-monitoring-app",
   plugins: [
     react(),
-    VitePWA({
-      registerType: "autoUpdate",
-      devOptions: {
-        enabled: true,
-      },
-    }),
   ],
 });

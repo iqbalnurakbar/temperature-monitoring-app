@@ -3,6 +3,12 @@ import { IoMdNotifications } from "react-icons/io";
 import NotificationMessages from "./NotificationMessages";
 
 export default function Notification({data }) {
+  let currentTemperatureArray = null
+  if(data) {
+    currentTemperatureArray= Object.keys(data).map((sensor)=>{
+      return data[sensor].temperature.current
+    })
+  }
   return (
     <div className="mx-auto mb-10 w-[85%]">
       <div className="rounded-lg border bg-white p-4 shadow-md">
@@ -22,6 +28,7 @@ export default function Notification({data }) {
                   name={data[sensor].name}
                   currentTemp={data[sensor].temperature.current}
                   dateNotif={data[sensor].timestamp.current}
+                  arrayTemp={currentTemperatureArray}
                 />
               ))}
             </>

@@ -25,7 +25,7 @@ const RightSide = ({
 
     fetchSensorData();
 
-    const intervalId = setInterval(fetchSensorData, 2 * 60 * 1000); //2 menit dalam miliseskon
+    const intervalId = setInterval(fetchSensorData, 3 * 60 * 1000); //3 menit dalam miliseskon
 
     return () => clearInterval(intervalId);
   }, [startDate, endDate, setSelectedDate]);

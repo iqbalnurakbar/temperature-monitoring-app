@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { IoAlertOutline } from "react-icons/io5";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { Slide, ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+8;
+import NotificationService from "../../data/NotificationService";
 
 const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
+  const [notifications, setNotifications] = useState([]);
+
   const getCurrentDateTime = () => {
     const currentDate = new Date();
     const day = String(currentDate.getDate()).padStart(2, "0");
@@ -22,7 +24,6 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
   const topTemp = 40;
   const lowTemp = 20;
 
-  const [notifications, setNotifications] = useState([]);
   const [datePart, timePart] = dateNotif ? dateNotif.split(" ") : invalidTime;
   const [day, month, year] = datePart.split("/");
   const [hour, minute] = timePart.split(":");
@@ -34,71 +35,44 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
   });
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      const newNotifications = [];
-
-      if (currentTemp >= topTemp) {
-        newNotifications.push({
-          body: `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
-          icon: <IoAlertOutline color="red" />,
-          timestamp: formatDateNotif,
-        });
-        showNotification(
-          `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
-          formatDateNotif,
-        );
-      } else if (currentTemp < lowTemp) {
-        newNotifications.push({
-          body: `Suhu pada ${name} berada di bawah ${lowTemp}. Segera cek!`,
-          icon: <IoAlertOutline color="red" />,
-          timestamp: formatDateNotif,
-        });
-        showNotification(
-          `Suhu pada ${name} berada di bawah ${lowTemp}°C. Segera cek!`,
-          formatDateNotif,
-        );
-      } else if (isNaN(parseFloat(currentTemp))) {
-        newNotifications.push({
-          body: `Suhu pada ${name} tidak terbaca!`,
-          icon: <IoAlertOutline color="red" />,
-          timestamp: formatDateNotif,
-        });
-        showNotification(`Suhu pada ${name} tidak terbaca!`, formatDateNotif);
-      }
-
-      setNotifications(newNotifications);
-    }, 5000); // 10 detik
-
-    return () => clearTimeout(timeoutId); // Membersihkan timeout jika komponen di-unmount atau di-render ulang
-  }, [formatDateNotif, currentTemp]);
-
-  const showNotification = (body, timestamp) => {
-    // Periksa apakah notifikasi diizinkan
-    if (Notification.permission === "granted") {
-      // Konfigurasi pesan notifikasi
-      const options = {
-        body: body,
-        icon: "path/to/your/icon.png", // Ganti dengan path icon sesuai kebutuhan
-        timestamp: new Date(timestamp).getTime(),
-      };
-
-      // Tampilkan notifikasi push
-      navigator.serviceWorker.ready.then((registration) => {
-        registration.showNotification("Judul Notifikasi", options);
+    const newNotifications = [];
+    if (currentTemp >= topTemp || currentTemp < lowTemp) {
+      NotificationService.showNotification(
+        "Ada suhu yang berada diluar rentang pengukuran!",
+        formatDateNotif,
+      );
+    } else if (isNaN(parseFloat(currentTemp))) {
+      NotificationService.showNotification(
+        "Ada sensor yang tidak terbaca!",
+        formatDateNotif,
+      );
+    }
+    if (currentTemp >= topTemp) {
+      newNotifications.push({
+        body: `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
+        icon: <IoAlertOutline color="red" />,
+        timestamp: formatDateNotif,
       });
-    } else if (Notification.permission !== "denied") {
-      // Jika belum mendapatkan izin, minta izin notifikasi
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          showNotification(body, timestamp);
-        }
+    } else if (currentTemp < lowTemp) {
+      newNotifications.push({
+        body: `Suhu pada ${name} berada di bawah ${lowTemp}. Segera cek!`,
+        icon: <IoAlertOutline color="red" />,
+        timestamp: formatDateNotif,
+      });
+    } else if (isNaN(parseFloat(currentTemp))) {
+      newNotifications.push({
+        body: `Suhu pada ${name} tidak terbaca!`,
+        icon: <IoAlertOutline color="red" />,
+        timestamp: formatDateNotif,
       });
     }
-  };
+
+    setNotifications(newNotifications);
+  }, [currentTemp, formatDateNotif]);
+
 
   return (
     <div>
-      <ToastContainer theme="colored" transition={Slide} pauseOnHover={false} />
       <ul>
         {notifications.map((notification, index) => (
           <li

@@ -37,3 +37,15 @@ self.addEventListener("activate", (event) => {
         ))
     )
 });
+
+// Tambahkan izin notifikasi
+self.addEventListener('push', (event) => {
+    const options = {
+      body: event.data.text(),
+      icon: '/src/assets/Newlogo.png', // Ganti dengan path icon sesuai kebutuhan
+    };
+  
+    event.waitUntil(
+      self.registration.showNotification('Monitoring Suhu', options)
+    );
+  });

@@ -27,38 +27,45 @@ function App2() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-
-
-
   return (
     <Router>
-      <AppProvider>
-        <Routes>
-          <Route
-            path="/temperature-monitoring-app/sensor"
-            element={<Sensor data={data} />}
-          />
-          <Route exact path="/temperature-monitoring-app/" element={<Home />} />
-          <Route path="/temperature-monitoring-app/about" element={<About />} />
-          <Route
-            path="/temperature-monitoring-app/signup"
-            element={<SignUp />}
-          />
-          <Route path="/temperature-monitoring-app/login" element={<Login />} />
-          <Route
-            path="/temperature-monitoring-app/auth"
-            element={<Protected />}
-          />
-          <Route
-            path="/temperature-monitoring-app/dashboard"
-            element={<Dashboard data={data} />}
-          />
-          <Route
-            path="/temperature-monitoring-app/profil"
-            element={<NewProfile data={data} />}
-          />
-        </Routes>
-      </AppProvider>
+        <AppProvider>
+          <Routes>
+            <Route
+              path="/temperature-monitoring-app/sensor"
+              element={<Sensor data={data} />}
+            />
+            <Route
+              exact
+              path="/temperature-monitoring-app/"
+              element={<Home />}
+            />
+            <Route
+              path="/temperature-monitoring-app/about"
+              element={<About />}
+            />
+            <Route
+              path="/temperature-monitoring-app/signup"
+              element={<SignUp />}
+            />
+            <Route
+              path="/temperature-monitoring-app/login"
+              element={<Login />}
+            />
+            <Route
+              path="/temperature-monitoring-app/auth"
+              element={<Protected />}
+            />
+            <Route
+              path="/temperature-monitoring-app/dashboard"
+              element={<Dashboard data={data} />}
+            />
+            <Route
+              path="/temperature-monitoring-app/profil"
+              element={<NewProfile data={data} />}
+            />
+          </Routes>
+        </AppProvider>
     </Router>
   );
 }

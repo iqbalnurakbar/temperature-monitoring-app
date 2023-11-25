@@ -120,7 +120,7 @@ const Sensor = ({ data }) => {
           <Sidebar2 />
         </div>
         <div className="flex md:hidden">
-          <BottomNavigationBar data={data} />
+          <BottomNavigationBar />
         </div>
         <div className="absolute mx-auto flex w-[95%] flex-col md:mx-0 md:static">
           <div className="flex justify-between">
@@ -133,13 +133,12 @@ const Sensor = ({ data }) => {
             {sensorData ? (
               Object.keys(sensorData).map((sensor) => (
                 <React.Fragment key={sensor}>
-                  <div className="abbg-blue mx-2 mb-4 flex items-center gap-2 rounded bg-[#3ebd93] p-3 text-white shadow-lg md:mx-4 md:mb-6 lg:mb-8">
+                  <div className="abbg-blue mx-2 mb-4 flex items-center gap-2 rounded bg-[#3ebd93] py-2 px-4 text-white shadow-lg md:mx-4 md:mb-6 lg:mb-8">
                     <input
                       type="checkbox"
                       id={sensor}
                       checked={selectedSensors.includes(sensor)}
                       onChange={() => handleSensorToggle(sensor)}
-                      className="border-white"
                     />
                     <label htmlFor={sensor} >
                       {sensorData[sensor].name}
@@ -148,7 +147,9 @@ const Sensor = ({ data }) => {
                 </React.Fragment>
               ))
             ) : (
-              <p>Sensor tidak terbaca!</p>
+              <p className="text-center font-semibold text-red-500">
+              Terdapat masalah saat mengambil data sensor!
+            </p>
             )}
           </div>
 
