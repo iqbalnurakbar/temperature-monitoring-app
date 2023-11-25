@@ -5,13 +5,13 @@
     {
       "purpose": "maskable",
       "sizes": "512x512",
-      "src": "/public/icon512_maskable.png",
+      "src": "icon512_maskable.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "512x512",
-      "src": "/public/icon512_rounded.png",
+      "src": "icon512_rounded.png",
       "type": "image/png"
     }
   ],
@@ -19,6 +19,6 @@
   "display": "standalone",
   "name": "CD Monitoring Suhu",
   "short_name": "MonSu",
-  "start_url": ".",
+  "start_url": "https://iqbalnurakbar.github.io/temperature-monitoring-app/",
   "description": "Monitoring Suhu pada Mesin Ball Tea"
 }
