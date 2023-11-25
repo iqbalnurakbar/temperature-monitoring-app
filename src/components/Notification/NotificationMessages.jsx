@@ -68,7 +68,7 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
     }
 
     setNotifications(newNotifications);
-  }, [currentTemp, formatDateNotif]);
+  }, [currentTemp, formatDateNotif, name]);
 
 
   return (
