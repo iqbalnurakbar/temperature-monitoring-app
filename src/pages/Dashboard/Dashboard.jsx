@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { utcToZonedTime } from "date-fns-tz";
 import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
+
 const Dashboard = ({ data }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const formattedDate = (date) => {

@@ -20,7 +20,7 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const getAPI = apiConfiguratsions2();
+    const getAPI = apiConfigurations2();
 
     sensorUtils(getAPI)
       .then((result) => setData(result))

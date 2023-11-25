@@ -1,6 +1,6 @@
 import React from "react";
 import img from "../../assets/Bg-lp-fix.png";
-import Navbar from "../../Components/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 const Home = () => {
   return (
     <>
