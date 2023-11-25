@@ -67,13 +67,10 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-16108a29'], (function (workbox) { 'use strict';
+define(['./workbox-5357ef54'], (function (workbox) { 'use strict';
 
-  self.addEventListener('message', event => {
-    if (event.data && event.data.type === 'SKIP_WAITING') {
-      self.skipWaiting();
-    }
-  });
+  self.skipWaiting();
+  workbox.clientsClaim();
 
   /**
    * The precacheAndRoute() method efficiently caches and responds to
@@ -81,8 +78,11 @@ define(['./workbox-16108a29'], (function (workbox) { 'use strict';
    * See https://goo.gl/S9QRab
    */
   workbox.precacheAndRoute([{
+    "url": "registerSW.js",
+    "revision": "3ca0b8505b4bec776b69afdba2768812"
+  }, {
     "url": "index.html",
-    "revision": "0.ogrcr69otpg"
+    "revision": "0.loa23lgpltg"
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html"), {
@@ -90,3 +90,22 @@ define(['./workbox-16108a29'], (function (workbox) { 'use strict';
   }));
 
 }));
+
+
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'syncNotification' && event.data) {
+    event.waitUntil(showNotificationInBackground(event.data));
+  }
+});
+
+function showNotificationInBackground(data) {
+  const { body, timestamp } = data;
+
+  const notificationBody = `${body}\n${timestamp}`;
+  const options = {
+    body: notificationBody,
+    icon: "/icons/pwa-192x192.png",
+  };
+
+  return self.registration.showNotification("Monitoring Suhu", options);
+}

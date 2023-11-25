@@ -50,10 +50,12 @@ export default defineConfig({
           }
         ],
         "start_url": "/",
+        "scope": "/",
         "display": "standalone",
         "background_color": "#FFFFFF",
         "theme_color": "#000000",
-        "description": "Monitoring Suhu pada Mesin Ball Tea"
+        "description": "Monitoring Suhu pada Mesin Ball Tea",
+        "lang":"id",
       }
     }),
   ],

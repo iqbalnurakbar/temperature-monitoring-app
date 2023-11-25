@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { IoAlertOutline } from "react-icons/io5";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-8;
 import NotificationService from "../../data/NotificationService";
 
 const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
@@ -36,16 +35,20 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
 
   useEffect(() => {
     const newNotifications = [];
+    let backgroundNotificationBody = "";
     if (currentTemp >= topTemp || currentTemp < lowTemp) {
       NotificationService.showNotification(
         "Ada suhu yang berada diluar rentang pengukuran!",
         formatDateNotif,
       );
+      backgroundNotificationBody =
+        "Ada suhu yang berada diluar rentang pengukuran!";
     } else if (isNaN(parseFloat(currentTemp))) {
       NotificationService.showNotification(
         "Ada sensor yang tidak terbaca!",
         formatDateNotif,
       );
+      backgroundNotificationBody = "Ada sensor yang tidak terbaca!";
     }
     if (currentTemp >= topTemp) {
       newNotifications.push({
@@ -68,8 +71,27 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
     }
 
     setNotifications(newNotifications);
+
+    if (backgroundNotificationBody) {
+      triggerBackgroundSync({
+        body: backgroundNotificationBody,
+        timestamp: formatDateNotif,
+      });
+    }
   }, [currentTemp, formatDateNotif, name]);
 
+  const triggerBackgroundSync = async (data) => {
+    if ('serviceWorker' in navigator && 'SyncManager' in window) {
+      try {
+        const registration = await navigator.serviceWorker.ready;
+        // Pass notification data to background sync
+        await registration.sync.register('syncNotification', { data });
+        console.log('Background sync registered');
+      } catch (error) {
+        console.error('Background sync registration failed:', error);
+      }
+    }
+  };
 
   return (
     <div>
