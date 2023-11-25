@@ -37,7 +37,7 @@ const SignUp = () => {
 
       // localStorage.setItem("token", user.accessToken);
       // localStorage.setItem("user", JSON.stringify(user));
-      navigate("/Login");
+      navigate("/login");
     } catch (error) {
       setError(error.message);
       console.error("Error signing up:", error);
@@ -110,7 +110,7 @@ const SignUp = () => {
             <p className="mt-8 text-center">
               Need to Sign In?
               <button className="mx-2 cursor-pointer font-bold text-emerald-400 transition hover:text-white">
-                <Link to="/temperature-monitoring-app/login">Login</Link>
+                <Link to="/login">Login</Link>
               </button>
             </p>
           </form>

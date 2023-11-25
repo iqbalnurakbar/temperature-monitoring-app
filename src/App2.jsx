@@ -32,36 +32,36 @@ function App2() {
         <AppProvider>
           <Routes>
             <Route
-              path="/temperature-monitoring-app/sensor"
+              path="/sensor"
               element={<Sensor data={data} />}
             />
             <Route
               exact
-              path="/temperature-monitoring-app/"
+              path="/"
               element={<Home />}
             />
             <Route
-              path="/temperature-monitoring-app/about"
+              path="/about"
               element={<About />}
             />
             <Route
-              path="/temperature-monitoring-app/signup"
+              path="/signup"
               element={<SignUp />}
             />
             <Route
-              path="/temperature-monitoring-app/login"
+              path="/login"
               element={<Login />}
             />
             <Route
-              path="/temperature-monitoring-app/auth"
+              path="/auth"
               element={<Protected />}
             />
             <Route
-              path="/temperature-monitoring-app/dashboard"
+              path="/dashboard"
               element={<Dashboard data={data} />}
             />
             <Route
-              path="/temperature-monitoring-app/profil"
+              path="/profil"
               element={<NewProfile data={data} />}
             />
           </Routes>

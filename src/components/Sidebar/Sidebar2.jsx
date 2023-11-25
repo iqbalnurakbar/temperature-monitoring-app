@@ -24,7 +24,7 @@ const navigate = useNavigate()
     const auth = getAuth();
     try {
       await signOut(auth);
-      navigate("/temperature-monitoring-app/");
+      navigate("/");
     } catch (error) {
       console.error("Logout error", error);
     }

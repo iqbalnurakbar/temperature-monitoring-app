@@ -21,7 +21,7 @@ const Login = () => {
       const user = userCredential.user;
       localStorage.setItem("token", user.accessToken);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/temperature-monitoring-app/dashboard/");
+      navigate("/dashboard");
     } catch (error) {
       setError("Email atau password kamu salah");
     }
@@ -76,7 +76,7 @@ const Login = () => {
             <p className="mt-8 text-center">
               Need to Sign Up?
               <button className="mx-2 cursor-pointer font-bold text-emerald-400 transition hover:text-white">
-                <Link to="/temperature-monitoring-app/signup">
+                <Link to="/signup">
                   Create Account
                 </Link>
               </button>

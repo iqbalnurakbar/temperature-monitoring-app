@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://iqbalnurakbar.github.io/temperature-monitoring-app",
+  "homepage": "https://iqbalnurakbar.github.io/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -58,6 +58,7 @@
     "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "^3.3.3",
     "vite": "^4.4.5",
-    "vite-plugin-pwa": "^0.17.0"
+    "vite-plugin-pwa": "^0.17.0",
+    "workbox-window": "^7.0.0"
   }
 }
