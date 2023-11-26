@@ -84,9 +84,7 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
     if ('serviceWorker' in navigator && 'SyncManager' in window) {
       try {
         const registration = await navigator.serviceWorker.ready;
-        // Pass notification data to background sync
         await registration.sync.register('syncNotification', { data });
-        console.log('Background sync registered');
       } catch (error) {
         console.error('Background sync registration failed:', error);
       }
