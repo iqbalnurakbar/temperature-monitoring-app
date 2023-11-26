@@ -37,7 +37,7 @@ function App2() {
             />
             <Route
               exact
-              path="/temperature-monitoring-app"
+              path="/"
               element={<Home />}
             />
             <Route
