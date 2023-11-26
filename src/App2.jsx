@@ -20,12 +20,19 @@ function App2() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const getAPI = apiConfigurations2();
+    const fetchData = async () => {
+      try {
+        const apiData = await sensorUtils(apiConfigurations2());
+        setData(apiData);
 
-    sensorUtils(getAPI)
-      .then((result) => setData(result))
-      .catch((error) => console.error("Error fetching data:", error));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
+
 
   return (
     <Router>
