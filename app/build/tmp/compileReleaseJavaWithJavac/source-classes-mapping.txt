@@ -1,8 +1,0 @@
-app/netlify/cd_monitoring_suhu/twa/Application.java
- app.netlify.cd_monitoring_suhu.twa.Application
-app/netlify/cd_monitoring_suhu/twa/DelegationService.java
- app.netlify.cd_monitoring_suhu.twa.DelegationService
-app/netlify/cd_monitoring_suhu/twa/LauncherActivity.java
- app.netlify.cd_monitoring_suhu.twa.LauncherActivity
-app/netlify/cd_monitoring_suhu/twa/BuildConfig.java
- app.netlify.cd_monitoring_suhu.twa.BuildConfig
