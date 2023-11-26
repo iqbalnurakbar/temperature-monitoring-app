@@ -2,32 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#000000" />
     <meta name="description" content="Monitoring Suhu pada Mesin Ball Tea" />
-    <link rel="apple-touch-icon" href="/temperature-monitoring-app/assets/logo192-c386396e.png" />
-    <link rel="manifest" href="data:application/json;base64,ew0KICAidGhlbWVfY29sb3IiOiAiIzNlYmQ5MyIsDQogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMzZWJkOTMiLA0KICAiaWNvbnMiOiBbDQogICAgew0KICAgICAgInB1cnBvc2UiOiAibWFza2FibGUiLA0KICAgICAgInNpemVzIjogIjUxMng1MTIiLA0KICAgICAgInNyYyI6ICJpY29uNTEyX21hc2thYmxlLnBuZyIsDQogICAgICAidHlwZSI6ICJpbWFnZS9wbmciDQogICAgfSwNCiAgICB7DQogICAgICAicHVycG9zZSI6ICJhbnkiLA0KICAgICAgInNpemVzIjogIjUxMng1MTIiLA0KICAgICAgInNyYyI6ICJpY29uNTEyX3JvdW5kZWQucG5nIiwNCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyINCiAgICB9DQogIF0sDQogICJvcmllbnRhdGlvbiI6ICJhbnkiLA0KICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwNCiAgIm5hbWUiOiAiQ0QgTW9uaXRvcmluZyBTdWh1IiwNCiAgInNob3J0X25hbWUiOiAiTW9uU3UiLA0KICAic3RhcnRfdXJsIjogImh0dHBzOi8vaXFiYWxudXJha2Jhci5naXRodWIuaW8vdGVtcGVyYXR1cmUtbW9uaXRvcmluZy1hcHAvIiwNCiAgImRlc2NyaXB0aW9uIjogIk1vbml0b3JpbmcgU3VodSBwYWRhIE1lc2luIEJhbGwgVGVhIg0KfQ0K" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <link rel="icon" href="/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="manifest" href="/icons/site.webmanifest">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <title>Monitoring Suhu</title>
-    <script type="module" crossorigin src="/temperature-monitoring-app/assets/index-48027131.js"></script>
-    <link rel="stylesheet" href="/temperature-monitoring-app/assets/index-7d5d8e91.css">
-  <link rel="manifest" href="/temperature-monitoring-app/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/temperature-monitoring-app/registerSW.js"></script></head>
+    <script type="module" crossorigin src="/assets/index-4aa0c784.js"></script>
+    <link rel="stylesheet" href="/assets/index-7d5d8e91.css">
+  <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
   <body>
     <div id="root"></div>
     
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("./serviceWorker.js")
-            .then((reg) => {
-              console.log("Worker Registered");
-            })
-            .catch((err) => {
-              console.log("Error in service worker registration.");
-            });
-        });
-      }
-    </script>
   </body>
 </html>
