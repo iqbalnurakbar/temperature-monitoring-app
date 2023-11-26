@@ -17,7 +17,7 @@ const Navbar = () => {
 
       <ul className="mr-24 hidden text-lg font-bold text-white md:flex">
         <li className="cursor-pointer px-8 transition hover:text-emerald-900">
-          <Link to="/">Home</Link>
+          <Link to="/temperature-monitoring-app">Home</Link>
         </li>
         <li className="mx-5 cursor-pointer px-8 transition hover:text-emerald-900">
           <Link to="/about">About</Link>
@@ -39,7 +39,7 @@ const Navbar = () => {
       >
         <div className="text-center text-xl font-bold text-white">
           <li className="md:text-md mx-6 mt-5 cursor-pointer px-4 py-3 text-sm transition hover:text-emerald-900">
-            <Link to="/">Home</Link>
+            <Link to="/temperature-monitoring-app">Home</Link>
           </li>
           <li className="md:text-md mx-6 my-3 cursor-pointer px-4 py-3 text-sm transition hover:text-emerald-900">
             <Link to="/about">About</Link>
