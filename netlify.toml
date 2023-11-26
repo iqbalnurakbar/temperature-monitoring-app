@@ -1,15 +1,7 @@
 [[redirects]]
-  from = "/.well-known/assetlinks.json"
-  to = "/well-known/assetlinks.json"
+  from = "/.well_known/*"
+  to = "/well_known/:splat"
   status = 200
- [redirects.headers]
-    cache-control = "no-store"
-
-  
-[[headers]]
-  for = "/well-known/assetlinks.json"
-  [headers.values]
-    Content-Type = "application/manifest+json"
 
 
 [[redirects]]
