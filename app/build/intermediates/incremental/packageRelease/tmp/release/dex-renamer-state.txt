@@ -1,4 +1,0 @@
-#Sun Nov 26 12:19:34 ICT 2023
-base.0=D\:\\Coding\\VsCode\\Web\\temperature-monitoring-app\\app\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
