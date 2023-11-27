@@ -122,7 +122,7 @@ function SensorBarChartDynamic({
         </BarChart>
       </ResponsiveContainer>
       <button
-        className="mb-5 mt-6 rounded-md bg-yellow-500 px-4 py-2 text-center font-bold text-white shadow-sm hover:bg-yellow-600 active:bg-yellow-700"
+        className="mb-32 md:mb-20 mt-6 rounded-md bg-yellow-500 px-4 py-2 text-center font-bold text-white shadow-sm hover:bg-yellow-600 active:bg-yellow-700"
         onClick={handleDownload}
       >
         Download Data Mingguan

@@ -115,7 +115,7 @@ const Sensor = ({ data }) => {
 
   return (
     <div className="flex h-screen items-center justify-center">
-      <div className="grid h-full w-full grid-cols-sensormobile gap-4 overflow-y-scroll bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-sensortablet md:rounded-xl xl:grid-cols-sensorpc">
+      <div className="grid h-full w-full grid-cols-sensormobile gap-4 overflow-y-scroll md:bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-sensortablet md:rounded-xl xl:grid-cols-sensorpc">
         <div className="hidden md:flex">
           <Sidebar2 />
         </div>

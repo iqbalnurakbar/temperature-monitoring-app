@@ -42,6 +42,7 @@ const NewProfile = ({ data }) => {
     // Bersihkan langganan saat komponen dibongkar
     return () => unsubscribe();
   }, [navigate]);
+
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="grid h-full w-full grid-cols-sensormobile gap-4 overflow-y-scroll bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93]  scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-sensortablet md:rounded-xl xl:grid-cols-sensorpc ">
@@ -59,7 +60,7 @@ const NewProfile = ({ data }) => {
             </span>
           </div>
           <div className="flex h-[60%]  justify-center">
-            <div className="w-[95%] max-w-md rounded-xl border bg-white px-10 py-4 shadow-lg ml-4 md:ml-0">
+            <div className="ml-4 w-[95%] max-w-md rounded-xl border bg-white px-10 py-4 shadow-lg md:ml-0">
               <h1 className="mb-2 text-center text-xl font-bold">
                 Profil Pengguna
               </h1>
