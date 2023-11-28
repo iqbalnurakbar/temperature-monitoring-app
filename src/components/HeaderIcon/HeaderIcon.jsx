@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UserPict from "../../assets/Iqbal.png";
+import UserPict from "/icons/user.jpg";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";

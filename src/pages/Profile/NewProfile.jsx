@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Sidebar2 from "../../components/Sidebar/Sidebar2";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
-import UserPict from "../../assets/Iqbal.png";
+import UserPict from "/icons/user.jpg";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../pages/Auth/FirebaseAuth";
 import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
+import { useSpring, animated } from "react-spring";
 
 const NewProfile = ({ data }) => {
   const [user, setUser] = useState(null);
@@ -20,12 +21,10 @@ const NewProfile = ({ data }) => {
         setUser(userData);
 
         try {
-          // Mengambil data tambahan dari Firestore
           const docRef = doc(db, "userInfo", userData.uid);
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            // Jika dokumen ada, atur informasi tambahan ke dalam state
             setAdditionalInfo(docSnap.data());
           } else {
             console.log("Dokumen tidak ditemukan!");
@@ -34,14 +33,18 @@ const NewProfile = ({ data }) => {
           console.error("Error fetching additional info:", error);
         }
       } else {
-        // Pengguna tidak masuk, arahkan ke halaman login
         navigate("temperature-monitoring-app/login");
       }
     });
 
-    // Bersihkan langganan saat komponen dibongkar
     return () => unsubscribe();
   }, [navigate]);
+
+  const fadeInAnimation = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 500 },
+  });
 
   return (
     <div className="flex h-screen items-center justify-center">
@@ -54,13 +57,13 @@ const NewProfile = ({ data }) => {
         </div>
         <div className="absolute mx-auto flex w-[95%] flex-col md:static">
           <div className="flex items-center justify-between">
-            <h1 className="mb-10 mt-4 pl-4 text-3xl font-bold">Profil</h1>
+            <animated.h1 className="mb-10 mt-4 pl-4 text-3xl font-bold" style={fadeInAnimation}>Profil</animated.h1>
             <span className="w-1/2">
               <HeaderIcon />
             </span>
           </div>
           <div className="flex h-[60%]  justify-center">
-            <div className="ml-4 w-[95%] max-w-md rounded-xl border bg-white px-10 py-4 shadow-lg md:ml-0">
+            <animated.div className="ml-4 w-[95%] max-w-md rounded-xl border bg-white px-10 py-4 shadow-lg md:ml-0" style={fadeInAnimation}>
               <h1 className="mb-2 text-center text-xl font-bold">
                 Profil Pengguna
               </h1>
@@ -93,7 +96,7 @@ const NewProfile = ({ data }) => {
                   </p>
                 </div>
               )}
-            </div>
+            </animated.div>
           </div>
         </div>
       </div>

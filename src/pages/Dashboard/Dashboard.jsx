@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { utcToZonedTime } from "date-fns-tz";
 import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
+import { useSpring, animated } from "react-spring";
 
 const Dashboard = ({ data }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -25,6 +26,12 @@ const Dashboard = ({ data }) => {
   const formatDate = formattedDate(selectedDate);
   const formatDateString = formattedDateString(selectedDate);
 
+  const fadeInAnimation = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 500 },
+  });
+
   return (
     <div className="mx-auto flex h-screen items-center justify-center">
       <div className="grid h-full w-full grid-cols-dashboardmobile gap-4 overflow-y-scroll bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-dashboardtablet md:rounded-xl xl:grid-cols-dashboardpc">
@@ -37,24 +44,24 @@ const Dashboard = ({ data }) => {
 
         <div className="mx-auto flex w-[95%] flex-col">
           <div className="flex">
-            <div className="mb-4 px-6 md:mt-4">
+            <animated.div className="mb-4 px-6 md:mt-4" style={fadeInAnimation}>
               <h1 className="text-3xl font-bold">Dashboard</h1>
               <span className="text-xs">Data pada {formatDateString}</span>
-            </div>
+            </animated.div>
             <span className="w-full md:hidden">
               <HeaderIcon />
             </span>
           </div>
-          <div className="mx-auto flex w-[95%] flex-col items-center md:justify-start">
+          <animated.div className="mx-auto flex w-[95%] flex-col items-center md:justify-start"style={fadeInAnimation}>
             <SensorItem
               startDate={formatDate.slice(0, 10)}
               endDate={formatDate.slice(0, 10)}
               startTime="00:00"
               endTime="23:59"
             />
-          </div>
+          </animated.div>
         </div>
-        <div className="mb-24 flex w-[95%] flex-col items-center justify-evenly md:mb-0 md:justify-start">
+        <animated.div className="mb-24 flex w-[95%] flex-col items-center justify-evenly md:mb-0 md:justify-start" style={fadeInAnimation}>
           <RightSide
             startDate={formatDate.slice(0, 10)}
             endDate={formatDate.slice(0, 10)}
@@ -62,7 +69,7 @@ const Dashboard = ({ data }) => {
             endTime="23:59"
             setSelectedDate={setSelectedDate}
           />
-        </div>
+        </animated.div>
       </div>
     </div>
   );

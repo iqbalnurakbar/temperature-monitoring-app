@@ -8,6 +8,7 @@ import { sensorUtils } from "../../data/sensorUtils";
 import SensorBarChartDynamic from "../../components/SensorChart/SensorBarChartDynamic";
 import { apiConfigurations1 } from "../../data/apiConfigurations";
 import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
+import { useSpring, animated } from "react-spring";
 
 const Sensor = ({ data }) => {
   const [sensorData, setSensorData] = useState(null);
@@ -113,6 +114,13 @@ const Sensor = ({ data }) => {
     }
   };
 
+  const fadeInAnimation = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 500 },
+  });
+
+
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="grid h-full w-full grid-cols-sensormobile gap-4 overflow-y-scroll md:bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-sensortablet md:rounded-xl xl:grid-cols-sensorpc">
@@ -124,12 +132,12 @@ const Sensor = ({ data }) => {
         </div>
         <div className="absolute mx-auto flex w-[95%] flex-col md:mx-0 md:static">
           <div className="flex justify-between">
-            <h1 className="mt-4 pl-4 text-3xl font-bold">Sensor</h1>
+            <animated.h1 className="mt-4 pl-4 text-3xl font-bold" style={fadeInAnimation}>Sensor</animated.h1>
             <span className="w-1/2">
               <HeaderIcon />
             </span>
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto">
+          <animated.div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto"style={fadeInAnimation}>
             {sensorData ? (
               Object.keys(sensorData).map((sensor) => (
                 <React.Fragment key={sensor}>
@@ -151,7 +159,7 @@ const Sensor = ({ data }) => {
               Terdapat masalah saat mengambil data sensor!
             </p>
             )}
-          </div>
+          </animated.div>
 
           {selectedSensorData.map((sensor) => (
             <React.Fragment key={sensor}>

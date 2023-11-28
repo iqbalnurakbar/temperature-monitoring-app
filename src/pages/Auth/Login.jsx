@@ -1,14 +1,39 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./FirebaseAuth";
 import Navbar from "../../components/Navbar/Navbar";
 import img from "../../assets/Bg-lp-fix.png";
+import { useAuth } from "../../data/AuthContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSpring, animated } from "react-spring";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { loggedIn, login } = useAuth();
   const navigate = useNavigate();
+
+  const fadeInAnimation = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 500 },
+  });
+
+  useEffect(() => {
+    const handlePopstate = () => {
+      if (loggedIn) {
+        window.history.forward();
+      }
+    };
+
+    window.addEventListener("popstate", handlePopstate);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
+  }, [loggedIn]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,14 +46,27 @@ const Login = () => {
       const user = userCredential.user;
       localStorage.setItem("token", user.accessToken);
       localStorage.setItem("user", JSON.stringify(user));
+      login();
       navigate("/dashboard");
     } catch (error) {
-      setError("Email atau password kamu salah");
+      console.error("Email atau password kamu salah");
+      toast.error("Email atau password kamu salah");
     }
   };
-
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="colored"
+      ></ToastContainer>
       <Navbar />
       <div className="relative h-screen">
         <img
@@ -37,9 +75,9 @@ const Login = () => {
           alt="Background"
         />
         <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white">
-          <form
+          <animated.form
             onSubmit={handleSubmit}
-            className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 p-10"
+            className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 p-10" style={fadeInAnimation}
           >
             <h1 className="mb-8 text-center text-xl font-bold">Login</h1>
 
@@ -76,12 +114,10 @@ const Login = () => {
             <p className="mt-8 text-center">
               Need to Sign Up?
               <button className="mx-2 cursor-pointer font-bold text-emerald-400 transition hover:text-white">
-                <Link to="/signup">
-                  Create Account
-                </Link>
+                <Link to="/signup">Create Account</Link>
               </button>
             </p>
-          </form>
+          </animated.form>
         </div>
       </div>
     </>

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import Logo from "../../assets/Newlogo.png";
+import Logo from "/icons/pwa-192x192.png";
 import { BiChevronLeft } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { menusData } from "../../data/menusData";
+import { useAuth } from "../../data/AuthContext";
 
 export default function Sidebar2() {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState(null);
+  const {loggedIn, logout} = useAuth()
 
 const navigate = useNavigate()
 
@@ -15,6 +17,7 @@ const navigate = useNavigate()
     setSelected(menuItem.id);
 
     if (menuItem.name === 'Keluar') {
+      logout()
       handleLogout();
     }
     

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Newlogo from "../../assets/Newlogo.png";
+import Newlogo from "/icons/pwa-192x192.png";
 import { dynamicMenusData } from "../../data/dynamicMenusData";
 import { BiChevronLeft, BiChevronDown } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";

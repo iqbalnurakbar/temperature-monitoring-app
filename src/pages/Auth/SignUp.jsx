@@ -5,13 +5,15 @@ import { auth, db } from "./FirebaseAuth";
 import { doc, setDoc } from "firebase/firestore";
 import Navbar from "../../components/Navbar/Navbar";
 import img from "../../assets/Bg-lp-fix.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSpring, animated } from "react-spring";
 
 const SignUp = () => {
   const [namaLengkap, setNamaLengkap] = useState("");
   const [noHp, setNoHp] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -33,20 +35,24 @@ const SignUp = () => {
         Email: email,
         Password: password,
       });
-      alert("Sign In Successfully");
+      alert("Registrasi berhasil!");
 
-      // localStorage.setItem("token", user.accessToken);
-      // localStorage.setItem("user", JSON.stringify(user));
       navigate("/login");
     } catch (error) {
-      setError(error.message);
       console.error("Error signing up:", error);
+      toast.error('Terjadi kesalahan saat registrasi, coba lagi!')
     }
     setEmail("");
     setNamaLengkap("");
     setNoHp("");
     setPassword("");
   };
+
+  const fadeInAnimation = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 500 },
+  });
 
   return (
     <>
@@ -58,11 +64,11 @@ const SignUp = () => {
           alt="Background"
         />
         <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white">
-          <form
+          <animated.form
             onSubmit={handleSubmit}
-            className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 p-10"
-          >
-            <h1 className="mb-8 text-center text-xl font-bold">Sign Up</h1>
+            className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 py-4 px-10"
+          style={fadeInAnimation}>
+            <h1 className="mb-4 text-center text-xl font-bold">Sign Up</h1>
 
             <div className="mb-4 flex flex-col">
               <label>Nama Lengkap</label>
@@ -113,7 +119,7 @@ const SignUp = () => {
                 <Link to="/login">Login</Link>
               </button>
             </p>
-          </form>
+          </animated.form>
         </div>
       </div>
     </>
