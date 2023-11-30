@@ -3,9 +3,9 @@ import { IoAlertOutline } from "react-icons/io5";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import NotificationService from "../../data/NotificationService";
-
+import { useNotificationContext } from "../../data/NotificationProvider";
 const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
-  const [notifications, setNotifications] = useState([]);
+  const { notifications, addNotification } = useNotificationContext();
 
   const getCurrentDateTime = () => {
     const currentDate = new Date();
@@ -34,7 +34,6 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
   });
 
   useEffect(() => {
-    const newNotifications = [];
     let backgroundNotificationBody = "";
     if (currentTemp >= topTemp || currentTemp < lowTemp) {
       NotificationService.showNotification(
@@ -51,26 +50,27 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
       backgroundNotificationBody = "Ada sensor yang tidak terbaca!";
     }
     if (currentTemp >= topTemp) {
-      newNotifications.push({
+      const notification = {
         body: `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
         icon: <IoAlertOutline color="red" />,
         timestamp: formatDateNotif,
-      });
+      };
+      addNotification(notification);
     } else if (currentTemp < lowTemp) {
-      newNotifications.push({
+      const notification = {
         body: `Suhu pada ${name} berada di bawah ${lowTemp}. Segera cek!`,
         icon: <IoAlertOutline color="red" />,
         timestamp: formatDateNotif,
-      });
+      };
+      addNotification(notification);
     } else if (isNaN(parseFloat(currentTemp))) {
-      newNotifications.push({
+      const notification = {
         body: `Suhu pada ${name} tidak terbaca!`,
         icon: <IoAlertOutline color="red" />,
         timestamp: formatDateNotif,
-      });
+      };
+      addNotification(notification);
     }
-
-    setNotifications(newNotifications);
 
     if (backgroundNotificationBody) {
       triggerBackgroundSync({
@@ -81,12 +81,12 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
   }, [currentTemp, formatDateNotif, name]);
 
   const triggerBackgroundSync = async (data) => {
-    if ('serviceWorker' in navigator && 'SyncManager' in window) {
+    if ("serviceWorker" in navigator && "SyncManager" in window) {
       try {
         const registration = await navigator.serviceWorker.ready;
-        await registration.sync.register('syncNotification', { data });
+        await registration.sync.register("syncNotification", { data });
       } catch (error) {
-        console.error('Background sync registration failed:', error);
+        console.error("Background sync registration failed:", error);
       }
     }
   };

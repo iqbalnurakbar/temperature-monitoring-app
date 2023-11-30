@@ -4,23 +4,22 @@ import { BiChevronLeft } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { menusData } from "../../data/menusData";
-import { useAuth } from "../../data/AuthContext";
+import { useAuth } from "../../data/AuthProvider";
 
 export default function Sidebar2() {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState(null);
-  const {loggedIn, logout} = useAuth()
+  const { loggedIn, logout } = useAuth();
 
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleMenuClick = (menuItem) => {
     setSelected(menuItem.id);
 
-    if (menuItem.name === 'Keluar') {
-      logout()
+    if (menuItem.name === "Keluar") {
+      logout();
       handleLogout();
     }
-    
   };
 
   const handleLogout = async () => {
@@ -80,7 +79,7 @@ const navigate = useNavigate()
                         {open && (
                           <>
                             <span
-                              className={`mr-4 origin-left text-md duration-200`}
+                              className={`text-md mr-4 origin-left duration-200`}
                             >
                               {menuItem.name}
                             </span>

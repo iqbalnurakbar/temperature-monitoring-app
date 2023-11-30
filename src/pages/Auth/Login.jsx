@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./FirebaseAuth";
 import Navbar from "../../components/Navbar/Navbar";
 import img from "../../assets/Bg-lp-fix.png";
-import { useAuth } from "../../data/AuthContext";
+import { useAuth } from "../../data/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSpring, animated } from "react-spring";
@@ -77,7 +77,8 @@ const Login = () => {
         <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white">
           <animated.form
             onSubmit={handleSubmit}
-            className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 p-10" style={fadeInAnimation}
+            className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 p-10"
+            style={fadeInAnimation}
           >
             <h1 className="mb-8 text-center text-xl font-bold">Login</h1>
 
