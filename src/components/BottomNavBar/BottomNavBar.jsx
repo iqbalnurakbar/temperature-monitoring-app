@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../data/AppProvider";
 import { menusData } from "../../data/menusData";
 
-const BottomNavigationBar = ({ }) => {
+const BottomNavigationBar = () => {
   const { activeMenu, showSensorSubNav, handleSensorClick } =
     useContext(AppContext);
 

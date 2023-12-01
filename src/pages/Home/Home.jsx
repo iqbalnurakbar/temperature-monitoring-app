@@ -20,7 +20,7 @@ const Home = () => {
         >
           <animated.div className="md:left-[10%] max-w-[1100px] m-auto absolute p-10" style={fadeInAnimation}>
             <h2 className="text-5xl font-semibold leading-tight">Monitoring Suhu</h2>
-            <p className="text-xl text-lightText my-6 text-start mr-28">
+            <p className="text-xl my-6 text-justify">
               Monitoring suhu multi sensor multi stasiun pada mesin ball tea dalam proses pengeringan daun teh berbasis Internet of Things
             </p>
           </animated.div>

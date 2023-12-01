@@ -20,10 +20,17 @@ const About = () => {
           alt="Background"
         />
         <div className="absolute top-0 flex h-full w-full flex-col justify-center bg-black/30 text-white">
-          <animated.div className="absolute m-auto max-w-[1100px] p-10 md:left-[10%]" style={fadeInAnimation}>
+          <animated.div
+            className="absolute m-auto max-w-[1100px] p-10 md:left-[10%]"
+            style={fadeInAnimation}
+          >
             <h2 className="text-5xl font-semibold leading-tight">About</h2>
-            <p className="text-lightText my-6 mr-28 text-start text-xl">
-              Ini tentang kita
+            <p className="my-6 text-justify text-sm md:text-xl">
+              Website dan aplikasi ini dirancang untuk memantau suhu pada mesin
+              pengeringan Ball Tea. Website dan aplikasi ini merupakan bagian
+              dari proyek kelompok Capstone Design yang dibimbing oleh Pak Asep
+              Suhendi dan Bu Nurwulan Fitriyanti. Anggota kelompok ini terdiri
+              dari Iqbal, Yeni, Syah, dan Sefani.
             </p>
           </animated.div>
         </div>

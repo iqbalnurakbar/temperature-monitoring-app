@@ -9,7 +9,7 @@ import { utcToZonedTime } from "date-fns-tz";
 import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
 import { useSpring, animated } from "react-spring";
 
-const Dashboard = ({ data }) => {
+const Dashboard = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const formattedDate = (date) => {
     const timeZone = "Asia/Jakarta";
@@ -31,6 +31,7 @@ const Dashboard = ({ data }) => {
     to: { opacity: 1 },
     config: { duration: 500 },
   });
+
 
   return (
     <div className="mx-auto flex h-screen items-center justify-center">
@@ -61,7 +62,7 @@ const Dashboard = ({ data }) => {
             />
           </animated.div>
         </div>
-        <animated.div className="mb-24 flex w-[95%] flex-col items-center justify-evenly md:mb-0 md:justify-start" style={fadeInAnimation}>
+        <animated.div className="mx-auto mb-24 flex w-[95%] flex-col items-center justify-evenly md:mb-0 md:justify-start" style={fadeInAnimation}>
           <RightSide
             startDate={formatDate.slice(0, 10)}
             endDate={formatDate.slice(0, 10)}
