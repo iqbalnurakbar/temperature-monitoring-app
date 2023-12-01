@@ -25,7 +25,6 @@ const SignUp = () => {
         password,
       );
 
-      // console.log(userCredential);
       const user = userCredential.user;
       const dbref = doc(db, "userInfo", user.uid);
 
@@ -35,12 +34,13 @@ const SignUp = () => {
         Email: email,
         Password: password,
       });
-      alert("Registrasi berhasil!");
+      alert("Sign Up berhasil!");
 
       navigate("/login");
     } catch (error) {
+
       console.error("Error signing up:", error);
-      toast.error('Terjadi kesalahan saat registrasi, coba lagi!')
+      toast.error("Password kurang dari 6 karakter, coba lagi!");
     }
     setEmail("");
     setNamaLengkap("");
@@ -56,6 +56,18 @@ const SignUp = () => {
 
   return (
     <>
+    <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="colored"
+      ></ToastContainer>
       <Navbar />
       <div className="relative h-screen">
         <img
@@ -66,8 +78,9 @@ const SignUp = () => {
         <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white">
           <animated.form
             onSubmit={handleSubmit}
-            className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 py-4 px-10"
-          style={fadeInAnimation}>
+            className="mx-auto w-full p-10 max-w-[350px] rounded-xl bg-black/40 px-10 py-4"
+            style={fadeInAnimation}
+          >
             <h1 className="mb-4 text-center text-xl font-bold">Sign Up</h1>
 
             <div className="mb-4 flex flex-col">

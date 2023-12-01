@@ -61,7 +61,7 @@ const Dashboard = ({ data }) => {
             />
           </animated.div>
         </div>
-        <animated.div className="mb-24 flex w-[95%] flex-col items-center justify-evenly md:mb-0 md:justify-start" style={fadeInAnimation}>
+        <animated.div className="mb-24 mx-auto flex w-[95%] flex-col items-center justify-evenly md:mb-0 md:justify-start" style={fadeInAnimation}>
           <RightSide
             startDate={formatDate.slice(0, 10)}
             endDate={formatDate.slice(0, 10)}

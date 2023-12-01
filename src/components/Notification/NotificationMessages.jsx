@@ -3,27 +3,12 @@ import { IoAlertOutline } from "react-icons/io5";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import NotificationService from "../../data/NotificationService";
-import { useNotificationContext } from "../../data/NotificationProvider";
 const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
-  const { notifications, addNotification } = useNotificationContext();
-
-  const getCurrentDateTime = () => {
-    const currentDate = new Date();
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const year = currentDate.getFullYear();
-    const hours = String(currentDate.getHours()).padStart(2, "0");
-    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
-
-    const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
-    return formattedDateTime;
-  };
-
-  const invalidTime = getCurrentDateTime().split(" ");
+  const [notifications, setNotifications] = useState([]);
   const topTemp = 40;
   const lowTemp = 20;
 
-  const [datePart, timePart] = dateNotif ? dateNotif.split(" ") : invalidTime;
+  const [datePart, timePart] = dateNotif.split(" ");
   const [day, month, year] = datePart.split("/");
   const [hour, minute] = timePart.split(":");
 
@@ -34,6 +19,7 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
   });
 
   useEffect(() => {
+    const newNotifications = [];
     let backgroundNotificationBody = "";
     if (currentTemp >= topTemp || currentTemp < lowTemp) {
       NotificationService.showNotification(
@@ -50,28 +36,27 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
       backgroundNotificationBody = "Ada sensor yang tidak terbaca!";
     }
     if (currentTemp >= topTemp) {
-      const notification = {
+      newNotifications.push({
         body: `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
         icon: <IoAlertOutline color="red" />,
         timestamp: formatDateNotif,
-      };
-      addNotification(notification);
+      });
     } else if (currentTemp < lowTemp) {
-      const notification = {
+      newNotifications.push({
         body: `Suhu pada ${name} berada di bawah ${lowTemp}. Segera cek!`,
         icon: <IoAlertOutline color="red" />,
         timestamp: formatDateNotif,
-      };
-      addNotification(notification);
+      });
     } else if (isNaN(parseFloat(currentTemp))) {
-      const notification = {
+      newNotifications.push({
         body: `Suhu pada ${name} tidak terbaca!`,
         icon: <IoAlertOutline color="red" />,
         timestamp: formatDateNotif,
-      };
-      addNotification(notification);
+      });
     }
 
+    setNotifications(newNotifications);
+    
     if (backgroundNotificationBody) {
       triggerBackgroundSync({
         body: backgroundNotificationBody,
