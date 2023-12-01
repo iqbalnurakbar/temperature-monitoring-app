@@ -10,7 +10,7 @@ import { apiConfigurations1 } from "../../data/apiConfigurations";
 import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
 import { useSpring, animated } from "react-spring";
 
-const Sensor = () => {
+const Sensor = ({ data }) => {
   const [sensorData, setSensorData] = useState(null);
   const [selectedStartDate, setSelectedStartDate] = useState(() => {
     const date = new Date();

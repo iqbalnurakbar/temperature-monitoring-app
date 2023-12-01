@@ -109,11 +109,9 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
       current: isNaN(currentValue) ? "NaN" : currentValue.toFixed(1),
     },
     timestamp: {
-      maximum: isNaN(maxValue) ? getCurrentDateTime() : formatDateTime(maxTime),
-      minimum: isNaN(minValue) ? getCurrentDateTime() : formatDateTime(minTime),
-      current: isNaN(currentValue)
-        ? getCurrentDateTime()
-        : formatDateTime(currentTime),
+      maximum: isNaN(maxValue) ? "" : formatDateTime(maxTime),
+      minimum: isNaN(minValue) ? "" : formatDateTime(minTime),
+      current: isNaN(currentValue) ? "" : formatDateTime(currentTime),
     },
     duration: duration,
   };
@@ -148,18 +146,6 @@ function formatDateTime(dateTimeStr) {
 
   return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
-
-const getCurrentDateTime = () => {
-  const currentDate = new Date();
-  const day = String(currentDate.getDate()).padStart(2, "0");
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const year = currentDate.getFullYear();
-  const hours = String(currentDate.getHours()).padStart(2, "0");
-  const minutes = String(currentDate.getMinutes()).padStart(2, "0");
-
-  const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
-  return formattedDateTime;
-};
 
 const calculateStatsWeekly = (dataGraph) => {
   const dailyAverages = {};

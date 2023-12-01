@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./FirebaseAuth";
 import Navbar from "../../components/Navbar/Navbar";
 import img from "../../assets/Bg-lp-fix.png";
+import { useAuth } from "../../data/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSpring, animated } from "react-spring";
@@ -11,6 +12,7 @@ import { useSpring, animated } from "react-spring";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { loggedIn, login } = useAuth();
   const navigate = useNavigate();
 
   const fadeInAnimation = useSpring({
@@ -19,6 +21,19 @@ const Login = () => {
     config: { duration: 500 },
   });
 
+  useEffect(() => {
+    const handlePopstate = () => {
+      if (loggedIn) {
+        window.history.forward();
+      }
+    };
+
+    window.addEventListener("popstate", handlePopstate);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
+  }, [loggedIn]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

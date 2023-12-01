@@ -4,10 +4,12 @@ import { BiChevronLeft } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { menusData } from "../../data/menusData";
+import { useAuth } from "../../data/AuthProvider";
 
 export default function Sidebar2() {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState(null);
+  const { loggedIn, logout } = useAuth();
 
   const navigate = useNavigate();
 
@@ -15,7 +17,8 @@ export default function Sidebar2() {
     setSelected(menuItem.id);
 
     if (menuItem.name === "Keluar") {
-        handleLogout();
+      logout();
+      handleLogout();
     }
   };
 
@@ -23,8 +26,6 @@ export default function Sidebar2() {
     const auth = getAuth();
     try {
       await signOut(auth);
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
       navigate("/");
     } catch (error) {
       console.error("Logout error", error);

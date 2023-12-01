@@ -31,7 +31,7 @@ export default function HeaderIcon({ name }) {
         }
       } else {
         // Pengguna tidak masuk, arahkan ke halaman login
-        navigate("/login");
+        navigate("temperature-monitoring-app/login");
       }
     });
 

@@ -66,7 +66,7 @@ const SignUp = () => {
         <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white">
           <animated.form
             onSubmit={handleSubmit}
-            className="mx-auto w-full p-10 max-w-[350px] rounded-xl bg-black/40 py-4 px-10"
+            className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 py-4 px-10"
           style={fadeInAnimation}>
             <h1 className="mb-4 text-center text-xl font-bold">Sign Up</h1>
 
