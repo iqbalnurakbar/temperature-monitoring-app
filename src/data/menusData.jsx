@@ -1,4 +1,3 @@
-// MenuData.js
 import React from "react";
 import { BiHomeAlt, BiUser, BiLogOut } from "react-icons/bi";
 import { RiTempColdLine } from "react-icons/ri";

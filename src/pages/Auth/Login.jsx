@@ -1,5 +1,5 @@
-import { signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import { signInWithEmailAndPassword} from "firebase/auth";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./FirebaseAuth";
 import Navbar from "../../components/Navbar/Navbar";

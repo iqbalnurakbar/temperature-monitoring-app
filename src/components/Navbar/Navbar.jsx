@@ -30,6 +30,7 @@ const Navbar = () => {
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={25} /> : <AiOutlineMenu size={25} />}
       </div>
+      <div className="text-center text-xl font-bold text-white">
       <ul
         className={
           nav
@@ -37,7 +38,6 @@ const Navbar = () => {
             : "fixed left-[-100%] duration-500 ease-in-out"
         }
       >
-        <div className="text-center text-xl font-bold text-white">
           <li className="md:text-md mx-6 mt-5 cursor-pointer px-4 py-3 text-sm transition hover:text-emerald-900">
             <Link to="/">Home</Link>
           </li>
@@ -47,8 +47,8 @@ const Navbar = () => {
           <li className="md:text-md mx-6 cursor-pointer px-4 py-3 text-sm transition hover:text-emerald-900">
             <Link to="/login">Login</Link>
           </li>
-        </div>
       </ul>
+        </div>
     </div>
   );
 };
