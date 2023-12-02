@@ -37,8 +37,6 @@ const Login = () => {
       } else {
         // Tampilkan pesan bahwa email belum diverifikasi
         toast.warning("Silakan verifikasi email Anda sebelum login.");
-        // Kirim ulang email verifikasi (opsional)
-        sendEmailVerification(user);
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -67,7 +65,7 @@ const Login = () => {
           src={img}
           alt="Background"
         />
-        <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white">
+        <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white px-3">
           <animated.form
             onSubmit={handleSubmit}
             className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 p-10"

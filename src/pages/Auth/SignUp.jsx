@@ -1,4 +1,7 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "./FirebaseAuth";
@@ -14,10 +17,17 @@ const SignUp = () => {
   const [noHp, setNoHp] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password.length < 6) {
+      setPasswordError("Password harus lebih dari 6 karakter!");
+      return;
+    } else {
+      setPasswordError("");
+    }
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -43,7 +53,7 @@ const SignUp = () => {
       navigate("/login");
     } catch (error) {
       console.error("Error signing up:", error);
-      toast.error("Password kurang dari 6 karakter, coba lagi!");
+      toast.error("Sign up gagal, coba lagi!");
     }
     setEmail("");
     setNamaLengkap("");
@@ -123,6 +133,9 @@ const SignUp = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {passwordError && (
+                <p className="mt-1 text-sm text-red-500">{passwordError}</p>
+              )}
             </div>
 
             <button className="relative mt-8 w-full rounded-2xl bg-emerald-500 py-3">
