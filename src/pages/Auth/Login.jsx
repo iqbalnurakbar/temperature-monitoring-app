@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./FirebaseAuth";
@@ -28,14 +28,24 @@ const Login = () => {
         password,
       );
       const user = userCredential.user;
-      localStorage.setItem("token", user.accessToken);
-      localStorage.setItem("user", JSON.stringify(user));
-      navigate("/dashboard", { replace: true });
+
+      // Pengecekan apakah email pengguna telah diverifikasi
+      if (user.emailVerified) {
+        localStorage.setItem("token", user.accessToken);
+        localStorage.setItem("user", JSON.stringify(user));
+        navigate("/dashboard", { replace: true });
+      } else {
+        // Tampilkan pesan bahwa email belum diverifikasi
+        toast.warning("Silakan verifikasi email Anda sebelum login.");
+        // Kirim ulang email verifikasi (opsional)
+        sendEmailVerification(user);
+      }
     } catch (error) {
       console.error("Error during login:", error);
       toast.error("Email atau password kamu salah");
     }
   };
+
   return (
     <>
       <ToastContainer

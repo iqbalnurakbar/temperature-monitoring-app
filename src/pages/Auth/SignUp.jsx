@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "./FirebaseAuth";
@@ -26,6 +26,10 @@ const SignUp = () => {
       );
 
       const user = userCredential.user;
+
+      // Send email verification
+      await sendEmailVerification(user);
+
       const dbref = doc(db, "userInfo", user.uid);
 
       await setDoc(dbref, {
@@ -34,8 +38,8 @@ const SignUp = () => {
         Email: email,
         Password: password,
       });
-      alert("Sign Up berhasil!");
 
+      alert("Sign Up berhasil! Silakan verifikasi email Anda.");
       navigate("/login");
     } catch (error) {
       console.error("Error signing up:", error);
