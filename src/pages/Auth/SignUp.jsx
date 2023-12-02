@@ -38,7 +38,6 @@ const SignUp = () => {
 
       navigate("/login");
     } catch (error) {
-
       console.error("Error signing up:", error);
       toast.error("Password kurang dari 6 karakter, coba lagi!");
     }
@@ -56,7 +55,7 @@ const SignUp = () => {
 
   return (
     <>
-    <ToastContainer
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -78,7 +77,7 @@ const SignUp = () => {
         <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white">
           <animated.form
             onSubmit={handleSubmit}
-            className="mx-auto w-full p-10 max-w-[350px] rounded-xl bg-black/40 px-10 py-4"
+            className="mx-auto mt-10 w-full max-w-[350px] rounded-xl bg-black/40 p-10 px-10 py-4 md:mt-0 md:max-w-[400px]"
             style={fadeInAnimation}
           >
             <h1 className="mb-4 text-center text-xl font-bold">Sign Up</h1>

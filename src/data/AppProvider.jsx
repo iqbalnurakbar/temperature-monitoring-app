@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
@@ -19,9 +20,9 @@ export const AppProvider = ({ children }) => {
     const auth = getAuth();
     try {
       await signOut(auth);
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      navigate("/");
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
+      navigate("/login");
     } catch (error) {
       console.error("Logout error", error);
     }

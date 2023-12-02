@@ -23,9 +23,9 @@ export default function Sidebar2() {
     const auth = getAuth();
     try {
       await signOut(auth);
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      navigate("/");
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
+      navigate("/login");
     } catch (error) {
       console.error("Logout error", error);
     }

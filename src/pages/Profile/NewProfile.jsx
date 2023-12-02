@@ -9,7 +9,7 @@ import { db } from "../../pages/Auth/FirebaseAuth";
 import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
 import { useSpring, animated } from "react-spring";
 
-const NewProfile = ({ data }) => {
+const NewProfile = () => {
   const [user, setUser] = useState(null);
   const [additionalInfo, setAdditionalInfo] = useState(null);
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const NewProfile = ({ data }) => {
           console.error("Error fetching additional info:", error);
         }
       } else {
-        navigate("temperature-monitoring-app/login");
+        navigate("/login");
       }
     });
 
@@ -53,7 +53,7 @@ const NewProfile = ({ data }) => {
           <Sidebar2 />
         </div>
         <div className="flex md:hidden">
-          <BottomNavigationBar data={data} />
+          <BottomNavigationBar/>
         </div>
         <div className="absolute mx-auto flex w-[95%] flex-col md:static">
           <div className="flex items-center justify-between">

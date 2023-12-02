@@ -19,7 +19,6 @@ const Login = () => {
     config: { duration: 500 },
   });
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -31,9 +30,9 @@ const Login = () => {
       const user = userCredential.user;
       localStorage.setItem("token", user.accessToken);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     } catch (error) {
-      console.error("Email atau password kamu salah");
+      console.error("Error during login:", error);
       toast.error("Email atau password kamu salah");
     }
   };

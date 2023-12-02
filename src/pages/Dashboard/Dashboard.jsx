@@ -9,7 +9,7 @@ import { utcToZonedTime } from "date-fns-tz";
 import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
 import { useSpring, animated } from "react-spring";
 
-const Dashboard = ({ data }) => {
+const Dashboard = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const formattedDate = (date) => {
     const timeZone = "Asia/Jakarta";
