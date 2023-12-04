@@ -4,6 +4,7 @@ import { registerLocale } from "react-datepicker";
 import id from "date-fns/locale/id";
 import { AppProvider } from "./data/AppProvider.jsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import Loading from "./components/Loading/Loading.jsx";
 
 registerLocale("id", id);
 
@@ -20,7 +21,7 @@ function App2() {
   return (
     <Router>
       <AppProvider>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading/>}>
           <Routes>
             <Route
               path="/sensor"
