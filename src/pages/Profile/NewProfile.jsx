@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar2 from "../../components/Sidebar/Sidebar2";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
-import UserPict from "/icons/user.jpg";
+import UserPict from "/icons/user.webp";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";

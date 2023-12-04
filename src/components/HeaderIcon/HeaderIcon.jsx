@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UserPict from "/icons/user.jpg";
+import UserPict from "/icons/user.webp";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
