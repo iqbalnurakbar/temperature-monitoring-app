@@ -109,7 +109,7 @@ const NewProfile = () => {
               )}
               <div className="mt-8 flex justify-center">
                 <button
-                  className="w-48 rounded-lg bg-red-500 p-2 text-center text-white shadow-lg"
+                  className="w-48 rounded-lg bg-red-500 p-2 text-center text-white shadow-lg md:hidden"
                   onClick={handleLogout}
                 >
                   Keluar

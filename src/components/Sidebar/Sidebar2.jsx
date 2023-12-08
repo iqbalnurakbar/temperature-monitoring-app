@@ -1,35 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Logo from "/icons/pwa-192x192.png";
 import { BiChevronLeft } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
+import { Link } from "react-router-dom";
 import { menusData } from "../../data/menusData";
+import { AppContext } from "../../data/AppProvider";
 
 export default function Sidebar2() {
   const [open, setOpen] = useState(true);
-  const [selected, setSelected] = useState(null);
-
-  const navigate = useNavigate();
-
-  const handleMenuClick = (menuItem) => {
-    setSelected(menuItem.id);
-
-    if (menuItem.name === "Keluar") {
-      handleLogout();
-    }
-  };
-  
-  const handleLogout = async () => {
-    const auth = getAuth();
-    try {
-      await signOut(auth);
-      localStorage.removeItem('user')
-      localStorage.removeItem('token')
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout error", error);
-    }
-  };
+  const { activeMenu, handleSensorClick } = useContext(AppContext);
 
   return (
     <div className="relative md:flex">
@@ -65,14 +43,14 @@ export default function Sidebar2() {
                     <Link to={menuItem.route}>
                       <li
                         key={menuItem.id}
-                        className={`flex cursor-pointer items-center gap-x-3 rounded-md p-2 text-white ${
+                        className={`my-4 flex cursor-pointer items-center gap-x-3 rounded-md p-2 text-white ${
                           menuItem.gap ? "mt-10" : "mt-2"
-                        } ${
-                          selected === menuItem.id
-                            ? "bg-[#f0b429]"
-                            : "hover:bg-teal-700"
-                        } transition-all duration-300`}
-                        onClick={() => handleMenuClick(menuItem)}
+                        } transition-all duration-300 ${
+                          activeMenu === menuItem.route
+                            ? "rounded bg-[#f0b429]"
+                            : ""
+                        }`}
+                        onClick={() => handleSensorClick(menuItem)}
                       >
                         <div>{menuItem.icon}</div>
                         {open && (
