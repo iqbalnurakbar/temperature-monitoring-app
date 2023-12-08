@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <div className="absolute z-10 flex h-24 w-full max-w-[1490px] items-center justify-between px-10 text-black">
       <img src={Newlogo} alt="logo" className="w-14 md:ml-24" />
-      <h1 className="w-full px-4 text-2xl font-bold text-white">MONSU.</h1>
+      <h1 className="w-full px-4 text-2xl font-bold text-white mt-1">MONSU.</h1>
 
       <ul className="mr-24 hidden text-lg font-bold text-white md:flex">
         <li className="cursor-pointer px-8 transition hover:text-emerald-900">

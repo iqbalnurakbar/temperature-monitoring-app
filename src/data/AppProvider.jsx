@@ -29,7 +29,7 @@ export const AppProvider = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ activeMenu, handleSensorClick }}>
+    <AppContext.Provider value={{ activeMenu, handleSensorClick, handleLogout }}>
       {children}
     </AppContext.Provider>
   );

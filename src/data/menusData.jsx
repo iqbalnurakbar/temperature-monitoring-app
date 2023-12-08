@@ -29,3 +29,24 @@ export const menusData = [
     route: "/",
   },
 ];
+
+export const menusDataMobile = [
+  {
+    id: 100,
+    name: "Dashboard",
+    icon: <BiHomeAlt color="white" size={20} />,
+    route: "/dashboard",
+  },
+  {
+    id: 200,
+    name: "Sensor",
+    icon: <RiTempColdLine color="white" size={20} />,
+    route: "/sensor",
+  },
+  {
+    id: 300,
+    name: "Profil",
+    icon: <BiUser color="white" size={20} />,
+    route: "/profil",
+  },
+];

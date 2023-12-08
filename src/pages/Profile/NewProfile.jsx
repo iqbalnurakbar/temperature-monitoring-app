@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Sidebar2 from "../../components/Sidebar/Sidebar2";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import UserPict from "/icons/user.webp";
@@ -8,11 +8,14 @@ import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../pages/Auth/FirebaseAuth";
 import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
 import { useSpring, animated } from "react-spring";
+import { AppContext } from "../../data/AppProvider";
 
 const NewProfile = () => {
   const [user, setUser] = useState(null);
   const [additionalInfo, setAdditionalInfo] = useState(null);
   const navigate = useNavigate();
+
+  const { handleLogout } = useContext(AppContext);
 
   useEffect(() => {
     const auth = getAuth();
@@ -53,17 +56,25 @@ const NewProfile = () => {
           <Sidebar2 />
         </div>
         <div className="flex md:hidden">
-          <BottomNavigationBar/>
+          <BottomNavigationBar />
         </div>
         <div className="absolute mx-auto flex w-[95%] flex-col md:static">
           <div className="flex items-center justify-between">
-            <animated.h1 className="mb-10 mt-4 pl-4 text-3xl font-bold" style={fadeInAnimation}>Profil</animated.h1>
+            <animated.h1
+              className="mb-10 mt-4 pl-4 text-3xl font-bold"
+              style={fadeInAnimation}
+            >
+              Profil
+            </animated.h1>
             <span className="w-1/2">
               <HeaderIcon />
             </span>
           </div>
           <div className="flex h-[60%]  justify-center">
-            <animated.div className="ml-4 w-[95%] max-w-md rounded-xl border bg-white px-10 py-4 shadow-lg md:ml-0" style={fadeInAnimation}>
+            <animated.div
+              className="ml-4 w-[95%] max-w-md rounded-xl border bg-white px-10 py-4 shadow-lg md:ml-0"
+              style={fadeInAnimation}
+            >
               <h1 className="mb-2 text-center text-xl font-bold">
                 Profil Pengguna
               </h1>
@@ -96,6 +107,14 @@ const NewProfile = () => {
                   </p>
                 </div>
               )}
+              <div className="mt-8 flex justify-center">
+                <button
+                  className="w-48 rounded-lg bg-red-500 p-2 text-center text-white shadow-lg"
+                  onClick={handleLogout}
+                >
+                  Keluar
+                </button>
+              </div>
             </animated.div>
           </div>
         </div>
