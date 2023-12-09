@@ -5,6 +5,7 @@ import { id } from "date-fns/locale";
 import NotificationService from "../../data/NotificationService";
 const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
   const [notifications, setNotifications] = useState([]);
+  const [show, setShow] = useState(false);
   const topTemp = 40;
   const lowTemp = 20;
 
@@ -22,19 +23,11 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
     const newNotifications = [];
     let backgroundNotificationBody = "";
     if (currentTemp >= topTemp || currentTemp < lowTemp) {
-      NotificationService.showNotification(
-        "Ada suhu yang berada diluar rentang pengukuran!",
-        formatDateNotif,
-      );
-      backgroundNotificationBody =
-        "Ada suhu yang berada diluar rentang pengukuran!";
-    } else if (isNaN(parseFloat(currentTemp))) {
-      NotificationService.showNotification(
-        "Ada sensor yang tidak terbaca!",
-        formatDateNotif,
-      );
-      backgroundNotificationBody = "Ada sensor yang tidak terbaca!";
-    }
+      backgroundNotificationBody = "Ada suhu yang berada diluar rentang pengukuran!";
+    } 
+    // else if (isNaN(parseFloat(currentTemp))) {
+    //   backgroundNotificationBody = "Ada sensor yang tidak terbaca!";
+    // }
     if (currentTemp >= topTemp) {
       newNotifications.push({
         body: `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,
@@ -56,8 +49,12 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
     }
 
     setNotifications(newNotifications);
-    
+
     if (backgroundNotificationBody) {
+      NotificationService.showNotification(
+        backgroundNotificationBody,
+        formatDateNotif,
+      );
       triggerBackgroundSync({
         body: backgroundNotificationBody,
         timestamp: formatDateNotif,
