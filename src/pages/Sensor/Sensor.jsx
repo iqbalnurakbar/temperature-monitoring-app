@@ -120,44 +120,49 @@ const Sensor = () => {
     config: { duration: 500 },
   });
 
-
   return (
     <div className="flex h-screen items-center justify-center">
-      <div className="grid h-full w-full grid-cols-sensormobile gap-4 overflow-y-scroll md:bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-sensortablet md:rounded-xl xl:grid-cols-sensorpc">
+      <div className="grid h-full w-full grid-cols-sensormobile gap-4 overflow-y-scroll scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-sensortablet md:rounded-xl md:bg-[#f0f4f8] xl:grid-cols-sensorpc">
         <div className="hidden md:flex">
           <Sidebar2 />
         </div>
         <div className="flex md:hidden">
           <BottomNavigationBar />
         </div>
-        <div className="absolute mx-auto flex w-[95%] flex-col md:mx-0 md:static">
+        <div className="absolute mx-auto flex w-[95%] flex-col md:static md:mx-0">
           <div className="flex justify-between">
-            <animated.h1 className="mt-4 pl-4 text-3xl font-bold" style={fadeInAnimation}>Sensor</animated.h1>
+            <animated.h1
+              className="mt-4 pl-4 text-3xl font-bold"
+              style={fadeInAnimation}
+            >
+              Sensor
+            </animated.h1>
             <span className="w-1/2">
               <HeaderIcon />
             </span>
           </div>
-          <animated.div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto"style={fadeInAnimation}>
+          <animated.div
+            className="mx-auto grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            style={fadeInAnimation}
+          >
             {sensorData ? (
               Object.keys(sensorData).map((sensor) => (
                 <React.Fragment key={sensor}>
-                  <div className="abbg-blue mx-2 mb-4 flex items-center gap-2 rounded bg-[#3ebd93] py-2 px-4 text-white shadow-lg md:mx-4 md:mb-6 lg:mb-8">
+                  <div className="abbg-blue mx-2 mb-4 flex items-center gap-2 rounded bg-[#3ebd93] px-4 py-2 text-white shadow-lg md:mx-4 md:mb-6 lg:mb-8">
                     <input
                       type="checkbox"
                       id={sensor}
                       checked={selectedSensors.includes(sensor)}
                       onChange={() => handleSensorToggle(sensor)}
                     />
-                    <label htmlFor={sensor} >
-                      {sensorData[sensor].name}
-                    </label>
+                    <label htmlFor={sensor}>{sensorData[sensor].name}</label>
                   </div>
                 </React.Fragment>
               ))
             ) : (
-              <p className="text-center font-semibold text-red-500">
-              Terdapat masalah saat mengambil data sensor!
-            </p>
+              <p className="absolute -translate-x-1/2 transform text-center font-semibold text-red-500">
+                Terdapat masalah saat mengambil data sensor!
+              </p>
             )}
           </animated.div>
 
