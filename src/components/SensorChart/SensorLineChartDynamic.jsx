@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchData } from "../../data/fetchGraphs";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";

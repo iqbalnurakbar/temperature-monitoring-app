@@ -53,7 +53,7 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
   );
 
   // Filter out NaN values
-  const validValues = values.filter((value) => !isNaN(value));
+  const validValues = values.filter((value) => !isNaN(value) && value >= 0);
 
   const minValue = validValues.length > 0 ? Math.min(...validValues) : NaN;
   const maxValue = validValues.length > 0 ? Math.max(...validValues) : NaN;
@@ -111,7 +111,9 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
     timestamp: {
       maximum: isNaN(maxValue) ? getCurrentDateTime() : formatDateTime(maxTime),
       minimum: isNaN(minValue) ? getCurrentDateTime() : formatDateTime(minTime),
-      current: isNaN(currentValue) ? getCurrentDateTime() : formatDateTime(currentTime),
+      current: isNaN(currentValue)
+        ? getCurrentDateTime()
+        : formatDateTime(currentTime),
     },
     duration: duration,
   };

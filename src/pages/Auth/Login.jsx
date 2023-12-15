@@ -28,16 +28,16 @@ const Login = () => {
         password,
       );
       const user = userCredential.user;
-
-      // Pengecekan apakah email pengguna telah diverifikasi
-      if (user.emailVerified) {
-        localStorage.setItem("token", user.accessToken);
+      localStorage.setItem("token", user.accessToken);
         localStorage.setItem("user", JSON.stringify(user));
         navigate("/dashboard", { replace: true });
-      } else {
-        // Tampilkan pesan bahwa email belum diverifikasi
-        toast.warning("Silakan verifikasi email Anda sebelum login.");
-      }
+      // Pengecekan apakah email pengguna telah diverifikasi
+      // if (user.emailVerified) {
+        
+      // } else {
+      //   // Tampilkan pesan bahwa email belum diverifikasi
+      //   toast.warning("Silakan verifikasi email Anda sebelum login.");
+      // }
     } catch (error) {
       console.error("Error during login:", error);
       toast.error("Email atau password kamu salah");

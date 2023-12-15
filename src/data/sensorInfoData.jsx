@@ -27,7 +27,7 @@ export const sensorInfoData = [
   {
     id: 4000,
     name: "Suhu Maksimum",
-    icon: <FaTemperatureFull color="ef4e4e" size={25}/>,
+    icon: <FaTemperatureFull color="#ef4e4e" size={25}/>,
   },
   {
     id: 5000,

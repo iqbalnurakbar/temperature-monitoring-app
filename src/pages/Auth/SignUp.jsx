@@ -38,7 +38,7 @@ const SignUp = () => {
       const user = userCredential.user;
 
       // Send email verification
-      await sendEmailVerification(user);
+      // await sendEmailVerification(user);
 
       const dbref = doc(db, "userInfo", user.uid);
 
