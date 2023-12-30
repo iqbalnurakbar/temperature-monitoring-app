@@ -26,16 +26,18 @@ export default function Sidebar2() {
             >
               <BiChevronLeft color="white" size={22} />
             </div>
-            <div className="mb-5 mt-4 flex origin-left cursor-pointer items-center gap-x-2 px-1">
-              <img src={Logo} alt="logo" className="h-6 w-6" />
-              <h1
-                className={`origin-left text-xl font-bold text-white ${
-                  !open && "scale-0"
-                }`}
-              >
-                MonSu
-              </h1>
-            </div>
+            <Link to="/dashboard">
+              <div className="mb-5 mt-4 flex origin-left cursor-pointer items-center gap-x-2 px-1">
+                <img src={Logo} alt="logo" className="h-6 w-6" />
+                <h1
+                  className={`origin-left text-xl font-bold text-white ${
+                    !open && "scale-0"
+                  }`}
+                >
+                  MonSu
+                </h1>
+              </div>
+            </Link>
             <ul className="">
               {menusData.map((menuItem) => {
                 return (

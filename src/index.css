@@ -4,10 +4,19 @@
 @tailwind components;
 @tailwind utilities;
 
+
 * {
   padding: 0;
   margin: 0;
   font-family: "Inter", sans-serif;
   font-family: "Quicksand", sans-serif;
   box-sizing: border-box;
+}
+
+.slick-slide > div {
+  margin: 0 10px;
+}
+
+.slick-dots li.slick-active button:before {
+  color:orange !important;
 }

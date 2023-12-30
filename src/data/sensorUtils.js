@@ -103,10 +103,10 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
   return {
     name: fieldName,
     temperature: {
-      maximum: isNaN(maxValue) ? "NaN" : maxValue.toFixed(1),
-      minimum: isNaN(minValue) ? "NaN" : minValue.toFixed(1),
-      average: isNaN(avgValue) ? "NaN" : avgValue.toFixed(1),
-      current: isNaN(currentValue) ? "NaN" : currentValue.toFixed(1),
+      maximum: isNaN(maxValue) ? "-" : maxValue.toFixed(1),
+      minimum: isNaN(minValue) ? "-" : minValue.toFixed(1),
+      average: isNaN(avgValue) ? "-" : avgValue.toFixed(1),
+      current: isNaN(currentValue) ? "-" : currentValue.toFixed(1),
     },
     timestamp: {
       maximum: isNaN(maxValue) ? getCurrentDateTime() : formatDateTime(maxTime),

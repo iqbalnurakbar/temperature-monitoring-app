@@ -34,7 +34,7 @@ const Dashboard = () => {
 
   return (
     <div className="mx-auto flex h-screen items-center justify-center">
-      <div className="grid h-full w-full grid-cols-dashboardmobile gap-4 overflow-y-scroll bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-dashboardtablet md:rounded-xl xl:grid-cols-dashboardpc">
+      <div className="grid h-full w-full grid-cols-dashboardmobile gap-4 overflow-y-scroll bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-dashboardpc md:rounded-xl xl:grid-cols-dashboardpc">
         <div className="hidden md:flex">
           <Sidebar2 />
         </div>
@@ -52,7 +52,10 @@ const Dashboard = () => {
               <HeaderIcon />
             </span>
           </div>
-          <animated.div className="mx-auto flex w-[95%] flex-col items-center md:justify-start"style={fadeInAnimation}>
+          <animated.div
+            className="mx-auto flex h-10 w-[95%] flex-col items-center md:h-full md:justify-start"
+            style={fadeInAnimation}
+          >
             <SensorItem
               startDate={formatDate.slice(0, 10)}
               endDate={formatDate.slice(0, 10)}
@@ -61,7 +64,10 @@ const Dashboard = () => {
             />
           </animated.div>
         </div>
-        <animated.div className="mb-24 mx-auto flex w-[95%] flex-col items-center justify-evenly md:mb-0 md:justify-start" style={fadeInAnimation}>
+        <animated.div
+          className="mx-auto mb-24 mt-56 md:mt-0 flex w-[95%] flex-col items-center justify-evenly md:mb-0 md:justify-start"
+          style={fadeInAnimation}
+        >
           <RightSide
             startDate={formatDate.slice(0, 10)}
             endDate={formatDate.slice(0, 10)}
