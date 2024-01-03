@@ -40,7 +40,7 @@ function SensorBarChartDynamic({
         } else setData(null);
       } catch (error) {
         console.error("Error fetching data:", error);
-      }
+      } 
     };
 
     fetchSensorData();

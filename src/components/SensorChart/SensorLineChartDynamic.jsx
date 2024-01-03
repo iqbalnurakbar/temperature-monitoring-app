@@ -94,6 +94,13 @@ const SensorLineChartDynamic = ({
     saveAs(blob, `Data ${name}_${excelDate}.xlsx`);
   };
 
+  let upperBound = null;
+
+  if (data !== null) {
+    upperBound   = Math.max(...data.map((entry) => parseFloat(entry.temp)));
+     // Sesuaikan kebutuhan
+  }
+
   return (
     <>
       <ResponsiveContainer width="100%" height={400}>
@@ -110,7 +117,7 @@ const SensorLineChartDynamic = ({
             angle={-45}
             textAnchor="end"
           />
-          <YAxis domain={[]} />
+          <YAxis domain={[0, upperBound]} />
           <Tooltip
             labelFormatter={(label) => `Waktu: ${label}`}
             formatter={(value) => [`Suhu: ${value} °C`]}
@@ -120,7 +127,7 @@ const SensorLineChartDynamic = ({
             dataKey="temp"
             stroke="#06b6d4"
             activeDot={{ r: 4 }}
-            dot={false}
+            dot={false }
           />
         </LineChart>
       </ResponsiveContainer>

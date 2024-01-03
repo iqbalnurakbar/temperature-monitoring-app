@@ -87,14 +87,19 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
 
   const startTime =
     values.length > 0 && feeds.length > 0
-      ? new Date(feeds[0][`field${timeIndex}`]).getTime()
+      ? new Date(feeds[0][`field${timeIndex}`])
       : NaN;
 
   const endTime =
-    values.length > 0 && feeds.length > 0
-      ? new Date(feeds[feeds.length - 1][`field${timeIndex}`]).getTime()
+    values.length > 0 && feeds.length > 0 && values
+      ? new Date(feeds[feeds.length - 1][`field${timeIndex}`])
       : NaN;
 
+  const timeCreatedAt =
+    values.length > 0 && feeds.length > 0 ? new Date(feeds[0].created_at) : NaN;
+    const formattedTimeCreatedAt = dateYYYYMMDD(timeCreatedAt)
+    console.log(formattedTimeCreatedAt)
+    
   const duration =
     isNaN(startTime) || isNaN(endTime)
       ? { hours: 0, minutes: 0, seconds: 0 }
@@ -130,7 +135,6 @@ const calculateDuration = (startTime, endTime) => {
     (durationInMilliseconds % (1000 * 60 * 60)) / (1000 * 60),
   );
   const seconds = Math.floor((durationInMilliseconds % (1000 * 60)) / 1000);
-
   return {
     hours: hours,
     minutes: minutes,
@@ -183,6 +187,20 @@ const calculateStatsWeekly = (dataGraph) => {
     }),
   );
   return barChartData;
+};
+
+const dateYYYYMMDD = (time) => {
+  if (!(time instanceof Date) || isNaN(time)) {
+    console.error("Invalid date object");
+    return null; // or handle the error in your preferred way
+  }
+
+  const year = time.getFullYear();
+  const month = String(time.getMonth() + 1).padStart(2, "0");
+  const day = String(time.getDate()).padStart(2, "0");
+  const formattedTime = `${year}-${month}-${day}`;
+
+  return formattedTime;
 };
 
 export { sensorUtils, calculateStatsWeekly };

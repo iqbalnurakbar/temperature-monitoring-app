@@ -19,7 +19,8 @@ const fetchData = async (apiConfigurations, targetName) => {
             (feed) =>
               feed &&
               feed[`field${fieldIndex}`] !== null &&
-              channelInfo[`field${fieldIndex}`] === targetName,
+              channelInfo[`field${fieldIndex}`] === targetName &&
+              parseFloat(feed[`field${fieldIndex}`]) >= 0,
           )
           .map((feed) => ({
             suhu: parseFloat(feed[`field${fieldIndex}`]).toFixed(1),
