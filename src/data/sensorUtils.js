@@ -53,7 +53,7 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
   );
 
   // Filter out NaN values
-  const validValues = values.filter((value) => !isNaN(value) && value >= 0);
+  const validValues = values.filter((value) => !isNaN(value) && value > 0 && value < 300);
 
   const minValue = validValues.length > 0 ? Math.min(...validValues) : NaN;
   const maxValue = validValues.length > 0 ? Math.max(...validValues) : NaN;
@@ -86,7 +86,7 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
   const fieldName = channelInfo[`field${fieldIndex}`];
 
   const startTime =
-    values.length > 0 && feeds.length > 0
+    values.length > 0 && feeds.length > 0 && values
       ? new Date(feeds[0][`field${timeIndex}`])
       : NaN;
 
@@ -94,11 +94,8 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
     values.length > 0 && feeds.length > 0 && values
       ? new Date(feeds[feeds.length - 1][`field${timeIndex}`])
       : NaN;
+      
 
-  const timeCreatedAt =
-    values.length > 0 && feeds.length > 0 ? new Date(feeds[0].created_at) : NaN;
-    const formattedTimeCreatedAt = dateYYYYMMDD(timeCreatedAt)
-    console.log(formattedTimeCreatedAt)
     
   const duration =
     isNaN(startTime) || isNaN(endTime)
@@ -189,18 +186,5 @@ const calculateStatsWeekly = (dataGraph) => {
   return barChartData;
 };
 
-const dateYYYYMMDD = (time) => {
-  if (!(time instanceof Date) || isNaN(time)) {
-    console.error("Invalid date object");
-    return null; // or handle the error in your preferred way
-  }
-
-  const year = time.getFullYear();
-  const month = String(time.getMonth() + 1).padStart(2, "0");
-  const day = String(time.getDate()).padStart(2, "0");
-  const formattedTime = `${year}-${month}-${day}`;
-
-  return formattedTime;
-};
 
 export { sensorUtils, calculateStatsWeekly };

@@ -97,8 +97,7 @@ const SensorLineChartDynamic = ({
   let upperBound = null;
 
   if (data !== null) {
-    upperBound   = Math.max(...data.map((entry) => parseFloat(entry.temp)));
-     // Sesuaikan kebutuhan
+    upperBound   = Math.max(...data.map((entry) => parseFloat(entry.temp))); // Sesuaikan kebutuhan
   }
 
   return (

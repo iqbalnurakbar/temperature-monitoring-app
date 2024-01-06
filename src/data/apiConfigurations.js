@@ -1,8 +1,8 @@
 export const apiConfigurations1 = (startDate, endDate, startTime, endTime) => [
   {
-    url: `https://api.thingspeak.com/channels/2394249/feeds.json?api_key=LIP7TQC2IN9RKIGV&timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
-    fieldIndices: [1],
-    timeIndices: [2],
+    url: `https://api.thingspeak.com/channels/2383410/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
+    fieldIndices: [1,4],
+    timeIndices: [2,5],
   },
   // {
   //   url: `https://api.thingspeak.com/channels/2347341/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
