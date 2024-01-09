@@ -13,17 +13,14 @@ function SensorItem({ startDate, endDate, startTime, endTime }) {
 
   useEffect(() => {
     const checkWindowWidth = () => {
-      const isMobileDevice = window.innerWidth <= 768; // Ganti dengan nilai yang sesuai
+      const isMobileDevice = window.innerWidth <= 768;
       setIsMobile(isMobileDevice);
     };
 
-    // Pertama kali di-mount, cek ukuran window
     checkWindowWidth();
 
-    // Daftarkan event listener untuk mendeteksi perubahan ukuran layar
     window.addEventListener("resize", checkWindowWidth);
 
-    // Bersihkan event listener ketika komponen dilepas
     return () => {
       window.removeEventListener("resize", checkWindowWidth);
     };
@@ -53,7 +50,7 @@ function SensorItem({ startDate, endDate, startTime, endTime }) {
       );
       setActiveIndex((prevIndex) => (prevIndex + 1) % Object.keys(data).length);
       setIsFading(false);
-    }, 300); // Duration of the fade transition in milliseconds
+    }, 300);
   };
 
   const handlePrev = () => {
@@ -66,7 +63,7 @@ function SensorItem({ startDate, endDate, startTime, endTime }) {
         prevIndex === 0 ? Object.keys(data).length - 1 : prevIndex - 1,
       );
       setIsFading(false);
-    }, 300); // Duration of the fade transition in milliseconds
+    }, 300);
   };
 
   return (

@@ -46,57 +46,71 @@ const sensorUtils = async (apiConfigurations) => {
 };
 
 const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
-  const values = feeds.map((feed) =>
-    feed && feed[`field${fieldIndex}`] !== null
-      ? parseFloat(feed[`field${fieldIndex}`])
-      : NaN,
-  );
+  const filteredValues = feeds
+    .filter(
+      (feed) =>
+        feed &&
+        feed[`field${fieldIndex}`] !== null &&
+        parseFloat(feed[`field${fieldIndex}`]) > 0 &&
+        parseFloat(feed[`field${fieldIndex}`]) < 300,
+    )
+    .map((feed) => ({
+      temp: parseFloat(feed[`field${fieldIndex}`]).toFixed(1),
+      slaveTime: feed[`field${timeIndex}`],
+      masterTime: feed.created_at,
+    }));
 
-  // Filter out NaN values
-  const validValues = values.filter((value) => !isNaN(value) && value > 0 && value < 300);
+  const validValues = filteredValues.filter((entry) => {
+    const formattedMasterTime = formatDateTimeDDMMYYYY(entry.masterTime)
+    const formattedSlaveTime = formatDateTimeDDMMYYYY(entry.slaveTime)
+    return formattedSlaveTime === formattedMasterTime
+  });
 
-  const minValue = validValues.length > 0 ? Math.min(...validValues) : NaN;
-  const maxValue = validValues.length > 0 ? Math.max(...validValues) : NaN;
+  const uniqueValidValues = removeDuplicates(validValues, 'slaveTime');
+  console.log(uniqueValidValues)
+  const tempValues = uniqueValidValues.map((entry) => parseFloat(entry.temp));
+
+  const minValue = tempValues.length > 0 ? Math.min(...tempValues) : NaN;
+  const maxValue = tempValues.length > 0 ? Math.max(...tempValues) : NaN;
 
   const avgValue =
-    validValues.length === 0
+    tempValues.length === 0
       ? NaN
-      : validValues.reduce((acc, val) => acc + val, 0) / validValues.length;
+      : tempValues.reduce((acc, val) => acc + val, 0) / tempValues.length;
 
-  const minTimeIndex = validValues.indexOf(minValue);
-  const maxTimeIndex = validValues.indexOf(maxValue);
+  const minTimeIndex = tempValues.indexOf(minValue);
+  const maxTimeIndex = tempValues.indexOf(maxValue);
 
   const minTime =
-    minTimeIndex !== -1 && feeds[minTimeIndex]
-      ? feeds[minTimeIndex][`field${timeIndex}`]
+    minTimeIndex !== -1 && uniqueValidValues[minTimeIndex]
+      ? uniqueValidValues[minTimeIndex].slaveTime
       : NaN;
 
   const maxTime =
-    maxTimeIndex !== -1 && feeds[maxTimeIndex]
-      ? feeds[maxTimeIndex][`field${timeIndex}`]
+    maxTimeIndex !== -1 && uniqueValidValues[maxTimeIndex]
+      ? uniqueValidValues[maxTimeIndex].slaveTime
       : NaN;
 
   const currentTime =
-    values.length > 0 && feeds.length > 0
-      ? feeds[feeds.length - 1][`field${timeIndex}`]
+    tempValues.length > 0 && uniqueValidValues.length > 0
+      ? uniqueValidValues[uniqueValidValues.length - 1].slaveTime
       : NaN;
 
-  const currentValue = values.length > 0 ? values[values.length - 1] : NaN;
+  const currentValue =
+    tempValues.length > 0 ? tempValues[tempValues.length - 1] : NaN;
 
   const fieldName = channelInfo[`field${fieldIndex}`];
 
   const startTime =
-    values.length > 0 && feeds.length > 0 && values
-      ? new Date(feeds[0][`field${timeIndex}`])
+    tempValues.length > 0 && uniqueValidValues.length > 0
+      ? new Date(uniqueValidValues[0].slaveTime)
       : NaN;
 
   const endTime =
-    values.length > 0 && feeds.length > 0 && values
-      ? new Date(feeds[feeds.length - 1][`field${timeIndex}`])
+    tempValues.length > 0 && uniqueValidValues.length > 0
+      ? new Date(uniqueValidValues[uniqueValidValues.length - 1].slaveTime)
       : NaN;
-      
 
-    
   const duration =
     isNaN(startTime) || isNaN(endTime)
       ? { hours: 0, minutes: 0, seconds: 0 }
@@ -139,6 +153,18 @@ const calculateDuration = (startTime, endTime) => {
   };
 };
 
+function removeDuplicates(array, key) {
+  const uniqueKeys = new Set();
+  return array.filter((item) => {
+    const value = item[key];
+    if (!uniqueKeys.has(value)) {
+      uniqueKeys.add(value);
+      return true;
+    }
+    return false;
+  });
+}
+
 function formatDateTime(dateTimeStr) {
   const date = new Date(dateTimeStr);
   const day = String(date.getDate()).padStart(2, "0");
@@ -148,6 +174,15 @@ function formatDateTime(dateTimeStr) {
   const minutes = String(date.getMinutes()).padStart(2, "0");
 
   return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
+function formatDateTimeDDMMYYYY(dateTimeStr) {
+  const date = new Date(dateTimeStr);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
 }
 
 const getCurrentDateTime = () => {
@@ -185,6 +220,5 @@ const calculateStatsWeekly = (dataGraph) => {
   );
   return barChartData;
 };
-
 
 export { sensorUtils, calculateStatsWeekly };

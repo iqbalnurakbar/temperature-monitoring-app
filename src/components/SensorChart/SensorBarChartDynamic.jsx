@@ -31,16 +31,28 @@ function SensorBarChartDynamic({
       try {
         const response = await fetchData(getAPI, name);
         if (response && response.length > 0) {
-          const dataGraph = response[0].map((feed) => ({
-            time: formatDateToDDMMYYYY(feed.waktu),
-            temp: feed.suhu,
+          const dataGraph = response.map((feed) => ({
+            slaveTime: formatDateToDDMMYYYY(feed.slaveTime),
+            masterTime: formatDateToDDMMYYYY(feed.masterTime),
+            temp: feed.temp,
           }));
-          const barChartData = calculateStatsWeekly(dataGraph);
+          const filteredDataGraph = dataGraph
+            .filter((entry) => {
+              const validTime = entry.slaveTime === entry.masterTime;
+              return validTime;
+            })
+            .map((entry) => ({
+              time: entry.slaveTime,
+              temp: entry.temp,
+            }));
+
+          console.log(filteredDataGraph);
+          const barChartData = calculateStatsWeekly(filteredDataGraph);
           setData(barChartData);
         } else setData(null);
       } catch (error) {
         console.error("Error fetching data:", error);
-      } 
+      }
     };
 
     fetchSensorData();
@@ -73,8 +85,8 @@ function SensorBarChartDynamic({
   }
 
   const handleDownload = () => {
-    const excelDate1 = formatDateToDDMMYYYY(startDate)
-    const excelDate2 = formatDateToDDMMYYYY(endDate)
+    const excelDate1 = formatDateToDDMMYYYY(startDate);
+    const excelDate2 = formatDateToDDMMYYYY(endDate);
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "SensorData");
@@ -93,7 +105,7 @@ function SensorBarChartDynamic({
 
   if (data !== null) {
     maxValue = Math.max(...data.map((entry) => parseFloat(entry.temp)));
-    upperBound = maxValue + 5; // Sesuaikan kebutuhan
+    upperBound = maxValue + 5;
   }
 
   return (
@@ -122,7 +134,7 @@ function SensorBarChartDynamic({
         </BarChart>
       </ResponsiveContainer>
       <button
-        className="mb-32 md:mb-20 mt-6 rounded-md bg-yellow-500 px-4 py-2 text-center font-bold text-white shadow-sm hover:bg-yellow-600 active:bg-yellow-700"
+        className="mb-32 mt-6 rounded-md bg-yellow-500 px-4 py-2 text-center font-bold text-white shadow-sm hover:bg-yellow-600 active:bg-yellow-700 md:mb-20"
         onClick={handleDownload}
       >
         Download Data Mingguan

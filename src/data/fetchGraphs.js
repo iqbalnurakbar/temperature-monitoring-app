@@ -24,8 +24,9 @@ const fetchData = async (apiConfigurations, targetName) => {
               parseFloat(feed[`field${fieldIndex}`]) < 300,
           )
           .map((feed) => ({
-            suhu: parseFloat(feed[`field${fieldIndex}`]).toFixed(1),
-            waktu: feed[`field${timeIndex}`],
+            temp: parseFloat(feed[`field${fieldIndex}`]).toFixed(1),
+            slaveTime: feed[`field${timeIndex}`],
+            masterTime: feed.created_at,
           }));
       };
 
@@ -34,7 +35,19 @@ const fetchData = async (apiConfigurations, targetName) => {
       );
 
       // Filter out empty arrays
-      const filteredResult = result.filter((arr) => arr.length > 0);
+      const filteredData = result.filter((arr) => arr.length > 0);
+
+      // Combine arrays into a single array
+      const combinedData = [].concat(...filteredData);
+
+      // Remove duplicate entries based on the 'temp' key
+      const uniqueData = removeDuplicates(combinedData, 'slaveTime');
+
+      const filteredResult = uniqueData.filter((entry) => {
+        const formattedMasterTime = formatDateTimeDDMMYYYY(entry.masterTime);
+        const formattedSlaveTime = formatDateTimeDDMMYYYY(entry.slaveTime);
+        return formattedSlaveTime === formattedMasterTime;
+      });
 
       // Check if data is found in the current API
       if (filteredResult.length > 0) {
@@ -48,4 +61,27 @@ const fetchData = async (apiConfigurations, targetName) => {
     return null;
   }
 };
+
+function removeDuplicates(array, key) {
+  const uniqueKeys = new Set();
+  return array.filter((item) => {
+    const value = item[key];
+    if (!uniqueKeys.has(value)) {
+      uniqueKeys.add(value);
+      return true;
+    }
+    return false;
+  });
+}
+
+
+function formatDateTimeDDMMYYYY(dateTimeStr) {
+  const date = new Date(dateTimeStr);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
+}
+
 export { fetchData };

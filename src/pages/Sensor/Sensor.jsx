@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Sidebar2 from "../../components/Sidebar/Sidebar2";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
 import SensorInfoItem from "../../components/SensorInfo/SensorInfoItem";
@@ -67,6 +68,18 @@ const Sensor = () => {
   const startTime = formattedDate(selectedStartDate).slice(11, 16);
   const endTime = formattedDate(selectedEndDate).slice(11, 16);
   const dateLine = formattedDate(selectedDateLine).slice(0, 10);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const sensorNameParam = searchParams.get("sensor");
+
+    if (sensorNameParam) {
+      // Jika ada query parameter sensor, tandai checkbox sesuai
+      setSelectedSensors([sensorNameParam]);
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const fetchSensorData = () => {
