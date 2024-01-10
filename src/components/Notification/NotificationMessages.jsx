@@ -5,7 +5,7 @@ import { id } from "date-fns/locale";
 import NotificationService from "../../data/NotificationService";
 const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
   const [notifications, setNotifications] = useState([]);
-  const topTemp = 40;
+  const topTemp = 130;
   const lowTemp = 20;
 
   const [datePart, timePart] = dateNotif.split(" ");
