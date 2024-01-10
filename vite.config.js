@@ -25,7 +25,7 @@ export default defineConfig({
         short_name: "Monsu",
         icons: [
           {
-            "src": "/pwa-144x144.png",
+            "src": "/icons/pwa-144x144.png",
             "sizes": "144x144",
             "type": "image/png",
             "purpose": "any"
@@ -43,7 +43,7 @@ export default defineConfig({
             purpose: "any",
           },
           {
-            "src": "/pwa-maskable-144x144.png",
+            "src": "/icons/pwa-maskable-144x144.png",
             "sizes": "144x144",
             "type": "image/png",
             "purpose": "maskable"
