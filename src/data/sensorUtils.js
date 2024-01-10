@@ -67,7 +67,6 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
   });
 
   const uniqueValidValues = removeDuplicates(validValues, 'slaveTime');
-  console.log(uniqueValidValues)
   const tempValues = uniqueValidValues.map((entry) => parseFloat(entry.temp));
 
   const minValue = tempValues.length > 0 ? Math.min(...tempValues) : NaN;
@@ -119,10 +118,10 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
   return {
     name: fieldName,
     temperature: {
-      maximum: isNaN(maxValue) ? "-" : maxValue.toFixed(1),
-      minimum: isNaN(minValue) ? "-" : minValue.toFixed(1),
-      average: isNaN(avgValue) ? "-" : avgValue.toFixed(1),
-      current: isNaN(currentValue) ? "-" : currentValue.toFixed(1),
+      maximum: isNaN(maxValue) ? "-" : maxValue.toFixed(2),
+      minimum: isNaN(minValue) ? "-" : minValue.toFixed(2),
+      average: isNaN(avgValue) ? "-" : avgValue.toFixed(2),
+      current: isNaN(currentValue) ? "-" : currentValue.toFixed(2),
     },
     timestamp: {
       maximum: isNaN(maxValue) ? getCurrentDateTime() : formatDateTime(maxTime),
@@ -215,7 +214,7 @@ const calculateStatsWeekly = (dataGraph) => {
   const barChartData = Object.entries(dailyAverages).map(
     ([time, { totalTemperature, count }]) => ({
       time,
-      temp: count > 0 ? (totalTemperature / count).toFixed(1) : "NaN",
+      temp: count > 0 ? (totalTemperature / count).toFixed(2) : "NaN",
     }),
   );
   return barChartData;

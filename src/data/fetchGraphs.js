@@ -24,7 +24,7 @@ const fetchData = async (apiConfigurations, targetName) => {
               parseFloat(feed[`field${fieldIndex}`]) < 300,
           )
           .map((feed) => ({
-            temp: parseFloat(feed[`field${fieldIndex}`]).toFixed(1),
+            temp: parseFloat(feed[`field${fieldIndex}`]).toFixed(2),
             slaveTime: feed[`field${timeIndex}`],
             masterTime: feed.created_at,
           }));

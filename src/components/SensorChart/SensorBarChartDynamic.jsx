@@ -46,7 +46,6 @@ function SensorBarChartDynamic({
               temp: entry.temp,
             }));
 
-          console.log(filteredDataGraph);
           const barChartData = calculateStatsWeekly(filteredDataGraph);
           setData(barChartData);
         } else setData(null);
