@@ -55,6 +55,7 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
         parseFloat(feed[`field${fieldIndex}`]) < 300,
     )
     .map((feed) => ({
+      id:feed.entry_id,
       temp: parseFloat(feed[`field${fieldIndex}`]).toFixed(1),
       slaveTime: feed[`field${timeIndex}`],
       masterTime: feed.created_at,
@@ -67,6 +68,7 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
   });
 
   const uniqueValidValues = removeDuplicates(validValues, 'slaveTime');
+  console.log(uniqueValidValues)
   const tempValues = uniqueValidValues.map((entry) => parseFloat(entry.temp));
 
   const minValue = tempValues.length > 0 ? Math.min(...tempValues) : NaN;

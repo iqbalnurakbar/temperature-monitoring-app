@@ -39,7 +39,7 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
         icon: <IoAlertOutline color="red" />,
         timestamp: formatDateNotif,
       });
-    } else if (isNaN(parseFloat(currentTemp))) {
+    } else if (currentTemp === "-") {
       newNotifications.push({
         body: `Suhu pada ${name} tidak terbaca!`,
         icon: <IoAlertOutline color="red" />,

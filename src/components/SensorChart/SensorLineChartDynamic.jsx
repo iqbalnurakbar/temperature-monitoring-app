@@ -61,6 +61,7 @@ const SensorLineChartDynamic = ({
         const response = await fetchData(getAPI, name);
         if (response && response.length > 0) {
           const dataGraph = response.map((feed) => ({
+            id:feed.id,
             date: formatDateToDDMMYYYY(feed.slaveTime),
             time: formatDateToHHNNSS(feed.slaveTime),
             temp: feed.temp,
