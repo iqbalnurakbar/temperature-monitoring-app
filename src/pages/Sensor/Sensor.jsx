@@ -32,7 +32,7 @@ const Sensor = () => {
   const [selectedStartDateBar, setSelectedStartDateBar] = useState(() => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
-    date.setDate(date.getDate() - 7);
+    date.setDate(date.getDate() - 6);
     return date;
   });
 

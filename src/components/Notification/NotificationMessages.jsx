@@ -24,9 +24,11 @@ const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
     if (currentTemp >= topTemp || currentTemp < lowTemp) {
       backgroundNotificationBody = "Ada suhu yang berada diluar rentang pengukuran!";
     } 
+    
     // else if (isNaN(parseFloat(currentTemp))) {
     //   backgroundNotificationBody = "Ada sensor yang tidak terbaca!";
     // }
+
     if (currentTemp >= topTemp) {
       newNotifications.push({
         body: `Suhu pada ${name} berada di atas ${topTemp}°C. Segera cek!`,

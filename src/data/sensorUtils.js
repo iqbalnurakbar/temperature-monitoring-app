@@ -68,7 +68,6 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
   });
 
   const uniqueValidValues = removeDuplicates(validValues, 'slaveTime');
-  console.log(uniqueValidValues)
   const tempValues = uniqueValidValues.map((entry) => parseFloat(entry.temp));
 
   const minValue = tempValues.length > 0 ? Math.min(...tempValues) : NaN;

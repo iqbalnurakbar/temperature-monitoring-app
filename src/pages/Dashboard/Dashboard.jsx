@@ -53,7 +53,7 @@ const Dashboard = () => {
             </span>
           </div>
           <animated.div
-            className="mx-auto flex h-10 w-[95%] flex-col items-center md:h-full md:justify-start"
+            className="ml-0.5 flex h-10 w-[95%] flex-col items-center md:h-full md:justify-start"
             style={fadeInAnimation}
           >
             <SensorItem

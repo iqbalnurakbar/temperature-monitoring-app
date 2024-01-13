@@ -76,19 +76,20 @@ function SensorItem({ startDate, endDate, startTime, endTime }) {
                 isFading ? "opacity-0" : "opacity-100"
               }`}
             >
-              <button
+            <button
                 onClick={handlePrev}
-                className="absolute -left-1 top-1/2 z-50 -translate-y-1/2 transform rounded-xl bg-[#f0b429] shadow-md"
+                className="absolute top-1/2 z-50 -translate-y-1/2 transform rounded-xl bg-[#f0b429] shadow-md"
               >
                 <BiChevronLeft color="white" size={24} />
               </button>
               <button
                 onClick={handleNext}
-                className="absolute -right-4 top-1/2 z-50 -translate-y-1/2 transform rounded-xl bg-[#f0b429] shadow-md"
+                className="absolute -right-2 top-1/2 z-50 -translate-y-1/2 transform rounded-xl bg-[#f0b429] shadow-md"
               >
                 <BiChevronRight color="white" size={24} />
               </button>
-
+              <div className="mx-auto">
+                
               <SensorCard
                 key={Object.keys(data)[currentIndex]}
                 sensorName={data[Object.keys(data)[currentIndex]].name}
@@ -96,8 +97,10 @@ function SensorItem({ startDate, endDate, startTime, endTime }) {
                 timestamp={data[Object.keys(data)[currentIndex]].timestamp}
                 duration={data[Object.keys(data)[currentIndex]].duration}
               />
+              </div>
             </div>
             <div className="-mt-6 z-10 flex items-center justify-center">
+              
               {data &&
                 Object.keys(data).map((key, index) => (
                   <div
