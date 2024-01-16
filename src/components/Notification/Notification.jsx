@@ -19,17 +19,19 @@ export default function Notification({data }) {
           <h3 className="text-lg font-bold text-teal-600">Notifikasi</h3>
         </div>
 
-        <div className="">
-          {data? (
+        <div>
+        {data ? (
             <>
               {Object.keys(data).map((sensor) => (
-                <NotificationMessages
-                  key={sensor}
-                  name={data[sensor].name}
-                  currentTemp={data[sensor].temperature.current}
-                  dateNotif={data[sensor].timestamp.current}
-                  arrayTemp={currentTemperatureArray}
-                />
+                data[sensor].name !== "Sumber Pemanas" && (
+                  <NotificationMessages
+                    key={sensor}
+                    name={data[sensor].name}
+                    currentTemp={data[sensor].temperature.current}
+                    dateNotif={data[sensor].timestamp.current}
+                    arrayTemp={currentTemperatureArray}
+                  />
+                )
               ))}
             </>
           ) : (
