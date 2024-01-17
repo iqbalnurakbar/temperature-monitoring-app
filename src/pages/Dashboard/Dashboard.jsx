@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Sidebar2 from "../../components/Sidebar/Sidebar2";
 import RightSide from "../../components/RightSide/RightSide";
 import HeaderIcon from "../../components/HeaderIcon/HeaderIcon";
@@ -34,6 +34,7 @@ const Dashboard = () => {
 
   return (
     <div className="mx-auto flex h-screen items-center justify-center">
+      {/* Kode dibuat responsive untuk tampilan desktop, tablet, dan mobile */}
       <div className="grid h-full w-full grid-cols-dashboardmobile gap-4 overflow-y-scroll bg-[#f0f4f8] scrollbar-thin scrollbar-thumb-[#3ebd93] scrollbar-thumb-rounded-full md:h-[97%] md:w-[97%] md:grid-cols-dashboardpc md:rounded-xl xl:grid-cols-dashboardpc">
         <div className="hidden md:flex">
           <Sidebar2 />

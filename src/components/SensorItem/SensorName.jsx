@@ -1,10 +1,10 @@
-// SensorName.jsx
 import React from "react";
 import {useNavigate } from "react-router-dom";
 
 const SensorName = ({ sensorName }) => {
   const navigate = useNavigate();
 
+  //Kode untuk handleClick Nama Sensor agar langsung navigate ke grafiknya masing-masing
   const handleSensorClick = () => {
     navigate(`/sensor?sensor=${sensorName}`);
   };

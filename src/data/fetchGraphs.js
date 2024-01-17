@@ -3,7 +3,7 @@ const fetchData = async (apiConfigurations, targetName) => {
     let foundData = null;
 
     for (const config of apiConfigurations) {
-      // Check if data is already found
+      // Cek data apakah sudah ditemukan
       if (foundData) {
         break;
       }
@@ -14,6 +14,7 @@ const fetchData = async (apiConfigurations, targetName) => {
       const feeds = data.feeds;
 
       const generateData = (fieldIndex, timeIndex) => {
+        // filter data-data yang tidak valid serta map data sesuai dengan parameter yang dibutuhkan
         return feeds
           .filter(
             (feed) =>
@@ -35,13 +36,13 @@ const fetchData = async (apiConfigurations, targetName) => {
         generateData(fieldIndex, config.timeIndices[index]),
       );
 
-      // Filter out empty arrays
+      // Filter array kosong
       const filteredData = result.filter((arr) => arr.length > 0);
 
-      // Combine arrays into a single array
+      // Menggabungkan banyak array menjadi satu array
       const combinedData = [].concat(...filteredData);
 
-      // Remove duplicate entries based on the 'temp' key
+      // Menghapus data yang terduplikasi berdasarkan parameter slaveTime
       const uniqueData = removeDuplicates(combinedData, 'slaveTime');
 
       const filteredResult = uniqueData.filter((entry) => {
@@ -50,7 +51,7 @@ const fetchData = async (apiConfigurations, targetName) => {
         return formattedSlaveTime === formattedMasterTime;
       });
 
-      // Check if data is found in the current API
+      // Cek data apakah data ditemukan di API saat ini
       if (filteredResult.length > 0) {
         foundData = filteredResult;
       }
@@ -63,6 +64,7 @@ const fetchData = async (apiConfigurations, targetName) => {
   }
 };
 
+//Fungsi untuk menghapus data duplikat
 function removeDuplicates(array, key) {
   const uniqueKeys = new Set();
   return array.filter((item) => {
@@ -75,7 +77,7 @@ function removeDuplicates(array, key) {
   });
 }
 
-
+//Formatting tanggal menjadi DD-MM-YYYY
 function formatDateTimeDDMMYYYY(dateTimeStr) {
   const date = new Date(dateTimeStr);
   const day = String(date.getDate()).padStart(2, "0");

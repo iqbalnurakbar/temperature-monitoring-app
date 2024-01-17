@@ -13,6 +13,7 @@ const RightSide = ({
 }) => {
   const [data, setData] = useState();
 
+  //GET API Thingspeak
   useEffect(() => {
     const fetchSensorData = () => {
       const getAPI = apiConfigurations1(startDate, endDate, startTime, endTime);

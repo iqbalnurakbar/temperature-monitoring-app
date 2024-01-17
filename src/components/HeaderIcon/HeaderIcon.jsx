@@ -21,10 +21,10 @@ export default function HeaderIcon({ name }) {
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            // Jika dokumen ada, atur informasi tambahan ke dalam state
+            // Jika data ada, atur informasi tambahan ke dalam state
             setAdditionalInfo(docSnap.data());
           } else {
-            console.log("Dokumen tidak ditemukan!");
+            console.log("Data tidak ditemukan!");
           }
         } catch (error) {
           console.error("Error fetching additional info:", error);
@@ -35,7 +35,7 @@ export default function HeaderIcon({ name }) {
       }
     });
 
-    // Bersihkan langganan saat komponen dibongkar
+    // Bersihkan subscribe saat komponen di-unmount
     return () => unsubscribe();
   }, [navigate]);
   return (

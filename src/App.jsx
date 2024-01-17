@@ -17,12 +17,15 @@ const Login = lazy(() => import("./pages/Auth/Login.jsx"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard.jsx"));
 const NewProfile = lazy(() => import("./pages/Profile/NewProfile.jsx"));
 
-function App2() {
+function App() {
   return (
     <Router>
+      {/* App Provider digunakan untuk menyimpan state active menu */}
       <AppProvider>
+        {/* Memunculkan animasi loading */}
         <Suspense fallback={<Loading/>}>
           <Routes>
+            {/* Protected Route digunakan agar user tidak terlempar setelah login */}
             <Route
               path="/sensor"
               element={<ProtectedRoute element={<Sensor />} />}
@@ -59,4 +62,4 @@ function App2() {
   );
 }
 
-export default App2;
+export default App;

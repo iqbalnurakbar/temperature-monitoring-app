@@ -1,3 +1,9 @@
+/* 
+Kode untuk mengelompokkan data pada masing-masing API untuk mencari data suhu max, suhu min, suhu avg, suhu real-time,
+dan waktu tercapainya masing-masing. Durasi mesin dihitung berdasarkan waktu endTime - startTime. Data barchart terbatas hanya
+dapat menampilkan data sebanyak 8000 data (Free Thingspeak), disarankan waktu pengukuran dilakukan 5 menit sekali sehingga dapat
+menampilkan data sebanyak satu minggu.
+*/
 const sensorUtils = async (apiConfigurations) => {
   try {
     const results = await Promise.all(

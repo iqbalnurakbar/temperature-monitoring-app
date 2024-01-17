@@ -12,23 +12,30 @@ import BottomNavigationBar from "../../components/BottomNavBar/BottomNavBar";
 import { useSpring, animated } from "react-spring";
 
 const Sensor = () => {
+  // useState
   const [sensorData, setSensorData] = useState(null);
+
+  // useState untuk datePicker waktu linechart
   const [selectedStartDate, setSelectedStartDate] = useState(() => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
     return date;
   });
 
+  // useState untuk datePicker waktu linechart
   const [selectedEndDate, setSelectedEndDate] = useState(() => {
     const date = new Date();
     date.setHours(23, 59, 59, 999);
     return date;
   });
 
+  // useState untuk datePicker tanggal linechart
   const [selectedDateLine, setSelectedDateLine] = useState(() => {
     const date = new Date();
     return date;
   });
+
+  // useState untuk datePicker tanggal barchart
   const [selectedStartDateBar, setSelectedStartDateBar] = useState(() => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
@@ -36,14 +43,17 @@ const Sensor = () => {
     return date;
   });
 
+  // useState untuk datePicker tanggal barchart
   const [selectedEndDateBar, setSelectedEndDateBar] = useState(() => {
     const date = new Date();
     date.setHours(23, 59, 59, 999);
     return date;
   });
 
+  // useState untuk auto checkbox sensor ketika menekan nama sensor di Dashboard
   const [selectedSensors, setSelectedSensors] = useState([]);
 
+  //Filter dan mapping data dari API Thingspeak
   const selectedSensorData = sensorData
     ? Object.keys(sensorData)
         .filter((sensor) => selectedSensors.includes(sensor))
@@ -56,6 +66,7 @@ const Sensor = () => {
         }))
     : [];
 
+  //Formatting waktu ke YYYY-MM-DD HH:nn
   const formattedDate = (date) => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -71,16 +82,18 @@ const Sensor = () => {
 
   const location = useLocation();
 
+  // useEffect untuk auto checkbox
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const sensorNameParam = searchParams.get("sensor");
 
     if (sensorNameParam) {
-      // Jika ada query parameter sensor, tandai checkbox sesuai
+      // Jika ada query parameter sensor, checkbox langsung tercentang
       setSelectedSensors([sensorNameParam]);
     }
   }, [location.search]);
 
+  // useEffect untuk GET API Thingspeak
   useEffect(() => {
     const fetchSensorData = () => {
       const getAPI = apiConfigurations1(dateLine, dateLine, startTime, endTime);

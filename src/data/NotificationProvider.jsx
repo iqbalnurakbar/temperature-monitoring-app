@@ -1,3 +1,4 @@
+//Kode dibuat agar notifikasi dapat berjalan di latar belakang halaman lain
 import React, { createContext, useContext, useState } from "react";
 
 const NotificationContext = createContext();

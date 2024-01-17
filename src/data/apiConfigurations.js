@@ -1,5 +1,14 @@
 export const apiConfigurations1 = (startDate, endDate, startTime, endTime) => [
+  /* Masukkan API yang digunakan dengan format: 
   {
+    url:``, 
+    fieldIndinces:[], 
+    timeIndices:[],
+  },
+  */
+
+  {
+    
     url: `https://api.thingspeak.com/channels/2383410/feeds.json?timezone=Asia%2FJakarta&start=${startDate}%20${startTime}:00&end=${endDate}%20${endTime}:59`,
     fieldIndices: [1,4],
     timeIndices: [2,5],
@@ -16,3 +25,5 @@ export const apiConfigurations1 = (startDate, endDate, startTime, endTime) => [
   //   timeIndices: [2],
   // },
 ];
+
+// ! FieldIndices digunakan untuk menyimpan parameter temperatur, timeIndices digunakan untuk menyimpan parameter waktu.

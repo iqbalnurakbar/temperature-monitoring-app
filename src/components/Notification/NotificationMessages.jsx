@@ -5,6 +5,8 @@ import { id } from "date-fns/locale";
 import NotificationService from "../../data/NotificationService";
 const NotificationMessages = ({ name, currentTemp, dateNotif }) => {
   const [notifications, setNotifications] = useState([]);
+
+  //Batas atas dan batas bawah suhu yang diatur untuk memunculkan notifikasi
   const topTemp = 130;
   const lowTemp = 20;
 

@@ -1,3 +1,4 @@
+//Kode untuk mengaktifkan API Notifikasi dari Google
 const NotificationService = {
     showNotification: (body, timestamp) => {
       if (Notification.permission === "granted") {

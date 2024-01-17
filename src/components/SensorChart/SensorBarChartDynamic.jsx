@@ -24,6 +24,7 @@ function SensorBarChartDynamic({
 }) {
   const [data, setData] = useState([]);
 
+  //GET data Thingspeak barchart
   useEffect(() => {
     const fetchSensorData = async () => {
       const getAPI = apiConfigurations1(startDate, endDate, startTime, endTime);
@@ -83,6 +84,7 @@ function SensorBarChartDynamic({
     return `${day} ${month} ${year}`;
   }
 
+  //Mengunduh data dalam format excel
   const handleDownload = () => {
     const excelDate1 = formatDateToDDMMYYYY(startDate);
     const excelDate2 = formatDateToDDMMYYYY(endDate);

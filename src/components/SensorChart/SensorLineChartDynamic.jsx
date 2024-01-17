@@ -53,6 +53,7 @@ const SensorLineChartDynamic = ({
 }) => {
   const [data, setData] = useState([]);
 
+  //GET API Thingspeak untuk linechart
   useEffect(() => {
     const fetchSensorData = async () => {
       const getAPI = apiConfigurations1(startDate, endDate, startTime, endTime);
