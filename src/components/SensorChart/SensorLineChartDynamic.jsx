@@ -96,9 +96,11 @@ const SensorLineChartDynamic = ({
   };
 
   let upperBound = null;
+  let lowerBound = null;
 
   if (data !== null) {
-    upperBound   = Math.max(...data.map((entry) => parseFloat(entry.temp))); // Sesuaikan kebutuhan
+    upperBound   = Math.max(...data.map((entry) => parseFloat(entry.temp)));
+    lowerBound   = Math.min(...data.map((entry) => parseFloat(entry.temp)));
   }
 
   return (
@@ -117,7 +119,7 @@ const SensorLineChartDynamic = ({
             angle={-45}
             textAnchor="end"
           />
-          <YAxis domain={[0, upperBound]} />
+          <YAxis domain={[lowerBound, upperBound]} />
           <Tooltip
             labelFormatter={(label) => `Waktu: ${label}`}
             formatter={(value) => [`Suhu: ${value} °C`]}
