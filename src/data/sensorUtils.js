@@ -58,7 +58,7 @@ const calculateStatistics = (fieldIndex, timeIndex, channelInfo, feeds) => {
         feed &&
         feed[`field${fieldIndex}`] !== null &&
         parseFloat(feed[`field${fieldIndex}`]) > 0 &&
-        parseFloat(feed[`field${fieldIndex}`]) < 300,
+        parseFloat(feed[`field${fieldIndex}`]) < 400,
     )
     .map((feed) => ({
       id:feed.entry_id,

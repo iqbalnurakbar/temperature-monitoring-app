@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./FirebaseAuth";
@@ -29,11 +29,11 @@ const Login = () => {
       );
       const user = userCredential.user;
       localStorage.setItem("token", user.accessToken);
-        localStorage.setItem("user", JSON.stringify(user));
-        navigate("/dashboard", { replace: true });
+      localStorage.setItem("user", JSON.stringify(user));
+
       // Pengecekan apakah email pengguna telah diverifikasi
       if (user.emailVerified) {
-        
+        navigate("/dashboard", { replace: true });
       } else {
         // Tampilkan pesan bahwa email belum diverifikasi
         toast.warning("Silakan verifikasi email Anda sebelum login.");
@@ -65,7 +65,7 @@ const Login = () => {
           src={img}
           alt="Background"
         />
-        <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 text-white px-3">
+        <div className="absolute top-0 flex h-full w-full items-center justify-center bg-black/30 px-3 text-white">
           <animated.form
             onSubmit={handleSubmit}
             className="mx-auto w-full max-w-[400px] rounded-xl bg-black/40 p-10"
